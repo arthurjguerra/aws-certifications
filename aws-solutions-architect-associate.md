@@ -143,3 +143,134 @@
 ### S3 FAQs
 - [S3 FAQs](https://aws.amazon.com/s3/faqs/)
 - [S3 Glacier FAQs](https://aws.amazon.com/glacier/faqs/)
+
+## EC2
+*Provides resizable compute capacity on the cloud*
+
+### Pricing
+- On demand
+- Reserved
+    - Predictable usage
+    - Standard Reserved Instances
+    - Convertible Reserved Instances: can change instance type (t2.medium -> m2.medium)
+        - For more information, check out [Standard  vs. Convertible Offering Classes](https://docs.aws.amazon.com/whitepapers/latest/cost-optimization-reservation-models/standard-vs.-convertible-offering-classes.html)
+    - Scheduled Reserved Instances: launched within specific time windows
+- Spot
+    - Flexible start and end times (if AWS stops the instance, you don't pay; if you stop it, you pay)
+- Dedicated Hosts
+
+### Launching EC2 Instances
+- Termination protection is turned off by default
+- Root Volumes
+    - By default, deleted when the instance is terminated
+    - Can now be encrypted
+- Additional volumes can be encrypted
+
+### Security Groups
+- All inbound traffic is blocked by default
+- All outbound traffic is allowed by default
+- SG changes take effect immediately
+- 1 SG * EC2 instances
+- 1 EC2 instance 5 SGs
+- You can specify allow rules but not deny rules
+- You cannot block specific IP addresses
+    - Use Network ACLs instead
+
+### EBS
+*Elastic Block Store*
+
+- Like a virtual HD on the cloud
+- Snapshots exist on S3
+- Snapshots are point in time copies of volume
+- Snapshots are incremental (deltas)
+    - For more information, check out [How Snapshots Work](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSSnapshots.html#how_snapshots_work)
+- Stop the instance before taking a snapshot of the root volume
+- [EBS Deleting Snapshot](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-deleting-snapshot.html)
+
+### AMI Types (EBS x Instance Store)
+- Instance Store Volumes
+    - Called Ephemeral Storage (underlying host fails, data is lost)
+    - Cannot be stopped (reboot/terminate)
+- EBS can be stopped
+- Both Root volumes are deleted on termination
+
+### Volumes & Snapshots
+- How to create an **encrypted** volumes from an **unencrypted** one?
+    - Take a snapshot of the encrypted volume
+    - Copy that snapshot and select the encryption method
+    - Create an AMI from that copied snapshot
+    - Create an instance from that AMI
+        - Its root volume must be encrypted too
+- Snapshots of encrypted evolumes are encrypted automatically
+- Volumes restored from encrypted snapshots are encrypted automatically
+- Only **unencrypted** snapshots can be shared
+    - Can be shared with other AWS accounts and made public
+
+### ENI x EN x EFA
+- *Elastic Network Interface*
+    - Basic networking
+    - Perhaps you need a separate management network to your PROD network on a separate logging network at low cost
+- *Enhanced Network*
+    - Speeds between 10 and 100 Gbps (reliable, high throughput)
+- *Elastic Fabric Adaptor*
+    - Accelerate HPC and ML apps
+
+### Cloud Watch
+*Monitor service to monitor AWS resources and applications*
+- Monitor performance
+- CW with EC2 will monitor events every 5 minutes by default
+    - You can have 1-minute intervals by turning on detailed monitoring
+- Can create CW alarms which trigger notifications
+- CloudTrail is all about auditing
+    - monitors and logs AWS API calls
+
+### EFS
+*Elastic File System*
+- Supports NFS v4 protocol
+- Pay for what you use
+    - no pre-provision required like 8 GB of EBS
+- Can scale up to PB
+- Supports thousands of NFS connections
+- Data is stored across multiple availability zones within a region
+- Read after write consistency
+
+### FSx
+- FSx for Windows
+    - When you need cetralized storage for Windows-based apps such as SharedPoint, SQL Server, IIS Web Server (SMB storage)
+- FSx for Lustre
+    - When you need high-speed, high-capacity distributed storage (HPC, financial modelling, etc)
+    - FSx for Lustre can store data on S3
+
+### Placement Groups
+- Types
+    - [Clustered](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/placement-groups.html#placement-groups-cluster)
+        - Low network latency
+        - High network throughput
+        - Cannot span multiple AZs
+        - AWS recommends homogeneous instances in the same clustered placement group
+    - [Spread](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/placement-groups.html#placement-groups-spread)
+        - Individual critical EC2 instances
+        - Can span multiple AZs
+        - ![](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/images/placement-group-spread.png)
+    - [Partitioned](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/placement-groups.html#placement-groups-partition)
+        - Multiple critical EC2 instances
+        - Can span multiple AZs
+        - Can have a maximum of 7 partitions per AZ
+        - ![](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/images/placement-group-partition.png)
+- [Rules and Limitations](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/placement-groups.html#concepts-placement-groups)
+    - Cannot merge placement groups
+    - Can move *stopped* intances to placement groups
+        - move/removal must be done via CLI or SDK
+
+### WAF
+*Web Application Firewall*
+- Layer 7
+- Monitors HTTP(S) requests to CDN, ALB or API Gateway
+- Controls access to your content
+- Extra protection using conditions you specify
+    - IP addresses
+    - Countries that requests originate from
+    - Values in headers
+    - Length of requests
+    - Malicious code: SQL injection, script injection
+    - Strings that appear in requests (regex)
