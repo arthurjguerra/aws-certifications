@@ -266,7 +266,7 @@
         - move/removal must be done via CLI or SDK
 
 ### WAF
-*Web Application Firewall*
+[Web Application Firewall](https://aws.amazon.com/waf/)
 - Layer 7
 - Monitors HTTP(S) requests to CDN, ALB or API Gateway
 - Controls access to your content
