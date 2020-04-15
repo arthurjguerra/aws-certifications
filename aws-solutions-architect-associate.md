@@ -31,6 +31,7 @@
 
 ## S3
 [Simple Storage Service](https://aws.amazon.com/s3/)
+[!S3](https://youtu.be/_I14_sXHO8U)
 - Safe place to store files
 - Object-based storage
 - Files are stored in buckets
