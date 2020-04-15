@@ -1,2 +1,4 @@
-# aws-certifications
-AWS Certification Material
+# AWS Certifications
+This repository contains some material useful for AWS Certifications.
+
+## AWS Solutions Architect
