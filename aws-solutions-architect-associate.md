@@ -27,6 +27,7 @@
 - Root Account: account used when 1st setup your AWS account
 - IAM is a feature of your AWS account offered at no additional charge
     - You will be charged only for use of other AWS services by your users
+- [IAM Best Practices](http://docs.aws.amazon.com/IAM/latest/UserGuide/IAMBestPractices.html)
 
 ## S3
 [Simple Storage Service](https://aws.amazon.com/s3/)
