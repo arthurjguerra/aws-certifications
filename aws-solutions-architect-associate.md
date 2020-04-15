@@ -18,7 +18,7 @@
 - Centralized control
 - Granular Permissions
 - Identify Federation (Faceebok, LinkedIn, etc)
-- MFA
+- [MFA](https://aws.amazon.com/iam/features/mfa/)
 - You can implement your own password rotation policy
 - Groups > Users
 - Policy: documents in JSON used to grant permissions
