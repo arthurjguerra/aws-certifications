@@ -175,14 +175,17 @@
 - Additional volumes can be encrypted
 
 ### Security Groups
-- All inbound traffic is blocked by default
-- All outbound traffic is allowed by default
+- All **inbound** traffic is **blocked** by default and all **outbound** traffic is **allowed** by default
 - SG changes take effect immediately
 - 1 SG * EC2 instances
 - 1 EC2 instance 5 SGs
 - You can specify allow rules but not deny rules
 - You cannot block specific IP addresses
     - Use Network ACLs instead
+- Security groups act like a firewall at the instance level, whereas Network ACL are an additional layer of security that act at the subnet level
+- Security Groups support "allow" rules only 
+- Security Groups evaluate all rules before deciding whether to allow traffic
+- Security Groups operate at the instance level.
 
 ### [EBS - Elastic Block Storage](https://aws.amazon.com/ebs/)
 - [FAQs](https://aws.amazon.com/ebs/faqs/)
@@ -366,13 +369,35 @@
     - Route Tables
     - Network ACLs
     - Security Groups
-- When you create a VPC, AWS creates by default Network ACL, RT and SG
+- When you [create a custom VPC](https://docs.aws.amazon.com/cli/latest/reference/ec2/create-vpc.html), a default Security Group, Access control List, and Route Table are created automatically
+    - You must create your own subnets, Internet Gateway, and NAT Gateway (if you need one.) 
 - 1 Subnet = 1 AZ
 - Security Groups are stateful
 - Network ACLs are stateless
 - No transitive peering
-- /16 is the largest CIDR you can attach to a VPC, whereas /28 is the smallest
+- /16 is the largest CIDR you can attach to a VPC (65536 addresses), whereas /28 is the smallest
 - You can only have 1 internet gateway per VPC
+    - However an IG is a fully-redundant component of your VPC provides Internet services to all of your public subnets, in all Availability Zones
+- Having just created a new VPC and launching an instance into its Public Subnet, you realise that you have forgotten to assign a Public IP to the instance during creation. What is the simplest way to make your instance reachable from the outside world?
+    - Create an Elastic IP address and associate it with your instance
+    - Although creating a new NIC & associating an EIP also results in your instance being accessible from the internet, it leaves your instance with 2 NICs & 2 private IPs as well as the Public Address and is therefore not the simplest solution
+    - By default, any user-created VPC subnet WILL NOT automatically assign Public IPv4 Addresses to instances – the only subnet that does this is the “Default” VPC subnets automatically created by AWS in your account
+    - https://docs.aws.amazon.com/vpc/latest/userguide/vpc-ip-addressing.html#subnet-public-ip
+- By default, instances in new subnets in a custom VPC can communicate with each other across Availability Zones
+    - In a custom VPC with new subnets in each AZ, there is a Route that supports communication across all subnets/AZs
+    - Plus, a Default SG with an allow rule 'All traffic, All protocols, All ports, from anything using this Default SG'
+    - Further information: https://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/default-vpc.html
+
+### Internet Gateway
+- [Egress Only Internet Gateway](https://docs.aws.amazon.com/vpc/latest/userguide/egress-only-internet-gateway.html)
+    - An instance in your public subnet can connect to the Internet through the Internet gateway if it has a public IPv4 address or an IPv6 address
+        - Similarly, resources on the Internet can initiate a connection to your instance using its public IPv4 address or its IPv6 address
+    - IPv6 addresses are globally unique, and are therefore public by default. If you want your instance to be able to access the Internet, but you want to prevent resources on the Internet from initiating communication with your instance, you can use an egress-only Internet gateway
+    - To do this, create an egress-only Internet gateway in your VPC, and then add a route to your route table that points all IPv6 traffic (::/0) or a specific range of IPv6 address to the egress-only Internet gateway. IPv6 traffic in the subnet that's associated with the route table is routed to the egress-only Internet gateway
+    - An egress-only Internet gateway is stateful: it forwards traffic from the instances in the subnet to the Internet or other AWS services, and then sends the response back to the instances.
+- You can only have 1 internet gateway per VPC
+    - However an IG is a fully-redundant component of your VPC provides Internet services to all of your public subnets, in all Availability Zones
+
 
 ### NAT Instances x NAT Gateways
 - NAT allow instances in privte subnets to talk to the Internet without being public
@@ -402,6 +427,7 @@
 - Network ACLs contain a numbered list of rules that's evaluated in order, starting with the lowest numbered rule
 - Have separate inbound and outbound rules and each rule can either allow or deny traffic
 - Stateless: responses to alllowed inbound traffic are subject to the rules for outbound traffic (and vice-versa)
+- Security groups act like a firewall at the instance level, whereas network ACLs are an additional layer of security that act at the subnet level
 
 ### VPC Flow Logs
 - Cannot enable flow logs for VPCs that are peered with your VPC unless the peer VPC is in your account
@@ -423,22 +449,17 @@
 2 popular ways to connect your on premise equipment to the AWS Cloud.
 
 #### VPN Connections
-
-It's usually the most used. It is the  "cheapest" option, fast to implement and secure way. 
-
-It creates a secure and encrypted tunnel from the cloud to your on premise hardware, throughout a Public Network. I've seen that on the Onboarding process journey to the Cloud, it is usually preferred because is fast to implement, and with no visible additional cost. 
-
-You only need any VPN Terminal (Router/Firewall) with Internet connection.   
-
-There is drawback, it depends on the Internet Connection and if fails also the backend of your cloud applications. (believe me, it happens a lot) That could impact on your business results.
+- It's usually the most used. It is the  "cheapest" option, fast to implement and secure way
+- It creates a secure and encrypted tunnel from the cloud to your on premise hardware, throughout a Public Network. I've seen that on the Onboarding process journey to the Cloud, it is usually preferred because is fast to implement, and with no visible additional cost
+- You only need any VPN Terminal (Router/Firewall) with Internet connection
+- There is drawback, it depends on the Internet Connection and if fails also the backend of your cloud applications
+- When connecting a VPN between AWS and a third party site, the Customer Gateway is created within AWS, but it contains information about the third party site e.g. the external IP address and type of routing. The Virtual Private Gateway has the information regarding the AWS side of the VPN and connects a specified VPC to the VPN
 
 #### Direct Connect
-
-Directly connects your data center to AWS. It's the best one: secure, private and robust. Useful for high throughput.
-
-It is about connecting a dedicated fiber cable the nearest point of presence of your **Cloud Partner**, and he will make the link to his cloud equipment in order to transport your date privately to your cloud. 
-
-It's like having a dedicated link to the cloud. No Internet failure could affect your solution.
+- Directly connects your data center to AWS. It's the best one: secure, private and robust. Useful for high throughput
+- It is about connecting a dedicated fiber cable the nearest point of presence of your **Cloud Partner**, and he will make the link to his cloud equipment in order to transport your date privately to your cloud
+- It's like having a dedicated link to the cloud. No Internet failure could affect your solution
+- Data charges are still incurred whilst using Direct Connect
 
 ##### Steps Required to create a direct connect connection
 [![Steps to create DC connection to AWS](https://img.youtube.com/vi/dhpTTT6V1So/0.jpg)](https://www.youtube.com/watch?v=dhpTTT6V1So)
@@ -446,9 +467,15 @@ It's like having a dedicated link to the cloud. No Internet failure could affect
 [Create Connection](https://docs.aws.amazon.com/directconnect/latest/UserGuide/create-connection.html)
 
 ### Global Accelerator
-- Service in which you create accelerators to improve availability and performance of your applications for local and global users
+- [FAQs](https://aws.amazon.com/global-accelerator/faqs/)
+- Improves performance for a wide range of applications over TCP or UDP by proxying packets at the edge to applications running in one or more AWS Regions
 - Get 2 static IPs (you can also bring your own ips)
-- Control traffic using traffic dials (done within the endpoint group)
+- Control traffic using traffic dials 
+    - Done within the endpoint group
+- High availability 
+    - When you create an accelerator, you are allocated two IPv4 static IP addresses that are serviced by independent **network zones**
+    - Similar to Availability Zones, these network zones are isolated units with their own physical infrastructure and serve static IP addresses from a unique IP subnet
+        - If one static IP address becomes unavailable due to IP address blocking or unreachable networks, AWS Global Accelerator provides fault tolerance to client applications by rerouting to a healthy static IP address from the other isolated network zone
 
 ### VPC Endpoints
 - A [VPC endpoint](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-endpoints.html) enables you to privately connect your VPC to supported AWS services and VPC endpoint services powered by AWS PrivateLink without requiring an internet gateway, NAT device, VPN connection, or AWS Direct Connect connection
@@ -460,6 +487,9 @@ It's like having a dedicated link to the cloud. No Internet failure could affect
         - Interface endpoint is an elastic network interface with a private IP address from the IP address range of your subnet that serves as an entry point for traffic destined to a supported service
     - Gateway endpoints
         - Gateway that you specify as a target for a route in your route table for traffic destined to a supported AWS services: S3 and DynamoDB
+
+### [Penetration Testing](https://aws.amazon.com/security/penetration-testing/)
+- Until recently customers were not permitted to conduct Penetration Testing without AWS engagement. However that has changed. There are still conditions however
 
 ## High Availability Architecture
 - Design for failure
