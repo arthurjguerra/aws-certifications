@@ -3,6 +3,8 @@
 ## Reference
 [Do Your Homework: 7 AWS Certified Solutions Architect Exam Tips (Toptal)](https://www.toptal.com/aws-cloud-engineers/aws-certified-solutions-architect-exam-tips?utm_campaign=Toptal%20Engineering%20Blog&utm_source=hs_email&utm_medium=email&utm_content=82924000&_hsenc=p2ANqtz-9e8pBmq7n-oAcI1KJysb6eOjefvmT1pyAikVEgPso5N_p9HFPVsj2xKEao5RfwkluPNyub0hFcKkHCTQAsbC_TUsD0zQ&_hsmi=82924000)
 
+[AWS Whitepapers](https://aws.amazon.com/whitepapers/)
+
 ## 10,000 Foot Overview
 - [AWS Global Infrastructure](https://aws.amazon.com/about-aws/global-infrastructure/)
     - Availability Zone =  data center
@@ -36,16 +38,21 @@
 
 [![Introduction to S3](https://img.youtube.com/vi/_I14_sXHO8U/0.jpg)](https://youtu.be/_I14_sXHO8U)
 
+- [FAQs](https://aws.amazon.com/s3/faqs/)
 - Safe place to store files
 - Object-based storage
 - Files are stored in buckets
     - 0 < file size <= 5 TB
+    - [Multipart upload](https://docs.aws.amazon.com/AmazonS3/latest/dev/UploadingObjects.html)
+        - "Your proposed upload exceeds the maximum allowed object size." error: design your application to use the Multipart Upload API for all objects
 - Objects
     - Key: name
     - Value: sequence of bytes
     - Version ID: important if bucket has versioning enabled
     - Metadata: data about your object
     - Subresources: ACLs and Torrents
+- S3 supports 3500 PUTs per second
+    - More details in https://docs.aws.amazon.com/AmazonS3/latest/dev/request-rate-perf-considerations.html
 
 ### S3 Data Consistency
 - Read after write for PUTS
@@ -55,19 +62,35 @@
 
 ### S3 Storage Classes
 - Standard
+    - $0.023 per GB
+    - 99.99% availability
 - Infrequently Accessed (IA)
     - Data accessed less frequently but still requires fast access
+    - $0.0125 per GB
 - One Zone (IA)
     - Data accessed less frequently but still requires fast access
     - Do not require multiple AZs relience
+    - $0.01 per GB
+    - 99.9% availability
 - Intelligent Tiering
     - Automatically moves data to cheaper storage using Machine Learning
 - Glacier
+    - [FAQs](https://aws.amazon.com/glacier/faqs/)
     - Secure, durable and low-cost storage
     - Retrieval time adjustable from minutes to hours
+    - [Data Retrievals](https://aws.amazon.com/glacier/faqs/?nc=sn&loc=6#Data_retrievals)
+        - Cost of retrieval of information from Glacier can go up dependent on how quickly you require the data and how much data is to be retrieved
+        - **Expedited retrievals** allow you to quickly access your data stored in the S3 Glacier storage class when occasional urgent requests for a subset of archives are required, but at the highest cost
+        - **Standard retrievals** allow you to access any of your archived objects within several hours, this is faster than bulk (averaging around 12 hours) but more expensive
+        - **Bulk retrievals** are the lowest-cost retrieval option in Amazon S3 Glacier, enabling you to retrieve large amounts, even petabytes, of data inexpensively
 - Glacier Deep Archive
     - Cheapest storage solution in AWS
     - Retrieval time: 12 hours
+- [Reduced Redundancy Storage (RRS)](https://aws.amazon.com/s3/reduced-redundancy/) *deprecated*
+    - Storage option that enables customers to store noncritical, reproducible data at lower levels of redundancy than Amazon S3’s standard storage
+    - It provides a highly available solution for distributing or sharing content that is durably stored elsewhere, or for storing thumbnails, transcoded media, or other processed data that can be easily reproduced
+    - The RRS option stores objects on multiple devices across multiple facilities, providing 400 times the durability of a typical disk drive, but does not replicate objects as many times as standard Amazon S3 storage
+    - $0.004 per GB
 
 ### S3 Versioning
 - Stores all versions of an object (including all writes even if you delete the object)
@@ -128,6 +151,22 @@
     - *Security service*
     - Uses AI to analyze data in S3
     - Can analyze Cloud Trail
+
+### [Accessing content in S3](https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingBucket.html#access-bucket-intro)
+- There are 4 different URLs styles that it can be used to access content in S3
+    - [The Virtual Hosted Style URL](https://docs.aws.amazon.com/AmazonS3/latest/dev/VirtualHosting.html#virtual-hosted-style-access)
+    - [The Path-Style Access URL](https://docs.aws.amazon.com/AmazonS3/latest/dev/VirtualHosting.html#path-style-access)
+    - [The Static web site URL](https://docs.aws.amazon.com/AmazonS3/latest/dev/WebsiteHosting.html)
+    - [The Legacy Global Endpoint URL](https://aws.amazon.com/blogs/aws/amazon-s3-path-deprecation-plan-the-rest-of-the-story/)
+- There are three options which can be used to secure access to files stored in S3:
+    - Signed URLs and Signed Cookies are different ways to ensure that users attempting access to files in an S3 bucket can be authorised: One method generates URLs and the other generates special cookies but they both require the creation of an application and policy to generate and control these items
+    - An Origin Access Identity on the other hand, is a virtual user identity that is used to give the CloudFront distribution permission to fetch a private object from an S3 bucket
+    - Public S3 buckets should never be used unless you are using the bucket to host a public website and therefore this is an incorrect option
+    - Further information: 
+        - https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/PrivateContent.html
+        - https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/private-content-signed-urls.html
+        - https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/private-content-signed-cookies.html-
+        - https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/private-content-restricting-access-to-s3.html
 
 ### CloudFront
 - *Content Delivery Network (CDN)*
@@ -498,6 +537,10 @@
 - Know the difference between scaling out and scaling up
 - Know the different S3 storage classes
 - Always consider the cost element $$$
+
+## Reliability x Availability x Resiliency
+- https://www.quora.com/What-are-the-differences-between-reliability-availability-resiliency-and-fault-tolerance-in-IT-systems
+- https://blog.westerndigital.com/data-availability-vs-durability/
 
 ### Load Balancer
 - Classic (layer 4), Network (layer 4) and Application (layer 7)
