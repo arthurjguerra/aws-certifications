@@ -74,11 +74,12 @@
 - Infrequently Accessed (IA)
     - Data accessed less frequently but still requires fast access
     - $0.0125 per GB
+    - 99.9% availability
 - One Zone (IA)
     - Data accessed less frequently but still requires fast access
     - Do not require multiple AZs relience
     - $0.01 per GB
-    - 99.9% availability
+    - 99.5% availability
 - Intelligent Tiering
     - Automatically moves data to cheaper storage using Machine Learning
 - Glacier
@@ -350,6 +351,7 @@
     - [Spread](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/placement-groups.html#placement-groups-spread)
         - Individual critical EC2 instances
         - Can span multiple AZs
+        - Group of instances that are each placed on distinct underlying hardware
         - ![](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/images/placement-group-spread.png)
     - [Partitioned](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/placement-groups.html#placement-groups-partition)
         - Multiple critical EC2 instances
@@ -358,7 +360,7 @@
         - ![](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/images/placement-group-partition.png)
 - [Rules and Limitations](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/placement-groups.html#concepts-placement-groups)
     - Cannot merge placement groups
-    - Can move *stopped* intances to placement groups
+    - Can move only *stopped* intances to placement groups
         - move/removal must be done via CLI or SDK
 
 ### [WAF - Web Application Firewall](https://aws.amazon.com/waf/)
