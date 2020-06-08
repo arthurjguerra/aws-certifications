@@ -2,6 +2,23 @@
 
 https://aws.amazon.com/certification/certified-cloud-practitioner/
 
+## What do you need to know to pass the Certified Cloud Practitioner Exam?
+- AWS Global Infrastructure
+- Compute
+- Storage
+- Databases
+- Security, Identity and Compliance
+- AWS Cost Management
+
+### Exam Tips
+- 6 Advantages of the Cloud
+    - Go global in minutes
+    - Stop spending money running and maintaining data centers
+    - Increase speed and agility
+    - Stop guessing about capacity
+    - Benefit from massive economies of scale
+    - Trade capital expense for variable expense
+
 ## Introduction to AWS Cloud
 - [AWS_Cloud_Best_Practices.pdf](https://d1.awsstatic.com/whitepapers/AWS_Cloud_Best_Practices.pdf)
 - [AWS-Overview.pdf](https://d0.awsstatic.com/whitepapers/aws-overview.pdf)
@@ -25,7 +42,7 @@ https://aws.amazon.com/certification/certified-cloud-practitioner/
         - Ability to use AWS using programming languages such as Python, Java, Node.js, and Go
 - Those interfaces interact with AWS via its API
 
-### [AWS Global Infrastructure](https://aws.amazon.com/about-aws/global-infrastructure/)
+## [AWS Global Infrastructure](https://aws.amazon.com/about-aws/global-infrastructure/)
 - Region: Composed of two or more availability zones
     - Not all services are available in all regions
 - Availability Zone = data center
@@ -40,10 +57,74 @@ https://aws.amazon.com/certification/certified-cloud-practitioner/
 - Security
     - Monitors IT resources continuously
     - Services meet the strictest requirements
+    
+## S3
+- [FAQs](https://aws.amazon.com/s3/faqs/)
+- Fully managed storage service
+- Unlimited number of objects
+- Files can be from 0B to 5TB stored in Buckets
+- Buckets have unique name globally
+- S3 can be used to host static websites
+- Objects consist of
+    - **Key**: name of the object (usually defined as a file path)
+    - **Value**: actual data
+    - Version ID
+    - Metadata
+    - Sub-resources: ACLs and Torrent
+- Data Consistency
+    - **Read after write** for PUTS of new objects
+    - **Eventual consistency** for overwrite PUTS and DELETES
+- Access data anywhere:
+    - AWS Console
+    - CLI
+    - SDKs
+    - Direct Access to the bucket itself
+        - URL-based access
+        - https://<BUCKET_NAME>/<REGION_SPECIFIC_ENDPOINT>/<OBJECT_KEY>
 
-## Core Services
+### S3 Storage Classes
+- S3 Standard
+- S3 Infrequently Accessed
+- S3 One Zone Infrequently Accessed
+- S3 Intelligent Tiering
+- S3 Glacier
+- S3 Glacier Deep Archive
+    
+### S3 Pricing
+- Charge for
+    - *Storage*: Number and size of objects
+    - *Requests*: different rates for GET requests
+    - *Storage Management*: standard, standard-infrequent access, etc
+    - *Data Transfer*: amount of data transferred out of S3
+    - *Transfer Acceleration*: 
+        - Objects are uploaded to Edge locations and then they are transferred over AWS backbone to the actual bucket
 
-### EC2 Overview
+### Restricting Bucket ACcess
+- Bucket Policies
+    - Applies across the whole bucket
+- Object Policies
+    - Applies to individual files
+- IAM Policies to Users & Groups
+    - Applies to individual users and groups
+    
+## CloudFront
+- Content Deliver Network (CDN)
+- Content will be cached on Edge Locations
+    - You can read (CDN) and write (transfer acceleration) to Edge Locations
+- Origin
+    - This is the origin of all files that the CDN will distribute (S3, EC2, ALB, R53)
+- Distribution
+    - Name of the CDN
+    - Consists of a collection of Edge Locations
+    - Types
+        - Static-asset caching
+        - Live and on-demand streaming (RTMP)
+- Objects are cached for the TTL
+    - Cache can be cleared but you will be charged
+- Used to deliver both static and dynamic content
+- Content NOT necessarily has to be in AWS
+
+## EC2 Overview
 - EC2 - Elastic Compute Cloud
     - Increase or decrease the # of instances your app needs
 - Pay as you go
@@ -61,7 +142,7 @@ https://aws.amazon.com/certification/certified-cloud-practitioner/
     - Configure SSH key-pairs (allows you to connect to your instance)
 
 
-### Elastic Block Storage (EBS)
+## Elastic Block Storage (EBS)
 - Storage unit of EC2 instances
 - Can be HD or SSD devices
 - Durable and available
@@ -75,34 +156,7 @@ https://aws.amazon.com/certification/certified-cloud-practitioner/
 - You can tag your volumes
 
 
-### S3
-- [FAQs](https://aws.amazon.com/s3/faqs/)
-- Fully managed storage service
-- Unlimited number of objects
-    - Supports millions of requests per second
-- Access any time
-- Low latency access
-- Rich security controls
-    - By default, objects are not shared publicly
-- Can handle failure of 2 AWS facilities
-- Objects are stored in buckets
-    - Objects are identified by a key
-    - This key is usually defined as a file path
-- Bucket names are globally unique
-    - Also have to be DNS-compliant (for future URL-based access)
-- Access data anywhere:
-    - AWS Console
-    - CLI
-    - SDKs
-    - Direct Access to the bucket itself
-        - URL-based access
-        - https://<BUCKET_NAME>/<REGION_SPECIFIC_ENDPOINT>/<OBJECT_KEY>
-- Common Use Cases
-    - Static Web Hosting
-    - Backup & Disaster Recovery
-    - Storing Application Assets    
-
-### Virtual Private Cloud (VPC)
+## Virtual Private Cloud (VPC)
 - Private networking within AWS cloud
 - Allows complete control of network configuration
 - Offers several layers of security controls
@@ -110,7 +164,7 @@ https://aws.amazon.com/certification/certified-cloud-practitioner/
 - Other AWS services that can be deployed into a VPC
     - Those services will inherent security built into network
 
-#### Features
+### VPC Features
 - Builds upon Regions and AZs
     - Multiple VPCs per account
 - Subnets
@@ -124,7 +178,7 @@ https://aws.amazon.com/certification/certified-cloud-practitioner/
 - Network Access Control List (NACL)
     - Control access to subnets; stateless
 
-### Security Groups
+### VPC Security Groups
 - Filters traffic to your instances and other resources in a VPC via SG rules
 - By default, all inbound traffic is denied and all outbound traffic is allowed
 
@@ -251,15 +305,6 @@ https://aws.amazon.com/certification/certified-cloud-practitioner/
     - Customizable home pages in CW console to monitor your resources in a single view
     - Customized view of the metrics and alarms for your AWS resources
 
-### CloudFront
-- Content Deliver Network (CDN)
-- Secure Content closer to customers (Edge Locations)
-- Used to deliver both static and dynamic content
-- Content NOT necessarily has to be in AWS
-- Use cases
-    - Static asset caching
-    - Live and on-demand streaming
-
 ### CloudFormation
 - Automate resource provisioning
 - Fully-managed service
@@ -380,11 +425,19 @@ https://aws.amazon.com/certification/certified-cloud-practitioner/
             - Distributed Statistics gathering system
             - Tracks metrics of your resources
 
-## AWS Security
+## Security, Identity and Compliance
 
-### The Shared Responsability Model
+### The Shared Responsibility Model
 
 ### IAM
+- Global
+- Group
+    - Place to store users
+    - Users will inherit all permissions that the group has
+- To set the permissions in a group you need to apply a policy to that group
+    - Policies consist of JSON
+- Root Account
+    - Email address used to set up your AWS account
 
 ### Amazon Inspector
 
@@ -426,12 +479,6 @@ https://aws.amazon.com/certification/certified-cloud-practitioner/
     - Other considerations
         - # of instances
         - LB: hours LB runs and data LB processes
-- S3
-    - Number and size of objects
-    - Type of storage: standard, standard-infrequent access, etc
-    - Number of requests
-    - Type of request: different rates for GET requests
-    - Amount of data transferred out of S3
 - EBS
     - Pay for GB per month
     - Types
@@ -467,13 +514,11 @@ https://aws.amazon.com/certification/certified-cloud-practitioner/
 ### AWS Support Plans
 - [Support Plans](https://aws.amazon.com/premiumsupport/plans/)
     - Basic
+        - AWS Forums
     - Developer
+        - 12-24-hour response rates
     - Business
+        - 24x7 support by phone and chat (1-hour response rate)
     - Enterprise
-- Support is provided for
-    - Experimenting with AWS
-    - Production use of AWS
-    - Business critical use of AWS
-- Proactive Guidance: TAM
-- Best Practices: Trusted Advisor
-- Account Assistance: AWS Support Concierge
+        - TAM
+        - Full access to Trusted Advisor
