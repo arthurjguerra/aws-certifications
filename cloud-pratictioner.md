@@ -1,6 +1,4 @@
-# Cloud Practioner
-
-https://aws.amazon.com/certification/certified-cloud-practitioner/
+# [Cloud Practioner](https://aws.amazon.com/certification/certified-cloud-practitioner/)
 
 ## What do you need to know to pass the Certified Cloud Practitioner Exam?
 - AWS Global Infrastructure
@@ -182,9 +180,7 @@ https://aws.amazon.com/certification/certified-cloud-practitioner/
 - Filters traffic to your instances and other resources in a VPC via SG rules
 - By default, all inbound traffic is denied and all outbound traffic is allowed
 
-## Integrated Services
-
-### Application Load Balancer
+## Application Load Balancer
 - ALB
     - 2nd type of LB (classic)
     - Enhanced features when compared with Classic LB
@@ -218,7 +214,7 @@ https://aws.amazon.com/certification/certified-cloud-practitioner/
         - Tell the load balancer what instance you want that port to be hit
 
 
-### Auto Scaling
+## Auto Scaling
 - Ensure that you have the correct number of EC2 instances to handle the load of your application
 - Adjust capacity as needed
 - Scaling Out and Scaling In
@@ -238,7 +234,7 @@ https://aws.amazon.com/certification/certified-cloud-practitioner/
     - CPU utilization for a specified period of time
     - CPU is >= 80% for 10 minutes, CloudWatch then triggers auto scaling automatically to scale out the app
 
-### Route 53
+## Route 53
 - Domain registration
 - Global, high available DNS service
 - Offers different resolution strategies:
@@ -248,7 +244,7 @@ https://aws.amazon.com/certification/certified-cloud-practitioner/
     - Latency-based
     - Multi-value answer
 
-### Relational Database Services (RDS)
+## Relational Database Services (RDS)
 - Cost-efficient and resizable capacity for your database
 - Manages
     - OS installation and patching
@@ -268,21 +264,21 @@ https://aws.amazon.com/certification/certified-cloud-practitioner/
     - If master in a zone fails over to the other instance running on another zone
 - Read Replicas
 
-### AWS Lambda
+## AWS Lambda
 - AWS managed service that allows you to run code without worring about any servers
 - Auto-scaling, monitoring and logging
 - Can respond to HTTP requests
 - Can be triggered by events or other AWS Lambda functions
 
-### AWS Elastic Beanstalk
+## AWS Elastic Beanstalk
 - Platform as a service
 - Create app -> upload version -> launch environment -> manage environment
 
-### Simple Notification Service (SNS)
+## Simple Notification Service (SNS)
 - Pub/sub messaging
 - Mobile Notification
 
-### CloudWatch
+## CloudWatch
 - Collect and track metrics
 - Collect and monitor log files
 - Set alarms
@@ -305,7 +301,7 @@ https://aws.amazon.com/certification/certified-cloud-practitioner/
     - Customizable home pages in CW console to monitor your resources in a single view
     - Customized view of the metrics and alarms for your AWS resources
 
-### CloudFormation
+## CloudFormation
 - Automate resource provisioning
 - Fully-managed service
 - Create, update and delete resources in stacks (sets of resources)
