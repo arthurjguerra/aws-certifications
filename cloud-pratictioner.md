@@ -1,5 +1,32 @@
 # [Cloud Practioner](https://aws.amazon.com/certification/certified-cloud-practitioner/)
 
+## Table of Contents
+
+- [What do you need to know to pass the Certified Cloud Practitioner Exam?](#what-do-you-need-to-know-to-pass-the-certified-cloud-practitioner-exam)
+- [Introduction to AWS Cloud](#introduction-to-aws-cloud)
+    * [AWS Global Infrastructure](#aws-global-infrastructure)
+- [AWS Services](#aws-services)
+    * [S3](#s3)
+    * [CloudFront](#cloudfront)
+    * [EC2](#ec2)
+    * [EBS](#ebs)
+    * [VPC](#vpc)
+    * [Load Balancer](#load-balancer)
+    * [Auto Scaling](#auto-scaling)
+    * [Route 53](#route-53)
+    * [RDS](#rds)
+    * [AWS Lambda](#aws-lambda)
+    * [AWS Elastic Beanstalk](#aws-elastic-beanstalk)
+    * [SNS](#sns)
+    * [CloudWatch](#cloudwatch)
+    * [CloudFormation](#cloudformation)
+    * [AWS Services Deployed On Premise](#aws-services-deployed-on-premise)
+- [Billing and Pricing](#billing-and-pricing)
+- [Security, Identity and Compliance](#security-identity-and-compliance)
+    * [The Shared Responsibility Model](#the-shared-responsibility-model)
+    * [IAM](#iam)
+- [AWS Architecture](#aws-architecture)
+
 ## What do you need to know to pass the Certified Cloud Practitioner Exam?
 - AWS Global Infrastructure
 - Compute
@@ -8,14 +35,13 @@
 - Security, Identity and Compliance
 - AWS Cost Management
 
-### Exam Tips
-- 6 Advantages of the Cloud
-    - Go global in minutes
-    - Stop spending money running and maintaining data centers
-    - Increase speed and agility
-    - Stop guessing about capacity
-    - Benefit from massive economies of scale
-    - Trade capital expense for variable expense
+### 6 Advantages of the Cloud
+- Go global in minutes
+- Stop spending money running and maintaining data centers
+- Increase speed and agility
+- Stop guessing about capacity
+- Benefit from massive economies of scale
+- Trade capital expense for variable expense
 
 ## Introduction to AWS Cloud
 - [AWS_Cloud_Best_Practices.pdf](https://d1.awsstatic.com/whitepapers/AWS_Cloud_Best_Practices.pdf)
@@ -28,19 +54,34 @@
     - Cheaper than having your own data centers close to where all your customers are located
 - AWS provides elastic infrastructure
     - Scale up and dow according to your needs
-    
-### AWS Interfaces
-- 3 different ways to use AWS
-    - AWS Management Console
-        - Graphical UI
-    - AWS CLI
+- 3 different ways to use AWS:
+    - AWS Management Console (GUI)
+    - AWS CLI 
         - Access to services via command line
-        - Open source
     - AWS SDK
         - Ability to use AWS using programming languages such as Python, Java, Node.js, and Go
-- Those interfaces interact with AWS via its API
 
-## [AWS Global Infrastructure](https://aws.amazon.com/about-aws/global-infrastructure/)
+### AWS Support Plans
+- [Support Plans](https://aws.amazon.com/premiumsupport/plans/)
+    - Basic
+        - AWS Forums
+    - Developer
+        - 12-24-hour response rates
+    - Business
+        - 24x7 support by phone and chat (1-hour response rate)
+    - Enterprise
+        - TAM
+        - Full access to Trusted Advisor
+        
+### Pricing Details
+- [aws_pricing_overview.pdf](https://d0.awsstatic.com/whitepapers/aws_pricing_overview.pdf)
+- [The Total Cost of (Non) Ownership of
+   Web Applications in the Cloud](https://media.amazonwebservices.com/AWS_TCO_Web_Applications.pdf)
+- Pay for: compute capacity, storage, outbound data transfer
+- No charge for inbound data transfer
+
+### AWS Global Infrastructure
+- https://aws.amazon.com/about-aws/global-infrastructure/
 - Region: Composed of two or more availability zones
     - Not all services are available in all regions
 - Availability Zone = data center
@@ -56,7 +97,10 @@
     - Monitors IT resources continuously
     - Services meet the strictest requirements
     
-## S3
+
+## AWS Services
+
+### S3
 - [FAQs](https://aws.amazon.com/s3/faqs/)
 - Fully managed storage service
 - Unlimited number of objects
@@ -80,16 +124,16 @@
         - URL-based access
         - https://<BUCKET_NAME>/<REGION_SPECIFIC_ENDPOINT>/<OBJECT_KEY>
 
-### S3 Storage Classes
+#### S3 Storage Classes
 - S3 Standard
 - S3 Infrequently Accessed
 - S3 One Zone Infrequently Accessed
-- S3 Intelligent Tiering
 - S3 Glacier
 - S3 Glacier Deep Archive
+- S3 Intelligent Tiering
     
-### S3 Pricing
-- Charge for
+#### S3 Pricing
+- In S3, AWS charges you for:
     - *Storage*: Number and size of objects
     - *Requests*: different rates for GET requests
     - *Storage Management*: standard, standard-infrequent access, etc
@@ -97,7 +141,7 @@
     - *Transfer Acceleration*: 
         - Objects are uploaded to Edge locations and then they are transferred over AWS backbone to the actual bucket
 
-### Restricting Bucket ACcess
+#### Restricting Bucket Access
 - Bucket Policies
     - Applies across the whole bucket
 - Object Policies
@@ -105,7 +149,8 @@
 - IAM Policies to Users & Groups
     - Applies to individual users and groups
     
-## CloudFront
+
+### CloudFront
 - Content Deliver Network (CDN)
 - Content will be cached on Edge Locations
     - You can read (CDN) and write (transfer acceleration) to Edge Locations
@@ -115,46 +160,64 @@
     - Name of the CDN
     - Consists of a collection of Edge Locations
     - Types
-        - Static-asset caching
-        - Live and on-demand streaming (RTMP)
+        - **Web Distribution**:  Static-asset caching
+        - **RTMP**: Live and on-demand streaming
 - Objects are cached for the TTL
     - Cache can be cleared but you will be charged
 - Used to deliver both static and dynamic content
 - Content NOT necessarily has to be in AWS
 
-## EC2 Overview
+#### CloudFront Pricing
+- Princing varies across geographic regions
+- Pricing based on: requests and data transfer out
+
+### EC2
 - EC2 - Elastic Compute Cloud
     - Increase or decrease the # of instances your app needs
 - Pay as you go
-- Broad selection of HW and SW
 - Global hosting across AWS regions
-- How to create an EC2 instance?
-    - Choose a region
-    - Launch EC2 Wizard
-    - Select AMI
-    - Instance type
-    - Configure network
-    - Configure storage 
-    - Add tags
-    - Configure Security Groups
-    - Configure SSH key-pairs (allows you to connect to your instance)
 
+#### EC2 Pricing
+- Resources incur charges only when running
+- Instance configuration
+    - Pricing varies: region, OS, instance type, instance size
+- On-demand instance
+    - Pay for compute capacity by the hour and second (min of 60s)
+- Reserved Instance
+    - Capacity reservation with significant discount on the hourly charge (1-3-year contract)
+    - Useful for applications with predictable usage
+- [Spot Instances](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/how-spot-instances-work.html)
+    - If your maximum price exceeds the current Spot price and capacity is available, your request is fulfilled 
+        immediately
+    - If the Spot price exceeds your maximum price, when the demand for Spot Instances rises, or when the supply 
+        of Spot Instances decreases, EC2 can stop your instances
+    - Cost-effective choice if you can have flexible start and end times
+- Dedicated Instances
+    - Physical EC2 servers dedicated for your use
 
-## Elastic Block Storage (EBS)
+### EBS
 - Storage unit of EC2 instances
-- Can be HD or SSD devices
-- Durable and available
-    - Replicated in the same AZ
+    - Can be HD or SSD devices
+- Replicated in the same AZ
+- Volumes are located in AZs and can only be attached to EC2 in the same AZ
+- If a volume is detached from an instance, it'll stay in the *available* state
 - Snapshots
     - You can recreate volumes from snapshots
 - Encrypted Volumes
     - Encrypted in transit (inside AWS data center)
-- Volumes are located in AZs and can only be attached to EC2 in the same AZ
-- If a volume is detached from an instance, it'll stay in the "available" state
-- You can tag your volumes
 
+#### EBS Pricing
+- Pay for GB per month
+- Types
+   - General purpose: included in price
+   - Provisioned IOPS: charged by the amount you provision in IOPS
+   - Magnetic: charged by the number of requests
+- Snapshots
+   - Added cost per GB per month of data stored
+   - Inbound data transfer is free
+   - Outbound data transfer are tiered
 
-## Virtual Private Cloud (VPC)
+### VPC
 - Private networking within AWS cloud
 - Allows complete control of network configuration
 - Offers several layers of security controls
@@ -162,7 +225,7 @@
 - Other AWS services that can be deployed into a VPC
     - Those services will inherent security built into network
 
-### VPC Features
+#### VPC Features
 - Builds upon Regions and AZs
     - Multiple VPCs per account
 - Subnets
@@ -176,13 +239,13 @@
 - Network Access Control List (NACL)
     - Control access to subnets; stateless
 
-### VPC Security Groups
+#### VPC Security Groups
 - Filters traffic to your instances and other resources in a VPC via SG rules
 - By default, all inbound traffic is denied and all outbound traffic is allowed
 
-## Application Load Balancer
+### Load Balancer
+- 3 types: Application, Network and Classic
 - ALB
-    - 2nd type of LB (classic)
     - Enhanced features when compared with Classic LB
         - Path and host-based routing
         - WAF integration
@@ -191,30 +254,29 @@
         - Native IPv6 Support
         - HTTP/2 and WebSockets support
     - Requires at least 2 AZs
-- Use Case
-    - Ability to use containers for your microservices
-    - ALBs allow you to distribuite traffic across a set of instances based on the request path
-- Key Terms
-    - Listeners
-        - Process that checks for connection requests using the protocol and port that you configure
-    - Targets
-        - Destination for target based on the listener rules
-        - Targets can be member of multiple target groups
-    - Target Groups
-        - Routes requests to one or more registered targets using the protocol and port specified
-- How to create an ALB
-    - Configure Load Balancer
-        - name, schema (internet-facing or not), listeners - protocols and ports, VPC and AZs, and tags 
-    - Configure Security Settings
-    - Configure Security Groups
-    - Configure Routing
-        - Allows you to configure routing rules for the backend destination of the ALB
-        - Where you define a target group and health check
-    - Register Targets
-        - Tell the load balancer what instance you want that port to be hit
+    - Use Case
+        - Ability to use containers for your microservices
+        - ALBs allow you to distribuite traffic across a set of instances based on the request path
+    - Key Terms
+        - Listeners
+            - Process that checks for connection requests using the protocol and port that you configure
+        - Targets
+            - Destination for target based on the listener rules
+            - Targets can be member of multiple target groups
+        - Target Groups
+            - Routes requests to one or more registered targets using the protocol and port specified
+    - How to create an ALB
+        - Configure Load Balancer
+            - name, schema (internet-facing or not), listeners - protocols and ports, VPC and AZs, and tags 
+        - Configure Security Settings
+        - Configure Security Groups
+        - Configure Routing
+            - Allows you to configure routing rules for the backend destination of the ALB
+            - Where you define a target group and health check
+        - Register Targets
+            - Tell the load balancer what instance you want that port to be hit
 
-
-## Auto Scaling
+### Auto Scaling
 - Ensure that you have the correct number of EC2 instances to handle the load of your application
 - Adjust capacity as needed
 - Scaling Out and Scaling In
@@ -234,8 +296,7 @@
     - CPU utilization for a specified period of time
     - CPU is >= 80% for 10 minutes, CloudWatch then triggers auto scaling automatically to scale out the app
 
-## Route 53
-- Domain registration
+### Route 53
 - Global, high available DNS service
 - Offers different resolution strategies:
     - Geo-location
@@ -244,8 +305,12 @@
     - Latency-based
     - Multi-value answer
 
-## Relational Database Services (RDS)
-- Cost-efficient and resizable capacity for your database
+### RDS
+- Cost-efficient and resizable capacity for your database: SQLServer, MySQL, PSQL,
+- Multi-AZ deployments
+    - Ideal for high availability
+    - If master in a zone fails over to the other instance running on another zone
+- Read Replicas
 - Manages
     - OS installation and patching
     - DB SW installation and patching
@@ -253,37 +318,37 @@
     - High Availability
     - Scaling
     - Server Maintenance (zero downtime)
-- Database Instance
-    - Isolated DB environment
-- DB Instance Class
-    - CPU, RAM, network
-- DB Instance Storage
-    - SSD, HD
-- Multi-AZ deployments
-    - Ideal for high availability
-    - If master in a zone fails over to the other instance running on another zone
-- Read Replicas
 
-## AWS Lambda
+#### RDS Pricing
+- Resources incur charges when running
+- Charges vary from engine, size, and memory class
+- Purchase Types:
+    - On-demand: charged by the hour
+    - Reserved: upfront payment (discount)
+- No additional for backup storage if DB instance is running
+- Deployment types:
+    - Single AZ
+    - Multi-AZ
+
+### AWS Lambda
 - AWS managed service that allows you to run code without worring about any servers
 - Auto-scaling, monitoring and logging
 - Can respond to HTTP requests
 - Can be triggered by events or other AWS Lambda functions
 
-## AWS Elastic Beanstalk
-- Platform as a service
-- Create app -> upload version -> launch environment -> manage environment
+### AWS Elastic Beanstalk
+- Deploy and manage apps in the cloud without worrying about the infrastructure
+- Upload your code and Elastic Beanstalk automatically handles the of capacity provisioning,
+  load balancing, scaling and app health monitoring
 
-## Simple Notification Service (SNS)
+### SNS
 - Pub/sub messaging
 - Mobile Notification
 
-## CloudWatch
-- Collect and track metrics
-- Collect and monitor log files
-- Set alarms
-- Automatically react to changes
-- Loads all the metrics in your account for search, graphing and alarms
+### CloudWatch
+- Monitoring Performance
+    - Monitor events every 5 minutes by default (detailed monitoring: 1 min intervals)
+- Can create alarms which trigger notifications
 - Metrics, Alarms and Actions
     - CW Watches a single metric (e.g. CPU utilization > 60% for 5+ minutes)
     - CW Performs one or more actions
@@ -301,22 +366,70 @@
     - Customizable home pages in CW console to monitor your resources in a single view
     - Customized view of the metrics and alarms for your AWS resources
 
-## CloudFormation
+### CloudFormation
 - Automate resource provisioning
-- Fully-managed service
 - Create, update and delete resources in stacks (sets of resources)
 - Template File -> CloudFormation -> Stack
-- Stack
-    - Unit of deployment
-    - Where resources are generated
-    - CRUD
-- Template
-    - Resources to provision
-    - Text file
-    - JSON or YAML
-    - Infra as code
-    
+    - Template
+        - Resources to provision
+        - Text file (JSON or YAML)
+        - Infra as code
+    - Stack
+        - Unit of deployment
+        - Where resources are generated
+        - CRUD
 
+### AWS Services Deployed On Premise
+- Snowball
+- Snowball Edge (allows lambda deployments)
+- Storage Gateway
+    - Caching files in your data center and replicate them to S3
+- Code Deploy
+    - Used to deploy apps on premises
+- OpsWorks
+    - Deploy app code to the cloud and on premise using Chef
+- IoT Greengrass
+
+### AWS Systems Manager
+- Manage fleets of EC2 instances
+- Can be both inside AWS and on premise
+- Run Command is used to install, patch and uninstall software
+- Integrates with CloudWatch to give you a dashboard
+
+## Billing and Pricing
+
+### AWS Organizations
+
+## Security, Identity and Compliance
+
+### The Shared Responsibility Model
+
+### IAM
+- Global
+- Group
+    - Place to store users
+    - Users will inherit all permissions that the group has
+- To set the permissions in a group you need to apply a policy to that group
+    - Policies consist of JSON
+- Root Account
+    - Email address used to set up your AWS account
+- Role
+    - Changes take place immediately
+
+### Amazon Inspector
+
+### AWS Shield
+
+### Security Compliance
+
+### AWS Trusted Advisor
+- Keep track of your AWS resources
+- 4 Checks:
+    - Cost Optimizations
+    - Performance
+    - Security
+    - Fault Tolerance
+    
 ## AWS Architecture
 
 ### The AWS Well-Architected Framework
@@ -420,101 +533,3 @@
         - CloudWatch
             - Distributed Statistics gathering system
             - Tracks metrics of your resources
-
-## Security, Identity and Compliance
-
-### The Shared Responsibility Model
-
-### IAM
-- Global
-- Group
-    - Place to store users
-    - Users will inherit all permissions that the group has
-- To set the permissions in a group you need to apply a policy to that group
-    - Policies consist of JSON
-- Root Account
-    - Email address used to set up your AWS account
-
-### Amazon Inspector
-
-### AWS Shield
-
-### Security Compliance
-
-## Pricing and Support
-
-### Fundamentals of Pricing
-- Pay for the services you consume
-- Reserved instances
-- Data Transfer is free of charge (inside AWS backbone infrastructure)
-- Custom Pricing is available
-- Free-usage tier
-
-### Pricing Details
-- [aws_pricing_overview.pdf](https://d0.awsstatic.com/whitepapers/aws_pricing_overview.pdf)
-- [The Total Cost of (Non) Ownership of
-   Web Applications in the Cloud](https://media.amazonwebservices.com/AWS_TCO_Web_Applications.pdf)
-- Pay for
-    - Compute capacity
-    - Storage
-    - Outbound data transfer
-- No charge for
-    - Inbound data transfer
-- EC2
-    - Charges only for capacity used
-    - Resources incur charges only when running
-    - Instance configuration
-        - Pricing varies: region, OS, instance type, instance size
-    - On-demand instance
-        - Pay for compute capacity by the hour and second (min of 60s)
-    - Reserved Instance
-        - Low or no up-front payment instances reserved
-        - Discount on hourly charge for that instance
-    - Spot Instances
-        - Bid for unused Amazon EC2 capacity
-    - Other considerations
-        - # of instances
-        - LB: hours LB runs and data LB processes
-- EBS
-    - Pay for GB per month
-    - Types
-        - General purpose: included in price
-        - Provisioned IOPS: charged by the amount you provision in IOPS
-        - Magnetic: charged by the number of requests
-    - Snapshots
-        - Added cost per GB per month of data stored
-        - Inbound data transfer is free
-        - Outbound data transfer are tiered
-- RDS
-    - Resources incur charges when running
-    - Charges vary from engine, size, and memory class
-    - Purchase Types:
-        - On-demand: charged by the hour
-        - Reserved: upfront payment (discount)
-    - No additional for backup storage if DB instance is running
-    - Deployment types:
-        - Single AZ
-        - Multi-AZ
-- CloudFront
-    - Princing varies across geographic regions
-    - Pricing based on: requests and data transfer out
-
-### AWS Trusted Advisor
-- Keep track of your AWS resources
-- 4 Checks:
-    - Cost Optimizations
-    - Performance
-    - Security
-    - Fault Tolerance
-
-### AWS Support Plans
-- [Support Plans](https://aws.amazon.com/premiumsupport/plans/)
-    - Basic
-        - AWS Forums
-    - Developer
-        - 12-24-hour response rates
-    - Business
-        - 24x7 support by phone and chat (1-hour response rate)
-    - Enterprise
-        - TAM
-        - Full access to Trusted Advisor
