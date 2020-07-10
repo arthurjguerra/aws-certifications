@@ -25,7 +25,6 @@
 - [Security in the Cloud](#security-in-the-cloud)
     * [Shared Responsibility Model](#shared-responsibility-model)
     * [IAM](#iam)
-- [AWS Architecture](#aws-architecture)
 
 ## What do you need to know to pass the Certified Cloud Practitioner Exam?
 - AWS Global Infrastructure
@@ -421,8 +420,6 @@
 
 ### Amazon Inspector
 
-### AWS Shield
-
 ### Security Compliance
 
 ### AWS Trusted Advisor
@@ -433,8 +430,6 @@
     - Security
     - Fault Tolerance
     
-## AWS Architecture
-
 ### The AWS Well-Architected Framework
 - 5 pillars and design principles
     - Security
