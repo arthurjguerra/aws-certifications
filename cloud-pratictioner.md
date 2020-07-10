@@ -73,13 +73,6 @@
         - TAM
         - Full access to Trusted Advisor
         
-### Pricing Details
-- [aws_pricing_overview.pdf](https://d0.awsstatic.com/whitepapers/aws_pricing_overview.pdf)
-- [The Total Cost of (Non) Ownership of
-   Web Applications in the Cloud](https://media.amazonwebservices.com/AWS_TCO_Web_Applications.pdf)
-- Pay for: compute capacity, storage, outbound data transfer
-- No charge for inbound data transfer
-
 ### AWS Global Infrastructure
 - https://aws.amazon.com/about-aws/global-infrastructure/
 - Region: Composed of two or more availability zones
@@ -397,6 +390,11 @@
 - Integrates with CloudWatch to give you a dashboard
 
 ## Billing and Pricing
+- [aws_pricing_overview.pdf](https://d0.awsstatic.com/whitepapers/aws_pricing_overview.pdf)
+- [The Total Cost of (Non) Ownership of
+   Web Applications in the Cloud](https://media.amazonwebservices.com/AWS_TCO_Web_Applications.pdf)
+- Pay for: compute capacity, storage, outbound data transfer
+- No charge for inbound data transfer
 
 ### AWS Organizations
 
