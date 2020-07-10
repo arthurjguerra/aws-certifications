@@ -29,6 +29,7 @@
     * [AWS Inspector vs AWS Trusted Advisor vs CloudTrail](#aws-inspector-vs-aws-trusted-advisor-vs-cloudtrail)
     * [CloudWatch vs AWS Config](#cloudwatch-vs-aws-config)
     * [Athena Vs Macie](#athena-vs-macie)
+    * [IAM](#iam)
 
 
 ## What do you need to know to pass the Certified Cloud Practitioner Exam?
@@ -38,14 +39,13 @@
 - Databases
 - Security, Identity and Compliance
 - AWS Cost Management
-
-### 6 Advantages of the Cloud
-- Go global in minutes
-- Stop spending money running and maintaining data centers
-- Increase speed and agility
-- Stop guessing about capacity
-- Benefit from massive economies of scale
-- Trade capital expense for variable expense
+- **Advantages of the Cloud**:
+    - Go global in minutes
+    - Stop spending money running and maintaining data centers
+    - Increase speed and agility
+    - Stop guessing about capacity
+    - Benefit from massive economies of scale
+    - Trade capital expense for variable expense
 
 ## Introduction to AWS Cloud
 - [AWS_Cloud_Best_Practices.pdf](https://d1.awsstatic.com/whitepapers/AWS_Cloud_Best_Practices.pdf)
