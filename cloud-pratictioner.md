@@ -23,8 +23,13 @@
     * [AWS Services Deployed On Premise](#aws-services-deployed-on-premise)
 - [Billing and Pricing](#billing-and-pricing)
 - [Security in the Cloud](#security-in-the-cloud)
+    * [AWS Compliance & AWS Artifact](#aws-compliance--aws-artifact)
     * [Shared Responsibility Model](#shared-responsibility-model)
-    * [IAM](#iam)
+    * [AWS WAF & AWS Shield](#aws-waf--aws-shield)
+    * [AWS Inspector vs AWS Trusted Advisor vs CloudTrail](#aws-inspector-vs-aws-trusted-advisor-vs-cloudtrail)
+    * [CloudWatch vs AWS Config](#cloudwatch-vs-aws-config)
+    * [Athena Vs Macie](#athena-vs-macie)
+
 
 ## What do you need to know to pass the Certified Cloud Practitioner Exam?
 - AWS Global Infrastructure
