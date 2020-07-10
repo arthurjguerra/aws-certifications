@@ -4,6 +4,7 @@
 
 - [What do you need to know to pass the Certified Cloud Practitioner Exam?](#what-do-you-need-to-know-to-pass-the-certified-cloud-practitioner-exam)
 - [Introduction to AWS Cloud](#introduction-to-aws-cloud)
+    * [AWS Support Plans](#aws-support-plans)
     * [AWS Global Infrastructure](#aws-global-infrastructure)
 - [AWS Services](#aws-services)
     * [S3](#s3)
