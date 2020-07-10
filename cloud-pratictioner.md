@@ -4,7 +4,6 @@
 
 - [What do you need to know to pass the Certified Cloud Practitioner Exam?](#what-do-you-need-to-know-to-pass-the-certified-cloud-practitioner-exam)
 - [Introduction to AWS Cloud](#introduction-to-aws-cloud)
-    * [AWS Support Plans](#aws-support-plans)
     * [AWS Global Infrastructure](#aws-global-infrastructure)
 - [AWS Services](#aws-services)
     * [S3](#s3)
@@ -23,6 +22,11 @@
     * [CloudFormation](#cloudformation)
     * [AWS Services Deployed On Premise](#aws-services-deployed-on-premise)
 - [Billing and Pricing](#billing-and-pricing)
+    * [AWS Budgets vs Cost Explorer](#aws-budgets-vs-cost-explorer)
+    * [Support Plans](#support-planshttpsawsamazoncompremiumsupportplans)
+    * [Resource Groups and Tagging](#resource-groups-and-tagging)
+    * [AWS Organizations & Consolidated Billing](#aws-organizations--consolidated-billing)
+    * [AWS Quick Start & AWS Landing Zone](#aws-quick-start--aws-landing-zone)
 - [Security in the Cloud](#security-in-the-cloud)
     * [AWS Compliance & AWS Artifact](#aws-compliance--aws-artifact)
     * [Shared Responsibility Model](#shared-responsibility-model)
@@ -66,18 +70,6 @@
     - AWS SDK
         - Ability to use AWS using programming languages such as Python, Java, Node.js, and Go
 
-### AWS Support Plans
-- [Support Plans](https://aws.amazon.com/premiumsupport/plans/)
-    - Basic
-        - AWS Forums
-    - Developer
-        - 12-24-hour response rates
-    - Business
-        - 24x7 support by phone and chat (1-hour response rate)
-    - Enterprise
-        - TAM
-        - Full access to Trusted Advisor
-        
 ### AWS Global Infrastructure
 - https://aws.amazon.com/about-aws/global-infrastructure/
 - Region: Composed of two or more availability zones
@@ -401,7 +393,37 @@
 - Pay for: compute capacity, storage, outbound data transfer
 - No charge for inbound data transfer
 
-### AWS Organizations
+### AWS Budgets vs Cost Explorer
+- Budget
+- Cost Explorer
+
+### [Support Plans](https://aws.amazon.com/premiumsupport/plans/)
+- Basic
+    - AWS Forums
+- Developer
+    - 12-to-24-hour response rates
+- Business
+    - 24x7 support by phone and chat (1-hour response rate)
+- Enterprise
+    - TAM
+    - Full access to Trusted Advisor
+
+### Resource Groups and Tagging
+- Tags
+    - KV pairs attached to AWS resources
+    - Metadata
+- Resource Groups
+    - Make it easy to group your resources using the tags that are assigned to them
+    - You can group resources that share one or more tags
+    - Apply automation to resources with specific tags (for example, stop all instances)
+    - Resource Groups in combination with AWS Systems manager allow you to control and execute automation against
+    an entire fleet of EC2 instances
+- Tag Editor
+    - Global service that allows you to discover resources with tags and add additional tags to them as well
+
+### AWS Organizations & Consolidated Billing
+
+### AWS Quick Start & AWS Landing Zone
 
 ## Security in the Cloud
 
