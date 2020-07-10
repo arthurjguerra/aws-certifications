@@ -22,8 +22,8 @@
     * [CloudFormation](#cloudformation)
     * [AWS Services Deployed On Premise](#aws-services-deployed-on-premise)
 - [Billing and Pricing](#billing-and-pricing)
-- [Security, Identity and Compliance](#security-identity-and-compliance)
-    * [The Shared Responsibility Model](#the-shared-responsibility-model)
+- [Security in the Cloud](#security-in-the-cloud)
+    * [Shared Responsibility Model](#shared-responsibility-model)
     * [IAM](#iam)
 - [AWS Architecture](#aws-architecture)
 
@@ -390,7 +390,7 @@
 - Integrates with CloudWatch to give you a dashboard
 
 ## Billing and Pricing
-- [aws_pricing_overview.pdf](https://d0.awsstatic.com/whitepapers/aws_pricing_overview.pdf)
+- [AWS Pricing Overview](https://d0.awsstatic.com/whitepapers/aws_pricing_overview.pdf)
 - [The Total Cost of (Non) Ownership of
    Web Applications in the Cloud](https://media.amazonwebservices.com/AWS_TCO_Web_Applications.pdf)
 - Pay for: compute capacity, storage, outbound data transfer
@@ -398,9 +398,14 @@
 
 ### AWS Organizations
 
-## Security, Identity and Compliance
+## Security in the Cloud
 
-### The Shared Responsibility Model
+### AWS Compliance & AWS Artifact
+### Shared Responsibility Model
+### AWS WAF & AWS Shield
+### AWS Inspector vs AWS Trusted Advisor vs CloudTrail
+### CloudWatch vs AWS Config
+### Athena Vs Macie
 
 ### IAM
 - Global
