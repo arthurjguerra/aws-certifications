@@ -27,6 +27,7 @@
     * [Resource Groups and Tagging](#resource-groups-and-tagging)
     * [AWS Organizations & Consolidated Billing](#aws-organizations--consolidated-billing)
     * [AWS Quick Start & AWS Landing Zone](#aws-quick-start--aws-landing-zone)
+    * [AWS Calculators](#aws-calculators)
 - [Security in the Cloud](#security-in-the-cloud)
     * [AWS Compliance & AWS Artifact](#aws-compliance--aws-artifact)
     * [Shared Responsibility Model](#shared-responsibility-model)
@@ -394,19 +395,24 @@
 - No charge for inbound data transfer
 
 ### AWS Budgets vs Cost Explorer
-- Budget
+- Budgets
+    - Predict costs BEFORE they are incurred
 - Cost Explorer
+    - Explore costs AFTER they are incurred
 
 ### [Support Plans](https://aws.amazon.com/premiumsupport/plans/)
 - Basic
     - AWS Forums
 - Developer
     - 12-to-24-hour response rates
+    - $29/month
 - Business
     - 24x7 support by phone and chat (1-hour response rate)
+    - $100/month
 - Enterprise
     - TAM
     - Full access to Trusted Advisor
+    - $15,000/month
 
 ### Resource Groups and Tagging
 - Tags
@@ -422,8 +428,37 @@
     - Global service that allows you to discover resources with tags and add additional tags to them as well
 
 ### AWS Organizations & Consolidated Billing
-
+- AWS Organizations
+    - Paying account should be used for billing purposes (resources should not be deployed)
+    - 20 linked accounts (soft limit)
+    - Root account cannot link to another root account
+    - ![](aws-organizations.png)
+- Consolidated Billing
+    - Allows you to get volume discounts on all your accounts (all resources are combined)
+    - Unused reserved EC2 instances are applied across the group
+    - CloudTrail is on a per account and per region basis, but can be aggregated into a single bucket belonging to the paying account
+    
 ### AWS Quick Start & AWS Landing Zone
+- AWS Quick Start
+    - Deploying AWS environments quickly using CloudFormation templates built by Solutions Architects
+- AWS Landing Zone
+    - Set up a secure, multi-account AWS environment based on AWS best practices
+    - Starts with 4 different accounts
+    
+### AWS Calculators
+- [Simple Monthly Calculator](https://calculator.s3.amazonaws.com/index.html)
+    - Used to calculate running costs on AWS on a per month basis
+- [AWS Total Cost of Ownership](https://aws.amazon.com/tco-calculator/)
+    - Used to compare the costs of running your infrastructure on premise vs in AWS
+    
+### Free Services
+- VPC
+- Elastic Beanstalk
+- CloudFormation
+- IAM
+- Auto Scaling
+- Opsworks
+- Consolidated Billing
 
 ## Security in the Cloud
 
