@@ -463,11 +463,56 @@
 ## Security in the Cloud
 
 ### AWS Compliance & AWS Artifact
+- AWS Compliance
+    - Several certifications: ISO 9001, ISO 27000
+- AWS Artifact
+    - Retrieve compliance reports
+
 ### Shared Responsibility Model
+[Shared Responsibility Model](https://aws.amazon.com/compliance/shared-responsibility-model/)
+
+![](shared-responsability-model.png)
+
 ### AWS WAF & AWS Shield
+- WAF: Web Application Firewall
+    - Operates at layer 7
+    - Prevents SQL injection, Cross-site scripting or any attack on the app layer
+- Shield
+    - Prevents DDoS attacks
+    - It turned on automatically on all AWS accounts
+    - Advanced Mode: USD 3000/month
+        - You do not have to pay to increased bills on network traffic
+        - Offers automated application layer monitoring
+
 ### AWS Inspector vs AWS Trusted Advisor vs CloudTrail
+- AWS Inspector
+    - Inspects EC2 instances for vulnerabilities
+- AWS Trusted Advisor
+    - Inspects your AWS account as a whole (not only EC2)
+    - In addition to security checks, it also does Cost Optimization, Performance and Fault Tolerance
+- CloudTrail
+    - Inspects AWS console actions and API calls
+    - Allows you to identify which users and accounts called AWS, source IP and date
+
 ### CloudWatch vs AWS Config
+- CloudWatch
+    - Monitors performance
+    - Host level metrics: CPU, Network, Disk, and Status Check
+- AWS Config
+    - Detailed view of the configuration of AWS resources in your AWS account
+
 ### Athena Vs Macie
+- Athena
+    - Interactive query service
+    - Allows you to query data located in S3 using SQL
+    - Serverless
+    - Analyse AWS cost and usage reports
+- Macie
+    - Uses AI to analyze data in S3
+    - Helps identify sensitive data in S3 objects such as PII (Personally Identifiable Information)
+    - Includes dashboards, reports and alerting
+    - Great for PCI-DSS compliance and preventing ID theft
+    
 
 ### IAM
 - Global
@@ -481,18 +526,6 @@
 - Role
     - Changes take place immediately
 
-### Amazon Inspector
-
-### Security Compliance
-
-### AWS Trusted Advisor
-- Keep track of your AWS resources
-- 4 Checks:
-    - Cost Optimizations
-    - Performance
-    - Security
-    - Fault Tolerance
-    
 ### The AWS Well-Architected Framework
 - 5 pillars and design principles
     - Security
