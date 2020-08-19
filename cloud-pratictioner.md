@@ -423,19 +423,6 @@ TAM | None | None | None | Designated TAM
 Account Assistance | None | None | None | Concierge Support Team
 Pricing | $0 | $29/month or 3% of monthly AWS usage | > $100/month | > $15,000
 
-- Basic
-    - AWS Forums
-- Developer
-    - 12-to-24-hour response rates
-    - $29/month
-- Business
-    - 24x7 support by phone and chat (1-hour response rate)
-    - $100/month
-- Enterprise
-    - TAM
-    - Full access to Trusted Advisor
-    - $15,000/month
-
 ### Resource Groups and Tagging
 - Tags
     - KV pairs attached to AWS resources
