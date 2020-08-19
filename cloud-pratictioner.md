@@ -422,7 +422,6 @@ Architectural Guidance | None | General | Contextual to your use-cases | Consult
 TAM | None | None | None | Designated TAM
 Account Assistance | None | None | None | Concierge Support Team
 Pricing | $0 | $29/month or 3% of monthly AWS usage | > $100/month | > $15,000
-AWS Trusted Advisor Best Practice Checks |
 
 - Basic
     - AWS Forums
