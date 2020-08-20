@@ -422,15 +422,7 @@ Check out this video series from Exam Pro on YouTube that covers all exam topics
 - **Cost Explorer**: explore costs AFTER they are incurred
 
 ### [Support Plans](https://aws.amazon.com/premiumsupport/plans/)
-_ | Basic | Developer | Business | Enterprise
---- | --- | --- | --- | ---
-Technical Support | 24x7 access to customer service, documentation, whitepapers, and support forums | Business hours email access to Cloud Support Associates | 24x7 phone, email, and chat to Cloud Support Engineers | 24x7 phone, email, and chat access to Cloud Support Engineers 
-Response Time | None | General: < 24 business hours and System Impaired : < 12 business hours | General: < 24h, System: < 12h, Prod Impaired: < 4h, Prod down: < 1h | General: < 24h, System impaired: < 12h, Prod Impaired: < 4h, Prod down: < 1h, Business-critical system down: < 15min 
-Architectural Guidance | None | General | Contextual to your use-cases | Consultative review and guidance based on your apps
-TAM | None | None | None | Designated TAM
-Account Assistance | None | None | None | Concierge Support Team
-Pricing | $0 | $29/month or 3% of monthly AWS usage | > $100/month | > $15,000
-
+[![](images/aws-support-plans.png)](https://www.youtube.com/watch?v=A3522VCDy4A&list=PLBfufR7vyJJ4fOplWPOtYqRyQ6YPMsBsF&index=36)
 ### Resource Groups and Tagging
 - Tags
     - KV pairs attached to AWS resources
@@ -449,7 +441,7 @@ Pricing | $0 | $29/month or 3% of monthly AWS usage | > $100/month | > $15,000
     - Paying account should be used for billing purposes (resources should not be deployed)
     - 20 linked accounts (soft limit)
     - Root account cannot link to another root account
-    - ![](aws-organizations.png)
+    - ![](images/aws-organizations.png)
 - Consolidated Billing
     - Allows you to get volume discounts on all your accounts (all resources are combined)
     - Unused reserved EC2 instances are applied across the group
