@@ -1,4 +1,8 @@
-# [Cloud Practioner](https://aws.amazon.com/certification/certified-cloud-practitioner/)
+# [Cloud Practitioner](https://aws.amazon.com/certification/certified-cloud-practitioner/)
+
+The intention of this document is to guide you through all topics covered by
+the AWS Cloud Practitioner certification. So, you can focus on things that really
+matter for the exam.
 
 ## Table of Contents
 
