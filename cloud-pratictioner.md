@@ -56,6 +56,10 @@ matter for the exam.
     - Stop guessing about capacity
     - Benefit from massive economies of scale
     - Trade capital expense for variable expense
+    
+## AWS Cloud Certified Practitioner Video Series
+Check out this video series from Exam Pro on YouTube that covers all exam topics:
+[AWS Certified Cloud Practitioner Youtube Series](https://www.youtube.com/watch?v=B4kl23udOKo&list=PLBfufR7vyJJ4fOplWPOtYqRyQ6YPMsBsF)
 
 ## Introduction to AWS Cloud
 - [AWS_Cloud_Best_Practices.pdf](https://d1.awsstatic.com/whitepapers/AWS_Cloud_Best_Practices.pdf)
