@@ -405,6 +405,21 @@ Check out this video series from Exam Pro on YouTube that covers all exam topics
 - [The Total Cost of (Non) Ownership of
    Web Applications in the Cloud](https://media.amazonwebservices.com/AWS_TCO_Web_Applications.pdf)
 
+### Different Pricing Models
+- Capex vs Opex
+- **Capex**: Capital Expenditure
+    - Pay up front
+    - Fixed, sunk cost
+- **Opex**: Operational Expenditure
+    - Pay for what you use
+
+### Pricing Policies
+- Pay as you go 
+- Pay less when you reserve
+- Pay even less per unit by using more
+- Pay even less as AWS grows
+- Custom prices
+
 ### Pricing Fundamentals
 - Compute
     - Pay only for the resources you use
@@ -413,6 +428,27 @@ Check out this video series from Exam Pro on YouTube that covers all exam topics
     - AWS charges you per GB
 - Data Transfer
     - You are charged per GB transferred **out** of AWS infrastructure 
+
+### RDS Pricing
+- Clock Hours of Server Times (how long RDS instance run)
+- DB Characteristics: SQL Server, MySQL, PSQL
+- DB Purchase Type: how large the DB is
+- Number of instances
+- Provisioned Storage
+- Additional Storage
+- Requests
+- Deployment Type
+- Data Transfer
+
+### DynamoDB Pricing
+- Provisioned Throughput Write
+- Provisioned Throughput Read
+- Indexed data storage: how much data you're storing in dynamo
+
+### CloudFront Pricing
+- Traffic distribution
+- # of requests
+- Data transferred out
 
 ### AWS Budgets vs Cost Explorer
 - **Budgets**: Predict costs BEFORE they are incurred
@@ -456,6 +492,7 @@ Check out this video series from Exam Pro on YouTube that covers all exam topics
     - Used to calculate running costs on AWS on a per month basis
 - [AWS Total Cost of Ownership](https://aws.amazon.com/tco-calculator/)
     - Used to compare the costs of running your infrastructure on premise vs in AWS
+   
     
 ### Free Services
 - VPC
