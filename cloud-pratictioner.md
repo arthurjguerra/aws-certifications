@@ -404,8 +404,6 @@ Check out this video series from Exam Pro on YouTube that covers all exam topics
 - [AWS Pricing Overview](https://d0.awsstatic.com/whitepapers/aws_pricing_overview.pdf)
 - [The Total Cost of (Non) Ownership of
    Web Applications in the Cloud](https://media.amazonwebservices.com/AWS_TCO_Web_Applications.pdf)
-- Pay for: compute capacity, storage, outbound data transfer
-- No charge for inbound data transfer
 
 ### Pricing Fundamentals
 - Compute
