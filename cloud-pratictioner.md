@@ -410,10 +410,9 @@ Check out this video series from Exam Pro on YouTube that covers all exam topics
     - Pay only for the resources you use
     - If you used 1h of AWS resources, you pay for 1h of that resource
 - Storage
-    - Aws charges you per GB
+    - AWS charges you per GB
 - Data Transfer
-    - AWS charges you per GB transferred
-    - AWS charges you only for the **data that goes out**
+    - You are charged per GB transferred **out** of AWS infrastructure 
 
 ### AWS Budgets vs Cost Explorer
 - **Budgets**: Predict costs BEFORE they are incurred
