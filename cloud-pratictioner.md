@@ -405,6 +405,15 @@ Check out this video series from Exam Pro on YouTube that covers all exam topics
 - [The Total Cost of (Non) Ownership of
    Web Applications in the Cloud](https://media.amazonwebservices.com/AWS_TCO_Web_Applications.pdf)
 
+### Pricing Fundamentals
+- Compute
+    - Pay only for the resources you use
+    - If you used 1h of AWS resources, you pay for 1h of that resource
+- Storage
+    - AWS charges you per GB
+- Outbound Data Transfer
+    - You are charged per GB transferred **out** of AWS infrastructure 
+
 ### Different Pricing Models
 - Capex vs Opex
 - **Capex**: Capital Expenditure
@@ -419,15 +428,6 @@ Check out this video series from Exam Pro on YouTube that covers all exam topics
 - Pay even less per unit by using more
 - Pay even less as AWS grows
 - Custom prices
-
-### Pricing Fundamentals
-- Compute
-    - Pay only for the resources you use
-    - If you used 1h of AWS resources, you pay for 1h of that resource
-- Storage
-    - AWS charges you per GB
-- Data Transfer
-    - You are charged per GB transferred **out** of AWS infrastructure 
 
 ### RDS Pricing
 - Clock Hours of Server Times (how long RDS instance run)
