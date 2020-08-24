@@ -62,7 +62,6 @@ Check out this video series from Exam Pro on YouTube that covers all exam topics
 [AWS Certified Cloud Practitioner Youtube Series](https://www.youtube.com/watch?v=B4kl23udOKo&list=PLBfufR7vyJJ4fOplWPOtYqRyQ6YPMsBsF)
 
 ## Introduction to AWS Cloud
-- [AWS_Cloud_Best_Practices.pdf](https://d1.awsstatic.com/whitepapers/AWS_Cloud_Best_Practices.pdf)
 - [AWS-Overview.pdf](https://d0.awsstatic.com/whitepapers/aws-overview.pdf)
 - Cloud Computing
     - On demand delivery of resources and applications over the Internet
@@ -78,6 +77,9 @@ Check out this video series from Exam Pro on YouTube that covers all exam topics
         - Access to services via command line
     - AWS SDK
         - Ability to use AWS using programming languages such as Python, Java, Node.js, and Go
+- **Golden Images**: Certain AWS resource types, such as EC2 instances, RDS DB instances and EBS
+ volumes can be launched from a golden image, which is a snapshot of a particular state of that resource
+ (faster start times and removes dependencies to config services when compared to bootstrapping)
 
 ### AWS Global Infrastructure
 - https://aws.amazon.com/about-aws/global-infrastructure/
@@ -97,10 +99,17 @@ Check out this video series from Exam Pro on YouTube that covers all exam topics
     - Services meet the strictest requirements
     
 ### Cloud Concepts
+- [AWS_Cloud_Best_Practices.pdf](https://d1.awsstatic.com/whitepapers/AWS_Cloud_Best_Practices.pdf)
 
-#### Scalability
+#### Design Principles
 
-    
+##### Scalability 
+Systems that are expected to grow over time need to be built on top of a scalable architecture. 
+Such an architecture can support growth in users, traffic, or data size with no drop-in performance.
+
+**Scaling Vertically**: increase in the specifications of an individual resource (ex: resize instance type)
+**Scaling Horizontally**: increase in the number of resources (ex: add more instances to support app load)
+
 
 ## AWS Services
 
@@ -321,7 +330,7 @@ Check out this video series from Exam Pro on YouTube that covers all exam topics
     - DB backups
     - High Availability
     - Scaling
-    - Server Maintenance (zero downtime)
+    - Server Maintenance (zero downtime) 
 
 #### RDS Pricing
 - Resources incur charges when running
