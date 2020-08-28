@@ -107,8 +107,8 @@ Check out this video series from Exam Pro on YouTube that covers all exam topics
 Systems that are expected to grow over time need to be built on top of a scalable architecture. 
 Such an architecture can support growth in users, traffic, or data size with no drop-in performance.
 
-**Scaling Vertically**: increase in the specifications of an individual resource (ex: resize instance type)
-**Scaling Horizontally**: increase in the number of resources (ex: add more instances to support app load)
+- **Scaling Vertically**: increase in the specifications of an individual resource (ex: resize instance type)
+- **Scaling Horizontally**: increase in the number of resources (ex: add more instances to support app load)
 
 
 ## AWS Services
