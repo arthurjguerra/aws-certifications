@@ -155,12 +155,15 @@ Such an architecture can support growth in users, traffic, or data size with no 
         - Objects are uploaded to Edge locations and then they are transferred over AWS backbone to the actual bucket
 
 #### Restricting Bucket Access
-- Bucket Policies
-    - Applies across the whole bucket
-- Object Policies
-    - Applies to individual files
 - IAM Policies to Users & Groups
     - Applies to individual users and groups
+- Bucket Policies
+    - Applies across the whole bucket
+- ACLs
+    - Applies to individual files
+    - You can attach S3 ACLs to individual objects within a bucket to manage permissions for those objects
+    - As a general rule, AWS recommends using S3 bucket policies or IAM policies for access control
+        - S3 ACLs is a legacy access control mechanism that predates IAM
     
 
 ### CloudFront
