@@ -459,7 +459,7 @@ Such an architecture can support growth in users, traffic, or data size with no 
 
 ### CloudFront Pricing
 - Traffic distribution
-- # of requests
+- Number of requests
 - Data transferred out
 
 ### AWS Budgets vs Cost Explorer
