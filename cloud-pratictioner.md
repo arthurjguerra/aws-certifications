@@ -4,44 +4,6 @@ The intention of this document is to guide you through all topics covered by
 the AWS Cloud Practitioner certification. So, you can focus on things that really
 matter for the exam.
 
-## Table of Contents
-
-- [What do you need to know to pass the Certified Cloud Practitioner Exam?](#what-do-you-need-to-know-to-pass-the-certified-cloud-practitioner-exam)
-- [Introduction to AWS Cloud](#introduction-to-aws-cloud)
-    * [AWS Global Infrastructure](#aws-global-infrastructure)
-- [AWS Services](#aws-services)
-    * [S3](#s3)
-    * [CloudFront](#cloudfront)
-    * [EC2](#ec2)
-    * [EBS](#ebs)
-    * [VPC](#vpc)
-    * [Load Balancer](#load-balancer)
-    * [Auto Scaling](#auto-scaling)
-    * [Route 53](#route-53)
-    * [RDS](#rds)
-    * [AWS Lambda](#aws-lambda)
-    * [AWS Elastic Beanstalk](#aws-elastic-beanstalk)
-    * [SNS](#sns)
-    * [CloudWatch](#cloudwatch)
-    * [CloudFormation](#cloudformation)
-    * [AWS Services Deployed On Premise](#aws-services-deployed-on-premise)
-- [Billing and Pricing](#billing-and-pricing)
-    * [AWS Budgets vs Cost Explorer](#aws-budgets-vs-cost-explorer)
-    * [Support Plans](#support-planshttpsawsamazoncompremiumsupportplans)
-    * [Resource Groups and Tagging](#resource-groups-and-tagging)
-    * [AWS Organizations & Consolidated Billing](#aws-organizations--consolidated-billing)
-    * [AWS Quick Start & AWS Landing Zone](#aws-quick-start--aws-landing-zone)
-    * [AWS Calculators](#aws-calculators)
-- [Security in the Cloud](#security-in-the-cloud)
-    * [AWS Compliance & AWS Artifact](#aws-compliance--aws-artifact)
-    * [Shared Responsibility Model](#shared-responsibility-model)
-    * [AWS WAF & AWS Shield](#aws-waf--aws-shield)
-    * [AWS Inspector vs AWS Trusted Advisor vs CloudTrail](#aws-inspector-vs-aws-trusted-advisor-vs-cloudtrail)
-    * [CloudWatch vs AWS Config](#cloudwatch-vs-aws-config)
-    * [Athena Vs Macie](#athena-vs-macie)
-    * [IAM](#iam)
-
-
 ## What do you need to know to pass the Certified Cloud Practitioner Exam?
 - AWS Global Infrastructure
 - Compute
