@@ -554,6 +554,12 @@ Such an architecture can support growth in users, traffic, or data size with no 
     - These include IAM users, federated users, and assumed IAM roles
 - **Principal**: person or application that uses the AWS account root user, an IAM user, or an IAM role to sign in and make requests to AWS
 
+
+### AWS Systems Manager
+- Gives administrators secure access to EC2 instances
+- It allows them to create command documents and run them on any desired set of EC2 instances, with support for both Linux and Microsoft Windows
+- The commands are run asynchronously, with output captured for review
+
 ### The AWS Well-Architected Framework
 - 5 pillars and design principles
     - Security
