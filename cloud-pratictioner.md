@@ -63,7 +63,10 @@ Check out this video series from Exam Pro on YouTube that covers all exam topics
 ### Cloud Concepts
 - [AWS_Cloud_Best_Practices.pdf](https://d1.awsstatic.com/whitepapers/AWS_Cloud_Best_Practices.pdf)
 
-#### Design Principles
+#### Design Patterns
+- Loose Coupling
+- Scalability
+- High Availability
 
 ##### Scalability 
 Systems that are expected to grow over time need to be built on top of a scalable architecture. 
