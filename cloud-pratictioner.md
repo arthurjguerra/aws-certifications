@@ -101,10 +101,14 @@ Such an architecture can support growth in users, traffic, or data size with no 
 
 #### S3 Storage Classes
 - S3 Standard
+    - 
 - S3 Infrequently Accessed
 - S3 One Zone Infrequently Accessed
 - S3 Glacier
+    - Retrieval time of 1-5 minutes
 - S3 Glacier Deep Archive
+    - Retrieval time of 12 hours
+    - Lowest cost storage option in AWS
 - S3 Intelligent Tiering
     
 #### S3 Pricing
@@ -542,6 +546,13 @@ Such an architecture can support growth in users, traffic, or data size with no 
     - Email address used to set up your AWS account
 - Role
     - Changes take place immediately
+
+#### Identity x Entity x Principal
+- **Identities**: IAM resource objects that are used to identify and group
+    - These include users, groups, and roles
+- **Entities**: IAM resource objects that AWS uses for authentication
+    - These include IAM users, federated users, and assumed IAM roles
+- **Principal**: person or application that uses the AWS account root user, an IAM user, or an IAM role to sign in and make requests to AWS
 
 ### The AWS Well-Architected Framework
 - 5 pillars and design principles
