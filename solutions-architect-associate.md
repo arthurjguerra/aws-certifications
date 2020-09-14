@@ -587,49 +587,188 @@
 - Pricing
     - No up-front investments required, and you pay only for the resources you use
     - No charge is incurred when replicating data from your primary RDS instance to your secondary RDS instance
+    - Instance Hours
+        - Based on region, instance type, DB engine and license
+    - DB Storage
+        - EBS x Aurora, Storage Type, Storage Allocation (GB)
+    - Backup Storage
+        - Size of backups stored in AWS
+        - No charge for backup storage up to 100% of total DB storage
+    - Data Transfer
+        - Outgoing traffic only
+        - Regional Data Transfer pricing
 - Database Instances
     - RDS runs on VMs (it's not **not serverless**)
-    - You can think of a DB instance as a DB environment in the cloud with the compute and storage resources you specify
+    - You can think of a DB instance as a DB environment in the cloud with compute and storage resources you specify
     - You can create and delete DB instances, define/refine infrastructure attributes of your DB instance(s), and control access and security via Console, APIs, and CLI
     - Maintenance Window 
         - You also have the ability to change your DB instance’s backup retention policy, preferred backup window, and scheduled maintenance window
         - If you do not specify a preferred weekly maintenance window when creating your DB instance, a 30 minute default value is assigned
-        - Maintenance events that require RDS to take your DB instance offline are 1) scale compute operations (which generally take only a few minutes from start-to-finish), 2) database engine version upgrades, and 3) required software patching
+        - Maintenance events that require RDS to take your DB instance offline are 
+            1. Scale compute operations which generally take only a few minutes from start-to-finish 
+            1. DB engine version upgrades 
+            1. Required software patching
         - Running your DB instance as a Multi-AZ deployment can further reduce the impact of a maintenance event
-- Security Groups
-    - Technically a destination port number is needed, however with a DB security group the RDS instance port number is automatically applied to the RDS DB Security Group. Further information: http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.RDSSecurityGroups.html
-- Storage
-    - https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_Storage.html#USER_PIOPS
-- Provisioned IOPS over standard storage
-    - Provisioned IOPS becomes important when you are running production environments requiring rapid responses, such as those which run e-commerce websites. Without high performant responses from an RDS instance page loads of the website could suffer resulting in loss of business. If your workloads are not latency sensitive or you are running a test environment the additional cost of provisioned IOPS will not be cost beneficial to your project. Further information: https://aws.amazon.com/ebs/features/
+- License Model (Oracle)
+    - **On-demand**: License cost is included
+    - Buy your own license and bring it to AWS
+- DB instance class
+    - Related to EC2 instance type:
+        - T2/T3: Burstable instances, moderate networking performance 
+        - M3/M4: General purpose, high networking performance
+        - R3/R4: Memory Optimized, high networking performance
+- DB Identifier
+    - Identifies the database instance
+    - Unique for your account across the region
+- Credentials
+    - Master user account
+- Networking config
+    - VPC
+    - Subnet Groups
+    - Is DB public or private?
+    - AZs
+    - Securiy Groups
+- Storage Types
+    - **GP2**: general purpose
+    - **IO1**: I/O intensive workloads (recommended for prod)
+    - **Magnetic**: supported for legacy DBs
 - Troubleshooting
     - https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/APITroubleshooting.html
     - If you want your application to check RDS for an error, have it look for an error node in the response from the Amazon RDS API
 
-#### RDS Backups, Multi-AZ and Read Replicas
-- RDS can automatically back up your database and keep your database software up to date with the latest version
-- Backups
-    - Automated backups are enabled by default
-    - DB snapshots
-    - I/O may be briefly suspended while the backup process initializes (typically under a few seconds), and you may experience a brief period of elevated latency. Further information: http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_CreateSnapshot.htmlhttp://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.BackingUpAndRestoringAmazonRDSInstances.html
-- Read Replicas
-    - Can be multi-AZ
-    - Used to increase performance
-    - Must have backups turned on
-    - Can be in different regions
-    - Can be MySQL, PSQL, Maria DB, Oracle and Aurora
-    - Can be promoted to master (*but that breaks read replicas*)
-- Multi-AZ
-    - Used for disaster recovery
-    - Can force a failover from one AZ to another by rebooting the RDS instance
+#### Scaling your DB instance
+- Scale Compute or Memory Vertically
+    - In Multi-AZ, secondary resizes first, DNS points to secondary, then primary resizes
+    - A New host is attached to existing volumes
+    - You can modify the instance or change the instance class
+        - Apply immediately
+        - During maintenance window
+- Scale EBS
+    - No downtime
+- Scale Horizontally
+    - Scale read replicas
 
-#### Encryption
+#### RDS Multi-AZ
+- Leverages another AZ for a secondary host
+    - Primary host is replicated to the secondary host before *ack'ed* to the client
+    - DOES NOT improve performance (only failover scenarios)
+- Writes to Multi-AZ DB instance are slightly slower
+- Multi-AZ improves Backups
+- Can also be used to minimize downtime when scaling up/down or during maintenance (software upgrades)
+- When failovers occur?
+    - AZ outage
+    - Primary DB instance fails
+    - DB instance class changes
+    - Software patching
+    - Manual Failover (instance is manually rebooted)
+    - *Failovers* rely on DNS, so if you're caching DNS you might have issues
+
+#### RDS Read Replicas
+- Read-only DB instance
+- Async data replication between Primary and Read Replica
+    - Eventual Consistency
+    - Lag dictate how eventual consistency is
+- Read replicates can be in different regions
+- Can be multi-AZ
+- Must have backups turned on
+- Can be MySQL, PSQL, Maria DB, Oracle and Aurora
+- Can be promoted to master (*but that breaks read replicas*)
+- When to use Read Replicas?
+    - Scaling: 
+        - Read-heavy apps
+        - Increase performance
+    - Primary DB Unavailable
+    - Reporting or Data Warehouse
+    - Disaster Recovery
+    - Lower Latency (cross region deployments)
+    
+
+#### RDS Backups
+- RDS can automatically back up your database and keep your database software up to date with the latest version
+- Two Types
+    - Automated backups
+    - Manual snapshots
+
+##### Automated Backups
+- Multi-Region
+    - Take a daily EBS snapshot of the secondary DB instance and push it to S3 (RDS-owned bucket)
+    - Transaction logs are also pushed to S3 every 5 min (point-in-time recovery)
+    - The snapshot is taken during maintenance window
+    - Copy the snapshot to another region
+- Single-Region
+    - Similar to Multi-Region, except for daily Snapshots are taken from the Primary DB instance instead of Seconday
+- Snapshots only store the difference
+    - 1st snapshot has all the data
+    - Subsequent snapshots are incremental
+- Performance Impact
+    - Single AZ
+        - Brief IO suspension
+    - Multi AZ
+        - No IO suspension since snapshots are taken from secondary db instance
+- Options:
+    - Backup Window
+    - Retention Period (1-35 days; 7 days is the default value)
+
+##### Manual Snapshots
+- Manually created via Console, SDK or CLI
+- Kept until you delete them (no retention period)
+- Restores to a saved snapshot
+- Used for checkpoints before large changes
+- Final copy before deleting a database
+
+#### Restoring Backups
+- Restoring a backup creates a new DB Instance
+- Must retain Param Group and Sec group from the DB the snapshot was taken from
+
+#### RDS Security and Monitoring
+- Network Isolation via VPC
+- Access Control
+    - IAM
+    - MFA
+- Grant access to within the db
+    - Do not use master creds
+    - IAM
+    - Active Directory for SQL Server
+- Encryption at rest
+    - Free
+    - Encryption is replicated
+    - Encryption at Rest (at the EBS volume level -  no impact on the app)
+    - Encrypt once (cannot unencrypt data)
+    - 2-tier Encryption (master key created by you, each RDS instance has its own data key)
 - Supported by all DBs
 - Done via KMS
-- Once the RDS instance is encrypted, the data stored at rest in the underlying storage is encrypted, as re its automated backups, read replicates and snapshots
 
-#### FAQs
-https://aws.amazon.com/rds/faqs/#reserved-instances
+#### RDS Monitoring
+- Standard Monitoring
+    - Metrics: CPU, Storage, Network Traffic, DB Connections, IOPS
+    - Metrics are provided from outside the host - Hypervisor
+- Enhanced Monitoring
+    - OS/Host level metrics
+    - 50 additional metrics in Cloud Watch
+    - Granulity of 1 sec (default is 60s)
+    - Metrics are provided from inside the host - Lightweight agent at the host
+- Performance Insights
+    - Provides insights into DB performance
+    - Identifies bottlenecks
+    - Analyze SQL queries, Hosts and users
+    - Free feature not availabe on db.t2
+- Other Monitoring Tools
+    - RDS Events: subscribe to categories
+    - AWS Config: records and evaluates changes to configuration
+    - AWS CloudTrail: auditing on RDS API calls
+    - AWS Trusted Advisor: $$$, Security, Fault Tolerance, and Performance improvement
+    
+#### Aurora
+ - AWS proprietary DB
+ - MySQL and PSQL compatible
+ - Serverless
+     - Simple, cost-effective option for infrequent, intermittent, or unpredictable workload
+ - 2 copies of data per AZ with minimum of 3 AZs = 6 copies
+ - 3 types of replica available:
+     - Aurora
+     - MySQL
+     - PSQL
+ - Automated failover is only available with Aurora replicas
 
 ### Dynamo DB
 - [FAQs](https://aws.amazon.com/dynamodb/faqs/)
@@ -656,18 +795,6 @@ https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/CapacityUnitCal
     - Max retention period is 35 days
     - Redshift attemps to maintain at least 3 copies of your data (original node, replica node and a backup in S3)
 - Redshift can also replicate snapshots *synchronously* to S3 in another region for disaster recovery
-
-### Aurora
-- AWS proprietary DB
-- MySQL and PSQL compatible
-- Serverless
-    - Simple, cost-effective option for infrequent, intermittent, or unpredictable workload
-- 2 copies of data per AZ with minimum of 3 AZs = 6 copies
-- 3 types of replica available:
-    - Aurora
-    - MySQL
-    - PSQL
-- Automated failover is only available with Aurora replicas
 
 ### Elasticache
 - Increase DB and Web application performance
