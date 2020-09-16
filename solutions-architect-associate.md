@@ -46,7 +46,8 @@
 [![Introduction to S3](https://img.youtube.com/vi/_I14_sXHO8U/0.jpg)](https://youtu.be/_I14_sXHO8U)
 
 - [FAQs](https://aws.amazon.com/s3/faqs/)
-- Safe place to store files
+
+### S3 Basics
 - Object-based storage
 - Files are stored in buckets
     - 0 < file size <= 5 TB
@@ -56,84 +57,16 @@
     - Key: name
     - Value: sequence of bytes
     - Version ID: important if bucket has versioning enabled
+        - Bucket + Key + Version ID = uniquely identify an object
     - Metadata: data about your object
-    - Subresources: ACLs and Torrents
+    - Subresources (ex: ACLs)
 - S3 supports 3500 PUTs per second
     - More details in https://docs.aws.amazon.com/AmazonS3/latest/dev/request-rate-perf-considerations.html
-
-### S3 Data Consistency
-- Read after write for PUTS
-    - *If you upload a new file, you're able to read it immediately*
-- Eventual consistency for overwrite PUTS and DELETES
-    - *If you upload/delete an existing file and try to read it immediately, you may get its older version*
-
-### S3 Storage Classes
-- Standard
-    - $0.023 per GB
-    - 99.99% availability
-- Infrequently Accessed (IA)
-    - Data accessed less frequently but still requires fast access
-    - $0.0125 per GB
-    - 99.9% availability
-- One Zone (IA)
-    - Data accessed less frequently but still requires fast access
-    - Do not require multiple AZs relience
-    - $0.01 per GB
-    - 99.5% availability
-- Intelligent Tiering
-    - Automatically moves data to cheaper storage using Machine Learning
-- Glacier
-    - [FAQs](https://aws.amazon.com/glacier/faqs/)
-    - Secure, durable and low-cost storage
-    - Retrieval time adjustable from minutes to hours
-    - [Data Retrievals](https://aws.amazon.com/glacier/faqs/?nc=sn&loc=6#Data_retrievals)
-        - Cost of retrieval of information from Glacier can go up dependent on how quickly you require the data and how much data is to be retrieved
-        - **Expedited retrievals** allow you to quickly access your data stored in the S3 Glacier storage class when occasional urgent requests for a subset of archives are required, but at the highest cost
-        - **Standard retrievals** allow you to access any of your archived objects within several hours, this is faster than bulk (averaging around 12 hours) but more expensive
-        - **Bulk retrievals** are the lowest-cost retrieval option in Amazon S3 Glacier, enabling you to retrieve large amounts, even petabytes, of data inexpensively
-- Glacier Deep Archive
-    - Cheapest storage solution in AWS
-    - Retrieval time: 12 hours
-- [Reduced Redundancy Storage (RRS)](https://aws.amazon.com/s3/reduced-redundancy/) *deprecated*
-    - Storage option that enables customers to store noncritical, reproducible data at lower levels of redundancy than Amazon S3’s standard storage
-    - It provides a highly available solution for distributing or sharing content that is durably stored elsewhere, or for storing thumbnails, transcoded media, or other processed data that can be easily reproduced
-    - The RRS option stores objects on multiple devices across multiple facilities, providing 400 times the durability of a typical disk drive, but does not replicate objects as many times as standard Amazon S3 storage
-    - $0.004 per GB
-
-### S3 Versioning
-- Stores all versions of an object (including all writes even if you delete the object)
-- Once enabled cannot be disabled, only suspended
-- You can change permissions of any object version
-    - Old versions permissions *DO NOT* change if you change permissions on the latest version
-    - *File A v1 is public, you upload a new version of it, becoming v2, then you change File A to be private, users will still be able to access File A v1*
-
-### S3 Cross-Region Replication
-*Replication of objects between buckets in != regions*
-- Versioning must be enabled on both Source and Destination buckets
-- Existing files in the source bucket are not replicated automatically to destination
-- All subsequent updated files are replicated automatically
-- *DELETES* are not replicated (including the deletion of individual versions)
-
-### S3 Lifecycle Management
-- Automates moving your objects between != storage tiers
-- Can be used with versioning
-- Can be applied to current and previous versions
-
-### S3 Encryption At Rest
-*Allows you to encrypt your data while it's stored in S3 (encryption at transit is met with HTTPS)*
-- Server Side
-    - SSE-S3
-    - SSE-KMS
-    - SSE-C (customer-provided keys)
-- Client Side
-    - You have to encrypt your data somewhere and then upload it to S3
-
-### S3 Cross-Account Access
-- Programatic Access Only
-    - Using bucket policies and IAM
-    - Using bucket ACLs and IAM on individual objects
-- Both Programatic and Console Access
-    - Cross-account IAM roles
+- Namespace
+    - Universal namespace (like DNS)
+    - Can be accessed at:
+        - http://<bucket>.s3.amazonaws.com
+        - http://<bucket>.s3-<region>.amazonaws.com
 
 ### S3 Pricing
 - Size
@@ -147,6 +80,121 @@
 - Data Transfer Acceleration
     - Transfer Accelearation allows you to transfer files to the closest AWS Edge location, then use AWS backbone infrastructure to transfer those files to the actual bucket
 - Cross-Region Replication
+
+### S3 Data Consistency
+- Read after write for PUTS
+    - *If you upload a new file, you're able to read it immediately*
+- Eventual consistency for overwrite PUTS and DELETES
+    - *If you upload/delete an existing file and try to read it immediately, you may get its older version*
+    
+
+### S3 Object Storage Classes
+- Frequently Accessed Objects
+    - Standard (default)
+        - Hily durable, highly available
+        - $0.023 per GB
+        - 99.99% availability
+    - [Reduced Redundancy Storage (RRS)](https://aws.amazon.com/s3/reduced-redundancy/) *deprecated*
+        - Like Standard but with less durability because data is not replicated as many times
+        - $0.004 per GB
+- Infrequently Accessed Objects (IA)
+    - Standard IA
+        - Hihly durable, highly available: data accessed less frequently but still requires fast access
+        - $0.0125 per GB
+        - 99.9% availability
+    - One Zone (IA)
+        - Highly durable
+        - Do not require multiple AZs resilience
+        - $0.01 per GB
+        - 99.5% availability
+- Unknown Access Patterns
+    - Intelligent Tiering
+        - Automatically moves data to cheaper storage using Machine Learning (standard -> standard IA)
+        - Not charged for retrievals
+        - Perfect for long-lived data that has unpredictable access patterns
+- Rarely Accessed Objects        
+    - Glacier
+        - [FAQs](https://aws.amazon.com/glacier/faqs/)
+        - Highly durable and low-cost storage
+        - Retrieval time adjustable from minutes to hours
+        - Minimum billable storage time of 90 days
+        - [Data Retrievals](https://aws.amazon.com/glacier/faqs/?nc=sn&loc=6#Data_retrievals)
+            - Cost of retrieval of information from Glacier can go up dependent on how quickly you require the data and how much data is to be retrieved
+            - **Expedited retrievals** allow you to quickly access your data stored in the S3 Glacier storage class when occasional urgent requests for a subset of archives are required, but at the highest cost
+            - **Standard retrievals** allow you to access any of your archived objects within several hours, this is faster than bulk (averaging around 12 hours) but more expensive
+            - **Bulk retrievals** are the lowest-cost retrieval option in Amazon S3 Glacier, enabling you to retrieve large amounts, even petabytes, of data inexpensively
+    - Deep Archive
+        - Highly durable 
+        - Cheapest storage solution in AWS
+        - Retrieval time: 12 hours
+        - Minimum billable storage time of 180 days
+
+#### S3 Lifecycle Management
+- Lifecycle Policies allow objects to transition between storage classes
+    - Transition Rules: define when objects move to another storage class
+    - Expiration Rules: define when objects are deleted
+- Can be used with versioning
+- Can be applied to current and previous versions
+
+### S3 Security
+
+#### ACLs
+- ACLs are resource policies used to grant access on both buckets and objects
+- Each bucket and object has an ACL attached to it as sub-resource that defines permissions
+- The default ACL grants the resource own full control over the object
+- Features:
+    - Used only to grant permissions to AWS accounts and pre-defined groups
+    - Only grant read and write permissions (no conditional nor deny permissions)
+
+#### Bucket & User Policies
+- Bucket and user policies are policies (defined in JSON) that can be used to grant access to both buckets and objects
+    - User Policies are user based and are managed in IAM
+- Not applied by default
+- Can grant very fine grained permissions
+- Can explicitly deny access
+- Can grant conditional permissions
+- Max size is 20KB
+- Policy contains the following:
+    - Conditions
+        - Optional policy elements that allow you to specify conditions for then the policy is in place
+        - Ex: allow users to put objects in buckets only if encryption is enabled 
+    - Effect: either *allow* or *deny*
+    - Action: list of permissions to allow or deny
+    - Resource: bucket or object name
+
+### S3 Versioning
+- Allows you to retrieve every version of every object ever stored in S3 (even if it is deleted)
+- Stores all versions of an object (including all writes even if you delete the object)
+- Once enabled cannot be disabled, only suspended
+- You can change permissions of any object version
+    - Old versions permissions *DO NOT* change if you change permissions on the latest version
+    - *File A v1 is public, you upload a new version of it, becoming v2, then you change File A to be private, users will still be able to access File A v1*
+
+### S3 Cross-Region Replication
+*Replication of objects between buckets in != regions*
+- Versioning must be enabled on both Source and Destination buckets
+- Existing files in the source bucket are not replicated automatically to destination
+- All subsequent updated files are replicated automatically
+- *DELETES* are not replicated (including the deletion of individual versions)
+
+### S3 Encryption At Rest
+*Allows you to encrypt your data while it's stored in S3 (encryption at transit is met with HTTPS)*
+- Server Side
+    - SSE-S3
+    - SSE-KMS
+    - SSE-C (customer-provided keys)
+- Client Side
+    - You have to encrypt your data somewhere and then upload it to S3
+
+### S3 Cross-Account Access
+- Can be granted via ACLs
+    - With ACLs access can only be granted directly to AWS accounts and not to IAM users
+    - With ACLs conditions cannot be enforced
+- Can be granted via Bucket Policies
+    - With Bucket policies access can be granted to IAM users in addition to the account
+    - Conditions can be enforced
+- Access to IAM users must by explicitly delegated
+    - For both ACLs and Bucket Policies, permissions must be explicitly delegated to an IAM user in order for them to exercise their access
 
 ### S3 Query and Auditing (Athena x Macie)
 - Athena
@@ -758,6 +806,7 @@
     - AWS CloudTrail: auditing on RDS API calls
     - AWS Trusted Advisor: $$$, Security, Fault Tolerance, and Performance improvement
     
+
 #### Aurora
  - AWS proprietary DB
  - MySQL and PSQL compatible
