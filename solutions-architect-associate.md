@@ -143,9 +143,24 @@
 - Each bucket and object has an ACL attached to it as sub-resource that defines permissions
 - The default ACL grants the resource own full control over the object
 - Features:
-    - Used only to grant permissions to AWS accounts and groups (cannot grant access to users)
+    - Used only to grant permissions to AWS accounts and pre-defined groups
     - Only grant read and write permissions (no conditional nor deny permissions)
-- Bucket policy: allows only owner by default (need to set explicit rules to allow others to access objects)
+
+#### Bucket & User Policies
+- Bucket and user policies are policies (defined in JSON) that can be used to grant access to both buckets and objects
+    - User Policies are user based and are managed in IAM
+- Not applied by default
+- Can grant very fine grained permissions
+- Can explicitly deny access
+- Can grant conditional permissions
+- Max size is 20KB
+- Policy contains the following:
+    - Conditions
+        - Optional policy elements that allow you to specify conditions for then the policy is in place
+        - Ex: allow users to put objects in buckets only if encryption is enabled 
+    - Effect: either *allow* or *deny*
+    - Action: list of permissions to allow or deny
+    - Resource: bucket or object name
 
 ### S3 Versioning
 - Allows you to retrieve every version of every object ever stored in S3 (even if it is deleted)
@@ -172,11 +187,14 @@
     - You have to encrypt your data somewhere and then upload it to S3
 
 ### S3 Cross-Account Access
-- Programatic Access Only
-    - Using bucket policies and IAM
-    - Using bucket ACLs and IAM on individual objects
-- Both Programatic and Console Access
-    - Cross-account IAM roles
+- Can be granted via ACLs
+    - With ACLs access can only be granted directly to AWS accounts and not to IAM users
+    - With ACLs conditions cannot be enforced
+- Can be granted via Bucket Policies
+    - With Bucket policies access can be granted to IAM users in addition to the account
+    - Conditions can be enforced
+- Access to IAM users must by explicitly delegated
+    - For both ACLs and Bucket Policies, permissions must be explicitly delegated to an IAM user in order for them to exercise their access
 
 ### S3 Query and Auditing (Athena x Macie)
 - Athena
