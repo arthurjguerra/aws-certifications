@@ -87,7 +87,6 @@
 - Eventual consistency for overwrite PUTS and DELETES
     - *If you upload/delete an existing file and try to read it immediately, you may get its older version*
     
-
 ### S3 Object Storage Classes
 - Frequently Accessed Objects
     - Standard (default)
@@ -133,6 +132,7 @@
 - Lifecycle Policies allow objects to transition between storage classes
     - Transition Rules: define when objects move to another storage class
     - Expiration Rules: define when objects are deleted
+    - ![](s3-lifecycle-workflow.png)
 - Can be used with versioning
 - Can be applied to current and previous versions
 
@@ -161,30 +161,40 @@
     - Effect: either *allow* or *deny*
     - Action: list of permissions to allow or deny
     - Resource: bucket or object name
-
-### S3 Versioning
-- Allows you to retrieve every version of every object ever stored in S3 (even if it is deleted)
-- Stores all versions of an object (including all writes even if you delete the object)
+    
+#### S3 Data Encryption
+- S3 encrypts data before it's written to disk
+- Encryption means refers to the protection of data in transit and at rest
+- Encryption In Transit: HTTPS
+- Encryption At rest:
+    - SS3 (Server-side Encryption)
+        - SS3-S3: s3-provided keys
+        - SS3-KMS: kms-provided keys
+        - SSE-C: customer-provided keys (key is uploaded via HTTPS with data, s3 uses that key to encrypt the data and then get rid of it)
+    - Client-side Encryption
+        - Customer Master Key
+            - Data is encrypted before being uploaded to s3
+        - KMS
+            - KMS master key is used
+            - Key is used to encryt the data on the client side
+- 
+#### S3 Versioning
+- Keep multiple versions of the same object in the same bucket
+    - Allows you to retrieve any version of any object ever stored in S3 (even if it is deleted)
+- S3 stores all versions of an object (including all writes even if you delete the object)
 - Once enabled cannot be disabled, only suspended
+- It raises storage
+    - Upload 1Gb-file 5x = 5 GB worth of storage
 - You can change permissions of any object version
     - Old versions permissions *DO NOT* change if you change permissions on the latest version
     - *File A v1 is public, you upload a new version of it, becoming v2, then you change File A to be private, users will still be able to access File A v1*
 
 ### S3 Cross-Region Replication
-*Replication of objects between buckets in != regions*
+*Async replication of objects between buckets in != regions*
 - Versioning must be enabled on both Source and Destination buckets
 - Existing files in the source bucket are not replicated automatically to destination
 - All subsequent updated files are replicated automatically
 - *DELETES* are not replicated (including the deletion of individual versions)
-
-### S3 Encryption At Rest
-*Allows you to encrypt your data while it's stored in S3 (encryption at transit is met with HTTPS)*
-- Server Side
-    - SSE-S3
-    - SSE-KMS
-    - SSE-C (customer-provided keys)
-- Client Side
-    - You have to encrypt your data somewhere and then upload it to S3
 
 ### S3 Cross-Account Access
 - Can be granted via ACLs
