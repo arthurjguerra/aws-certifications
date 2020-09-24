@@ -21,7 +21,7 @@
     - Basic (Free), Developer and Business
     - Enterprise: if you need an AWS TAM
 
-## [IAM - Identity and Access Management](https://aws.amazon.com/iam/)
+## IAM - Identity and Access Management
 - [FAQs](https://aws.amazon.com/iam/faqs/)
 - Manage users and their level of access to AWS
 - Centralized control
@@ -41,10 +41,8 @@
     - IAM is a feature of your AWS account offered at no additional charge
     - You will be charged only for the use of other AWS services by your users
 
-## [S3](https://aws.amazon.com/s3/)
-
-[![Introduction to S3](https://img.youtube.com/vi/_I14_sXHO8U/0.jpg)](https://youtu.be/_I14_sXHO8U)
-
+## S3
+- [![Introduction to S3](https://img.youtube.com/vi/_I14_sXHO8U/0.jpg)](https://youtu.be/_I14_sXHO8U)
 - [FAQs](https://aws.amazon.com/s3/faqs/)
 
 ### S3 Basics
@@ -217,6 +215,38 @@
     - *Security service*
     - Uses AI to analyze data in S3
     - Can analyze Cloud Trail
+    
+### S3 Object Lock & Glacier Vault Lock
+- S3 Object Lock
+    - Store objects using a Write Once, Read Many (WORM) model
+    - Can be applied to individual objects or acc=ross the entire bucket
+    - Two Modes:
+        - **Governance Mode**: users cannot overwrite or delete an object version or alter lock settings (unless they have special permissions)
+        - **Compliance Mode**: objects cannot be overwritten or deleted by **any** user (including root)
+- S3 Glacier Vault Lock
+    - Allows you to easily deploy and enforce compliance controls for S3 Glacier Vaults
+    - You can specify controls such as WORM in a Vault Lock policy and lock the policy from future edits
+    - Once locked, the policy cannot be changed
+    
+### S3 Performance
+- 5,500 GET/HEAD requests per second per prefix
+- 3,500 PUT/COPY/POST/DELETE requests per second per prefix
+- Prefix: s3://mybucket/folder1/subfolder1/myfile.txt = folder1/subfolder1
+- Better performance if reads are spread across different prefixes
+    - For instance, 2 prefixes = 11,000 GET requests per second
+- Bear in mind KMS limits
+    - Always have to encrypt objects when writting them to the bucket
+    - Always have to decrypt objects when reading them from the bucket
+- Use multi-part uploads to increase performance when uploading files
+    - Should be used to for files > 100MB (must be used for files > 5GB)
+- Use s3-byte range fetches to increase performance when downloading files
+
+### S3 Select & Glacier Select
+- S3 Select
+    - Used to retrieve only a portion of the data from an object
+    - Get data by rows and columns using SQL
+    - Save money on data transfer and increase speed
+- 
 
 ### [Accessing content in S3](https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingBucket.html#access-bucket-intro)
 - There are 4 different URLs styles that it can be used to access content in S3
@@ -270,6 +300,10 @@
     - Scheduled Reserved Instances: launched within specific time windows
 - Spot
     - Flexible start and end times (if AWS stops the instance, you don't pay; if you stop it, you pay)
+    - Spot instances save up to 90% of the cost of On-demand Instances
+    - You can block Spot instances from terminating by using Spot Block
+    - Spot Fleet
+        - Collection of Spot Instances and, optionally, On-demand instances
 - Dedicated Hosts
 
 ### Launching EC2 Instances
@@ -278,6 +312,39 @@
     - By default, deleted when the instance is terminated
     - Can now be encrypted
 - Additional volumes can be encrypted
+
+### EC2 Hibernate
+- Preserves the in-memory RAM on persistent storage (EBS)
+- Much faster to boot up because you do not need to reload the OS
+- Instance RAM must be < 150 GB
+- Available for Windows, Amazon Linux 2 and Ubuntu
+- Instances cannot be hibernated for more than 60 days
+- Available for On-Demand and Reserved Instances
+
+### HPC on AWS
+- Achieve HPC on AWS through:
+    - Data Transfer
+        - Snowball/Snowmobile
+        - Data Sync
+        - Direct Connect
+    - Compute & Networking
+        - GPU/CPU optimized instances
+        - EC2 Fleets (spot)
+        - Placement Groups
+        - Enhanced Networking Single Root IO Virtualization (SR-IOV)
+        - Elastic Network Adapters and Intel Virtual Function (VF) interface
+        - Elastic Fabric Adapters
+    - Storage
+        - Instance Attached Storage
+            - EBS: 64,000 IOPS with Provisioned IOPS
+            - Instance Store: millions IOPS; low latency
+        - Network Storage
+            - S3
+            - EFS
+            - FSx for Lustre
+    - Orchestration and Automation
+        - AWS Batch
+        - AWS Parallel Cluster
 
 ### Security Groups
 - All **inbound** traffic is **blocked** by default and all **outbound** traffic is **allowed** by default
@@ -502,11 +569,10 @@
     - To do this, create an egress-only Internet gateway in your VPC, and then add a route to your route table that points all IPv6 traffic (::/0) or a specific range of IPv6 address to the egress-only Internet gateway. IPv6 traffic in the subnet that's associated with the route table is routed to the egress-only Internet gateway
     - An egress-only Internet gateway is stateful: it forwards traffic from the instances in the subnet to the Internet or other AWS services, and then sends the response back to the instances.
 - You can only have 1 internet gateway per VPC
-    - However an IG is a fully-redundant component of your VPC provides Internet services to all of your public subnets, in all Availability Zones
-
+    - However, an IG is a fully-redundant component of your VPC provides Internet services to all of your public subnets, in all Availability Zones
 
 ### NAT Instances x NAT Gateways
-- NAT allow instances in privte subnets to talk to the Internet without being public
+- NAT allow instances in private subnets to talk to the Internet without being public
 - NAT Instances
     - When creating a NAT instance, you must disable source/destination check on the instance
     - NAT instances must be in the public subnet
@@ -552,25 +618,19 @@
     - NAT gateway or NAT instances are used to provide internet traffic to EC2 instances in private subnets
 
 ### Connections to AWS
-2 popular ways to connect your on premise equipment to the AWS Cloud.
-
-#### VPN Connections
-- It's usually the most used. It is the  "cheapest" option, fast to implement and secure way
-- It creates a secure and encrypted tunnel from the cloud to your on premise hardware, throughout a Public Network. I've seen that on the Onboarding process journey to the Cloud, it is usually preferred because is fast to implement, and with no visible additional cost
-- You only need any VPN Terminal (Router/Firewall) with Internet connection
-- There is drawback, it depends on the Internet Connection and if fails also the backend of your cloud applications
-- When connecting a VPN between AWS and a third party site, the Customer Gateway is created within AWS, but it contains information about the third party site e.g. the external IP address and type of routing. The Virtual Private Gateway has the information regarding the AWS side of the VPN and connects a specified VPC to the VPN
-
-#### Direct Connect
-- Directly connects your data center to AWS. It's the best one: secure, private and robust. Useful for high throughput
-- It is about connecting a dedicated fiber cable the nearest point of presence of your **Cloud Partner**, and he will make the link to his cloud equipment in order to transport your date privately to your cloud
-- It's like having a dedicated link to the cloud. No Internet failure could affect your solution
-- Data charges are still incurred whilst using Direct Connect
-
-##### Steps Required to create a direct connect connection
-[![Steps to create DC connection to AWS](https://img.youtube.com/vi/dhpTTT6V1So/0.jpg)](https://www.youtube.com/watch?v=dhpTTT6V1So)
-
-[Create Connection](https://docs.aws.amazon.com/directconnect/latest/UserGuide/create-connection.html)
+- VPN Connections
+    - It's usually the most used. It is the  "cheapest" option, fast to implement and secure way
+    - It creates a secure and encrypted tunnel from the cloud to your on premise hardware, throughout a Public Network. I've seen that on the Onboarding process journey to the Cloud, it is usually preferred because is fast to implement, and with no visible additional cost
+    - You only need any VPN Terminal (Router/Firewall) with Internet connection
+    - There is drawback, it depends on the Internet Connection and if fails also the backend of your cloud applications
+    - When connecting a VPN between AWS and a third party site, the Customer Gateway is created within AWS, but it contains information about the third party site e.g. the external IP address and type of routing. The Virtual Private Gateway has the information regarding the AWS side of the VPN and connects a specified VPC to the VPN
+- Direct Connect
+    - Directly connects your data center to AWS. It's the best one: secure, private and robust. Useful for high throughput
+    - It is about connecting a dedicated fiber cable the nearest point of presence of your **Cloud Partner**, and he will make the link to his cloud equipment in order to transport your date privately to your cloud
+    - It's like having a dedicated link to the cloud. No Internet failure could affect your solution
+    - Data charges are still incurred whilst using Direct Connect
+    - [![Steps to create DC connection to AWS](https://img.youtube.com/vi/dhpTTT6V1So/0.jpg)](https://www.youtube.com/watch?v=dhpTTT6V1So)
+    - [Create Connection](https://docs.aws.amazon.com/directconnect/latest/UserGuide/create-connection.html)
 
 ### Global Accelerator
 - [FAQs](https://aws.amazon.com/global-accelerator/faqs/)
@@ -596,6 +656,35 @@
 
 ### [Penetration Testing](https://aws.amazon.com/security/penetration-testing/)
 - Until recently customers were not permitted to conduct Penetration Testing without AWS engagement. However that has changed. There are still conditions however
+
+### AWS Private Link
+- Expose service VPC to thousands of customer VPCs
+- Does NOT required peering (no RTs, no NAT, no IGW)
+- Requires a Network LB on the service VPC and ENI on the customer VPC
+- ![](aws-private-link.png)
+
+### AWS Transit Gateway
+- Allows you to have transitive peering between thousands of VPCs and on-premises data centers
+- Regional service but can have it across multiple regions
+- You can use it across multiple AWS accounts via Resource Access Manager
+- Works with Direct Connect and VPN
+- Supports IP multicast
+
+### AWS VPN CloudHub
+- With multiple sites, each with its own VPN connection, you can use VPN CloudHub to connect those sites together
+- Operates over the public Internet
+- All traffic is encrypted
+
+### AWS Network Costs
+- Use private IP addresses over public IP to save on costs (AWS backbone network)
+- To cut network costs, group all resources in a single AZ with private IPs
+
+### On-Prem Strategies with AWS
+- Database Migration Service
+- Server Migration Service
+- Application Discovery Service
+- VM Import/Export
+- Download Amazon Linux 2 as ISO
 
 ## High Availability Architecture
 - Design for failure
@@ -879,12 +968,26 @@ https://docs.aws.amazon.com/lambda/latest/dg/invocation-scaling.html
 
 https://aws.amazon.com/xray/
 
-## Applications
+## AWS Data Sync
+- Used to move large amounts of data from on-prem to AWS
+- Used with NFS and SMB-compatible file systems
+- Replication can be done hourly, daily, or weekly
+- Need to isntall Data Sync agent
+- Can be used to replicate EFS to EFS
 
-### SQS
-### SWF
-### SNS
-### Elastic Transcoder
-### API Gateway
-### Kinesis
-### Web Identity Federator (Cognito)
+## CloudFront
+- AWS caching service
+- Edge Location
+    - Where content will be cached
+    - Are NOT just read-only (can write to it too)
+- Origin/Source of CDN caching objects: S3, EC2 instance, ELB or R53
+- Distribution: CDN's name (collection of Edge locations)
+    - Web Distribution: typically used for web sites
+    - RTMP: Used for Media Streaming
+- Objects are cached for the life of TTL
+- You can clear objects yourself, but you'll be charged
+- CloudFront Signed URLs and Cookies
+    - Used when to want to secure content so that only the people you authorize are able to access it
+    - A signed URL is for an individual file -> 1 file = 1 URL
+    - A signed cookie is for multiple files -> 1 cookie = multiple files
+    - Origin is EC2 -> Use CloudFront (if it's S3, use S3 signed URL)
