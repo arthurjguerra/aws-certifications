@@ -2,15 +2,12 @@
 
 [AWS Solutions Architect Associate](https://aws.amazon.com/certification/certified-solutions-architect-associate/)
 
-## Reference
-[Do Your Homework: 7 AWS Certified Solutions Architect Exam Tips (Toptal)](https://www.toptal.com/aws-cloud-engineers/aws-certified-solutions-architect-exam-tips?utm_campaign=Toptal%20Engineering%20Blog&utm_source=hs_email&utm_medium=email&utm_content=82924000&_hsenc=p2ANqtz-9e8pBmq7n-oAcI1KJysb6eOjefvmT1pyAikVEgPso5N_p9HFPVsj2xKEao5RfwkluPNyub0hFcKkHCTQAsbC_TUsD0zQ&_hsmi=82924000)
+## Exam Tips
+- [Do Your Homework: 7 AWS Certified Solutions Architect Exam Tips (Toptal)](https://www.toptal.com/aws-cloud-engineers/aws-certified-solutions-architect-exam-tips?utm_campaign=Toptal%20Engineering%20Blog&utm_source=hs_email&utm_medium=email&utm_content=82924000&_hsenc=p2ANqtz-9e8pBmq7n-oAcI1KJysb6eOjefvmT1pyAikVEgPso5N_p9HFPVsj2xKEao5RfwkluPNyub0hFcKkHCTQAsbC_TUsD0zQ&_hsmi=82924000)
 
 ## Exam Guides
-[Associate SAA-C01 Exam Guide](https://d1.awsstatic.com/training-and-certification/docs-sa-assoc/AWS_Certified_Solutions_Architect_Associate-Exam_Guide_1.8.pdf)
-
-[Associate SAA-C02 Exam Guide - NEW VERSION](https://d1.awsstatic.com/training-and-certification/docs-sa-assoc/AWS-Certified-Solutions-Architect-Associate_Exam-Guide.pdf)
-
-[AWS Whitepapers](https://aws.amazon.com/whitepapers/)
+- [Associate SAA-C02 Exam Guide - NEW VERSION](https://d1.awsstatic.com/training-and-certification/docs-sa-assoc/AWS-Certified-Solutions-Architect-Associate_Exam-Guide.pdf)
+- [AWS Whitepapers](https://aws.amazon.com/whitepapers/)
 
 ## 10,000 Foot Overview
 - [AWS Global Infrastructure](https://aws.amazon.com/about-aws/global-infrastructure/)
@@ -23,11 +20,11 @@
 
 ## IAM - Identity and Access Management
 - [FAQs](https://aws.amazon.com/iam/faqs/)
-- Manage users and their level of access to AWS
+- Manage users, and their level of access to AWS
 - Centralized control
     - IAM is global (not tied to specific regions)
 - Granular Permissions
-- Identify Federation (Faceebok, LinkedIn, etc)
+- Identify Federation (Facebook, LinkedIn, etc)
 - [MFA](https://aws.amazon.com/iam/features/mfa/)
 - You can implement your own password rotation policy
 - Groups are a collection of Users
@@ -40,6 +37,36 @@
 - Princing
     - IAM is a feature of your AWS account offered at no additional charge
     - You will be charged only for the use of other AWS services by your users
+    
+### AWS Directory Service
+- AD Compatible
+    - Managed Microsoft AD
+    - AD Connector
+    - Simple AD
+- Not AD Compatible
+    - Cloud Directory
+    - Cognito user pools
+
+### IAM Policies
+- It contains Effect/Action/Resource
+- Identity vs Resource Policies
+    - Identity Policies define permissions for users and groups
+    - Resource Policies define permissions for AWS services
+- Not explicitly allowed = implicitly denied
+- Explicit deny >>> everything else
+- Only attached policies have effect
+- AWS joins multiple policies when evaluating them
+- AWS-manged vs customer-managed policies
+- Permission Boundaries
+    - Prevent privilege escalation or unnecessarily broad permissions
+    - Controls maximum permissions an IAM policy can grant
+    
+### AWS Resource Access Manager (RAM)
+- Allows resource sharing between accounts
+
+### AWS SSO
+- Centrally manage access to AWS accounts and business apps
+- SAML 2.0
 
 ## S3
 - [![Introduction to S3](https://img.youtube.com/vi/_I14_sXHO8U/0.jpg)](https://youtu.be/_I14_sXHO8U)
@@ -935,7 +962,7 @@ https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/CapacityUnitCal
 - There is no charge for the transfer of data into DynamoDB, providing you stay within a single region (if you cross regions, you will be charged at both ends of the transfer.) 
 - There is no charge for the actual number of tables you can create in DynamoDB, providing the RCU and WCU are set to 0, however in practice you cannot set this to anything less than 1 so there always be a nominal fee associated with each table. Further information: 
 
-### Readshift
+### Redshift
 - OLAP
 - Data Warehouse used for BI
 - Backups
@@ -950,7 +977,7 @@ https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/CapacityUnitCal
 - Redis is multi-AZ
 - You can do backups and restores of Redis
 
-## Serveless
+## Serverless
 https://forums.aws.amazon.com/thread.jspa?messageID=708378
 https://aws.amazon.com/blogs/compute/parallel-processing-in-python-with-aws-lambda/
 
@@ -991,3 +1018,77 @@ https://aws.amazon.com/xray/
     - A signed URL is for an individual file -> 1 file = 1 URL
     - A signed cookie is for multiple files -> 1 cookie = multiple files
     - Origin is EC2 -> Use CloudFront (if it's S3, use S3 signed URL)
+    
+## Event Processing Patterns
+- Understand pub/sub pattern (facilitaded by SNS)
+- DLQ - SNS, SQS, Lambda
+- Fanout Pattern - SNS
+- S3 Event Notifications - which events trigger; which services consume
+    
+## AWS Security
+- KMS
+    - Manager customer master keys (CMKs)
+- CloudHSM
+    - Regulatory Compliance Requirements
+    - FIPS 140-2 Level 3
+- Systems Manager Parameter Store
+    - xxx
+- Secrets Manager
+    - Charge per secret stored and per 10,000 API calls
+- Automatically rotate secrets
+- Apply the new key/password in RDS for you
+- Generate random secrets
+
+### AWS Shield
+- Protects against DDoS
+- AWS Shield Standard
+    - Automatically enable for all customers at no cost with WAF
+    - Protects against common layer 3 and 4 attacks
+        - SYN/UDP floods
+        - Reflection attacks
+- AWS Shield Advanced
+    - USD 3,000 per month
+    - Enhanced protection for EC2, ELB, CloudFront, Global Accelerator, R53
+    - Business and Enterprise support customers get 24x7 access to DDoS Response Team (DRT)
+    - DDoS cost protection
+    
+### AWS WAF
+- Web app firewall that lets you monitor HTTPS requests to CloudFront, ALB and API Gateway
+- Control access to content
+- Configure filtering rules to allow/deny traffic
+    - IP addresses
+    - Query string params
+    - SQL query injection
+- Blocked traffic returns HTTP 403 forbidden
+
+#### How does AWS WAF work
+- Allow all traffic, except what you specify
+- Deny all traffic, except what you specify
+- Count requests that match the properties you specify
+- Request properties:
+    - Originating IP Address
+    - Originating country
+    - Request size
+    - Values in request headers
+    - Strings in request matching regex 
+    - SQL code injection
+    - Cross-site scripting
+    
+#### AWS Firewall Manager
+- Centrally configure and manage firewall rules across an AWS Organization
+- WAF rules:
+    - ALB
+    - API GTW
+    - CloudFront distributions
+- AWS Shield Advanced protections:
+    - ALB
+    - ELB Classic
+    - EIP
+    - CloudFront distributions
+- Enable Sec Groups for EC2 and ENIs
+
+### AWS ECS
+- Managed container orchestration service
+
+### AWS EKS
+- Managed container orchestration service (Kubernetes)
