@@ -495,7 +495,7 @@ Such an architecture can support growth in users, traffic, or data size with no 
 ### Shared Responsibility Model
 [Shared Responsibility Model](https://aws.amazon.com/compliance/shared-responsibility-model/)
 
-![](shared-responsability-model.png)
+![](images/shared-responsability-model.png)
 
 ### AWS WAF & AWS Shield
 - WAF: Web Application Firewall

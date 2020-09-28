@@ -157,7 +157,7 @@
 - Lifecycle Policies allow objects to transition between storage classes
     - Transition Rules: define when objects move to another storage class
     - Expiration Rules: define when objects are deleted
-    - ![](s3-lifecycle-workflow.png)
+    - ![](images/s3-lifecycle-workflow.png)
 - Can be used with versioning
 - Can be applied to current and previous versions
 
@@ -688,7 +688,7 @@
 - Expose service VPC to thousands of customer VPCs
 - Does NOT required peering (no RTs, no NAT, no IGW)
 - Requires a Network LB on the service VPC and ENI on the customer VPC
-- ![](aws-private-link.png)
+- ![](images/aws-private-link.png)
 
 ### AWS Transit Gateway
 - Allows you to have transitive peering between thousands of VPCs and on-premises data centers
