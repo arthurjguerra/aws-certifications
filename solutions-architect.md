@@ -953,9 +953,42 @@
 - [Read Consistency](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.ReadConsistency.html)
     - Eventual consistent reads (1s), by default
     - Strong consistent reads
-
-https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.ProvisionedThroughput.html
-https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/CapacityUnitCalculations.html
+- Dynamo DB Accelerator (DAX)
+    - Caching service
+    - Sits in between the app and db
+    - No code changes required
+    - High available
+    - Reduce calls from milliseconds to microseconds
+- Transactions
+    - All-or-nothing operations
+    - 2 underlying reads and writes - prepare and commit
+- On-demand Capacity
+    - Balance cost and performance
+    - Dynamo DB automatically provision more resource to serve all requests
+    - Pay more per request when compared to provisioned capacity
+- On-demand Backup & Restore
+    - Full backups at anytime
+    - Zero impact on table performance
+    - Consistent within seconds
+    - Operates in the same region as the source table
+- Point in Time Recovery (PITR)
+    - Restore to any point in the last 35 days
+    - Incremental backups
+    - Not enabled by default
+    - Latest Restorable: 5 min in the past
+- Streams
+    - Time-ordered sequence of item-level changes in a table
+    - Stored 24h
+    - Inserts, Updates & Deletes
+- Global Tables
+    - Managed Multi-Master, Multi-Region Replication
+    - Based on Dynamo DB Streams
+    - Multi-region redundancy for DR and HA
+    - Replication latency usually under 1 sec
+- Security
+    - Data is encrypted at rest with KMS
+    - Control access with IAM policies and roles
+    - Fine-grained access: IAM policies that allow access to parts of tables
 
 #### [Pricing](https://aws.amazon.com/dynamodb/pricing/)
 - There will always be a charge for provisioning read and write capacity and the storage of data within DynamoDB
@@ -976,6 +1009,28 @@ https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/CapacityUnitCal
 - Memcached (simple) x Redis (more robust)
 - Redis is multi-AZ
 - You can do backups and restores of Redis
+
+### Database Migration Service (DMS) 
+- Helps you migrated data from on-prem into AWS cloud, from AWS cloud to on-prem, and between on-premise DBs 
+- Types of Migration:
+    - Homogeneous: Oracle -> Oracle
+    - Heterogeneous: SQL Server -> Aurora
+- Schema-Conversion Tool (SCT)
+    - Used in Heterogeneous migrations
+![](images/dms.png)
+
+### Caching Strategies in AWS
+- CloudFront
+- API GTW
+- Elasticache - Memcached & Redis
+- Dynamo DB Accelerator (DAX)
+
+### Elastic MapReduce (EMR)
+- Used for Big Data processing
+- Consists of a Master, Core, and (optionally) a Task node
+- By default, log data is stored in the master node
+- You can configure replication to S3 on 5-minute intervals for all log data from the master node
+    - This cannot be changed (need to configure that when creating the cluster)
 
 ## Serverless
 https://forums.aws.amazon.com/thread.jspa?messageID=708378
@@ -1092,3 +1147,4 @@ https://aws.amazon.com/xray/
 
 ### AWS EKS
 - Managed container orchestration service (Kubernetes)
+
