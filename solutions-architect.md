@@ -1,4 +1,4 @@
-# AWS Solutions Architect
+# AWS Solutions Architect (SAA-C02)
 
 
 ## Exam Tips
@@ -7,6 +7,7 @@
 
 ## Exam Guides
 - [Associate SAA-C02 Exam Guide - NEW VERSION](https://d1.awsstatic.com/training-and-certification/docs-sa-assoc/AWS-Certified-Solutions-Architect-Associate_Exam-Guide.pdf)
+- [Passing the AWS Certified Solutions Architect Associate (SAA-C02) Exam](https://cantrill.io/2020/05/24/Passing-the-AWS-certified-solutions-architect-associate-saa-c02-certification.html)
 - [AWS Whitepapers](https://aws.amazon.com/whitepapers/)
 
 ## 10,000 Foot Overview
