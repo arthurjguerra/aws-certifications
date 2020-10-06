@@ -10,6 +10,7 @@
 - [Passing the AWS Certified Solutions Architect Associate (SAA-C02) Exam](https://cantrill.io/2020/05/24/Passing-the-AWS-certified-solutions-architect-associate-saa-c02-certification.html)
 - [AWS SAA C02 Course Exam Notes](https://github.com/alozano-77/AWS-SAA-C02-Course)
 - [AWS Whitepapers](https://aws.amazon.com/whitepapers/)
+- [FreeCodeCamp YouTube Series](https://www.youtube.com/watch?v=Ia-UEYYR44s)
 
 ## 10,000 Foot Overview
 - [AWS Global Infrastructure](https://aws.amazon.com/about-aws/global-infrastructure/)
