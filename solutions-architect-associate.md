@@ -1,4 +1,4 @@
-# AWS Solutions Architect (SAA-C02)
+# AWS Solutions Architect Associate (SAA-C02)
 
 
 ## Exam Tips
