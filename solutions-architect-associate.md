@@ -71,6 +71,29 @@
 - Centrally manage access to AWS accounts and business apps
 - SAML 2.0
 
+## Simple Queue Service - SQS
+- SQS is pull-based, not pushed-based: you need to have an EC2 instance pulling the messages out of the queue
+- Queue types:
+    - Default: does not guarantee delivery order (no limit of requests per second)
+    - FIFO: first message in the queue is the first one to come out (limite of 300 requests per second)
+- Messages are 256KB in size
+- Messages are delivered **at least** once
+- Retention Period
+    - Messages can be kept in the queue from 1 minute to 14 days (default value is 4 days)
+- **Visibility Timeout**:
+    - Amout of time that the message is invisible in the queue *after* a reader picks up that message
+    - If message is processed before the visibility timeout expires, then the message is deleted from the queue
+    - If message is not processed within the visibility timeout period, then the message will become visible again and another reader will process it -- *this could result in the same message being delivered twice*
+
+### [Long Polling vs Short Polling](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-short-and-long-polling.html)
+- With **short polling**, the `ReceiveMessage` request queries only a subset of the servers (based on a weighted random distribution) to find messages that are available to include in the response
+    - Amazon SQS sends the response right away, even if the query found no messages
+- **Short polling** occurs when the `WaitTimeSeconds` parameter of a `ReceiveMessage` request is set to 0 in one of two ways:
+    - The `ReceiveMessage` call sets `WaitTimeSeconds` to 0
+    - The `ReceiveMessage` call doesn't set `WaitTimeSeconds`, but the queue attribute `ReceiveMessageWaitTimeSeconds` is set to 0.
+- With **long polling**, the `ReceiveMessage` request queries all of the servers for messages. Amazon SQS sends a response after it collects at least one available message, up to the maximum number of messages specified in the request
+    - Amazon SQS sends an empty response only if the polling wait time expires
+
 ## S3
 - [![Introduction to S3](https://img.youtube.com/vi/_I14_sXHO8U/0.jpg)](https://youtu.be/_I14_sXHO8U)
 - [FAQs](https://aws.amazon.com/s3/faqs/)
