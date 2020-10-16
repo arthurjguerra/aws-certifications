@@ -599,7 +599,9 @@
     - You must create your own subnets, Internet Gateway, and NAT Gateway (if you need one.) 
 - 1 Subnet = 1 AZ
 - Security Groups are stateful
+    - When you allow inbound traffic for a specific IP range, outbound traffic to the same IP range is automatically allowed
 - Network ACLs are stateless
+    - You need to allow both inbound and outbound traffic explicitly
 - No transitive peering
 - /16 is the largest CIDR you can attach to a VPC (65536 addresses), whereas /28 is the smallest
 - You can only have 1 internet gateway per VPC
@@ -613,6 +615,16 @@
     - In a custom VPC with new subnets in each AZ, there is a Route that supports communication across all subnets/AZs
     - Plus, a Default SG with an allow rule 'All traffic, All protocols, All ports, from anything using this Default SG'
     - Further information: https://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/default-vpc.html
+    
+### [VPC and subnet sizing for IPv4](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Subnets.html)
+The first four IP addresses and the last IP address in each subnet CIDR block cannot be used by you.
+
+For example, in a subnet with CIDR block 10.0.0.0/24, the following five IP addresses are reserved: 
+- `10.0.0.0`: Network address
+- `10.0.0.1`: Reserved by AWS for the VPC router
+- `10.0.0.2`: Reserved by AWS. The IP address of the DNS server is the base of the VPC network range plus two. For VPCs with multiple CIDR blocks, the IP address of the DNS server is located in the primary CIDR. We also reserve the base of each subnet range plus two for all CIDR blocks in the VPC
+- `10.0.0.3`: Reserved by AWS for future use
+- `10.0.0.255`: Network broadcast address. We do not support broadcast in a VPC, therefore we reserve this address
 
 ### Internet Gateway
 - [Egress Only Internet Gateway](https://docs.aws.amazon.com/vpc/latest/userguide/egress-only-internet-gateway.html)
