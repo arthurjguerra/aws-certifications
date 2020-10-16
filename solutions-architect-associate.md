@@ -357,6 +357,14 @@
     - You can block Spot instances from terminating by using Spot Block
     - Spot Fleet
         - Collection of Spot Instances and, optionally, On-demand instances
+    - Spot Instance interruptions
+        - Demand for Spot Instances can vary significantly from moment to moment, and the availability of Spot Instances can also vary significantly depending on how many unused EC2 instances are available
+        - It is always possible that your Spot Instance might be interrupted
+        - Possible reasons that Amazon EC2 might interrupt your Spot Instances: **Price** (the Spot price is greater than your maximum price), **Capacity** (if there are not enough unused EC2 instances to meet the demand for On-Demand Instances)
+        - When Amazon EC2 is going to interrupt your Spot Instance, **it emits an event two minutes prior to the actual interruption** (except for hibernation, which gets the interruption notice, but not two minutes in advance, because hibernation begins immediately). This event can be detected by Amazon CloudWatch Events
+        - You can specify that Amazon EC2 should do one of the following when it interrupts a Spot Instance: **Stop**, **Hibernate**, or **Terminate**
+
+Constraints – If your request includes a constraint such as a launch group or an Availability Zone group, these Spot Instances are terminated as a group when the constraint can no longer be met.
 - Dedicated Hosts
 
 ### Launching EC2 Instances
