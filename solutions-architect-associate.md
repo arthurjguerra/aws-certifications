@@ -986,8 +986,15 @@ For example, in a subnet with CIDR block 10.0.0.0/24, the following five IP addr
 ### Dynamo DB
 - [FAQs](https://aws.amazon.com/dynamodb/faqs/)
 - AWS managed NoSQL database service
-- Stored on SSD storage
-- Distributed across 3 geographically different data centers by default
+- High Availability and Durability
+     - DynamoDB automatically spreads the data and traffic for your tables over a sufficient number of servers to handle your throughput and storage requirements, while maintaining consistent and fast performance
+     - Data is stored on solid-state disks (SSDs) and is automatically replicated across multiple Availability Zones in an AWS Region
+     - You can use global tables to keep DynamoDB tables in sync across AWS Regions
+- The maximum item size in DynamoDB is 400 KB, which includes both attribute name binary length (UTF-8 length) and attribute value lengths (again binary length). The attribute name counts towards the size limit
+- Multi-Region Replication
+    - Amazon DynamoDB global tables provide a fully managed solution for deploying a multiregion, multi-active database, without having to build and maintain your own replication solution
+    - With global tables you can specify the AWS Regions where you want the table to be available
+    - DynamoDB performs all of the necessary tasks to create identical tables in these Regions and propagate ongoing data changes to all of them
 - [Read Consistency](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.ReadConsistency.html)
     - Eventual consistent reads (1s), by default
     - Strong consistent reads
