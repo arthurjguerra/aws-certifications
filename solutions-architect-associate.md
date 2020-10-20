@@ -401,14 +401,18 @@
     - Used to retrieve only a portion of the data from an object
     - Get data by rows and columns using SQL
     - Save money on data transfer and increase speed
-- 
 
 ### [Accessing content in S3](https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingBucket.html#access-bucket-intro)
 - There are 4 different URLs styles that it can be used to access content in S3
     - [The Virtual Hosted Style URL](https://docs.aws.amazon.com/AmazonS3/latest/dev/VirtualHosting.html#virtual-hosted-style-access)
+        - `https://<BUCKET_NAME>.s3.<AWS_REGION>.amazonaws.com/<OBJECT_KEY_NAME>`
     - [The Path-Style Access URL](https://docs.aws.amazon.com/AmazonS3/latest/dev/VirtualHosting.html#path-style-access)
+        - `https://s3.<AWS_REGION>.amazonaws.com/<BUCKET_NAME>/<OBJECT_KEY_NAME>`
     - [The Static web site URL](https://docs.aws.amazon.com/AmazonS3/latest/dev/WebsiteHosting.html)
+        - `https://<BUCKET_NAME>.s3-website-<AWS_REGION>.amazonaws.com` or `http://<BUCKET_NAME>.s3-website.<AWS_REGION>.amazonaws.com`
     - [The Legacy Global Endpoint URL](https://aws.amazon.com/blogs/aws/amazon-s3-path-deprecation-plan-the-rest-of-the-story/)
+        - `https://s3.amazonaws.com/<BUCKET_NAME>/<OBJECT_KEY_NAME>`
+        - `https://s3-us-east-2.amazonaws.com/<BUCKET_NAME>/<OBJECT_KEY_NAME>`
 - There are three options which can be used to secure access to files stored in S3:
     - Signed URLs and Signed Cookies are different ways to ensure that users attempting access to files in an S3 bucket can be authorised: One method generates URLs and the other generates special cookies but they both require the creation of an application and policy to generate and control these items
     - An Origin Access Identity on the other hand, is a virtual user identity that is used to give the CloudFront distribution permission to fetch a private object from an S3 bucket
