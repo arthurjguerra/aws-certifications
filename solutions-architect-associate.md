@@ -430,11 +430,21 @@
 - You can invalidate cache, but you're charged for it
 
 ### Storage Gateway
-- NFS (File GTW): flat files stored in S3
-- Volume GTW
-    - Stored: entire dataset on site and backed up to S3 asynchronously
-    - Cached: entire dataset on S3 and most frequently accessed data is cached on sit
-- GTW Virtual Tape Library
+- [FAQs](https://aws.amazon.com/storagegateway/faqs/?nc=sn&loc=6)
+- Hybrid cloud storage service that gives you on-premises access to virtually unlimited cloud storage
+- Storage Gateway supports three key hybrid cloud use cases:
+    1. Move backups and archives to the cloud
+    1. Reduce on-premises storage with cloud-backed file shares
+    1. Provide on-premises applications low latency access to data stored in AWS
+-  Storage Gateway provides 3 types of storage interfaces:
+    - File Gateway enables you to store and retrieve objects in Amazon S3 using file protocols such as Network File System (NFS) and Server Message Block (SMB)
+        - File-based interface to Amazon S3, which appears as a network file share
+    - Volume Gateway provides block storage to your on-premises applications using iSCSI connectivity. Data on the volumes is stored in Amazon S3 and you can take point in time copies of volumes which are stored in AWS as Amazon EBS snapshots. You can also take copies of volumes and manage their retention using AWS Backup. You can restore EBS snapshots to a Volume Gateway volume or an EBS volume
+        - Provides an iSCSI target, which enables you to create block storage volumes and mount them as iSCSI devices from your on-premises or EC2 application servers. The Volume Gateway runs in either a cached or stored mode
+        - In the **cached mode**, your primary data is written to S3, while retaining your frequently accessed data locally in a cache for low-latency access.
+        - In the **stored mode**, your primary data is stored locally and your entire dataset is available for low-latency access while asynchronously backed up to AWS.
+    - Tape Gateway provides your backup application with an iSCSI virtual tape library (VTL) interface, consisting of a virtual media changer, virtual tape drives, and virtual tapes. Virtual tapes are stored in Amazon S3 and can be archived to Amazon S3 Glacier or Amazon S3 Glacier Deep Archive
+        - Cloud-based Virtual Tape Library (VTL)
 
 ### S3 FAQs
 - [S3 FAQs](https://aws.amazon.com/s3/faqs/)
