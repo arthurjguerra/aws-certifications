@@ -10,7 +10,7 @@
     + [AWS Resource Access Manager (RAM)](#aws-resource-access-manager--ram-)
     + [AWS SSO](#aws-sso)
   * [Simple Queue Service - SQS](#simple-queue-service---sqs)
-    + [[Long Polling vs Short Polling](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-short-and-long-polling.html)](#-long-polling-vs-short-polling--https---docsawsamazoncom-awssimplequeueservice-latest-sqsdeveloperguide-sqs-short-and-long-pollinghtml-)
+    + [Long Polling vs Short Polling](#long-polling-vs-short-polling)
   * [S3](#s3)
     + [S3 Basics](#s3-basics)
     + [S3 Pricing](#s3-pricing)
@@ -28,7 +28,7 @@
     + [S3 Object Lock & Glacier Vault Lock](#s3-object-lock---glacier-vault-lock)
     + [S3 Performance](#s3-performance)
     + [S3 Select & Glacier Select](#s3-select---glacier-select)
-    + [[Accessing content in S3](https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingBucket.html#access-bucket-intro)](#-accessing-content-in-s3--https---docsawsamazoncom-amazons3-latest-dev-usingbuckethtml-access-bucket-intro-)
+    + [Accessing content in S3](#accessing-content-in-s3)
     + [CloudFront](#cloudfront)
     + [Storage Gateway](#storage-gateway)
     + [S3 FAQs](#s3-faqs)
@@ -38,19 +38,19 @@
     + [EC2 Hibernate](#ec2-hibernate)
     + [HPC on AWS](#hpc-on-aws)
     + [Security Groups](#security-groups)
-    + [[EBS - Elastic Block Storage](https://aws.amazon.com/ebs/)](#-ebs---elastic-block-storage--https---awsamazoncom-ebs--)
+    + [EBS - Elastic Block Storage](#ebs---elastic-block-storage)
     + [EBS x Instance Store](#ebs-x-instance-store)
     + [Volumes & Snapshots](#volumes---snapshots)
     + [ENI x EN x EFA](#eni-x-en-x-efa)
-    + [[Cloud Watch](https://aws.amazon.com/cloudwatch/)](#-cloud-watch--https---awsamazoncom-cloudwatch--)
-    + [[EFS - Elastic File System](https://aws.amazon.com/efs/)](#-efs---elastic-file-system--https---awsamazoncom-efs--)
-    + [[FSx](https://aws.amazon.com/fsx/)](#-fsx--https---awsamazoncom-fsx--)
-    + [[Placement Groups](https://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/placement-groups.html)](#-placement-groups--https---docsawsamazoncom-awsec2-latest-windowsguide-placement-groupshtml-)
-    + [[WAF - Web Application Firewall](https://aws.amazon.com/waf/)](#-waf---web-application-firewall--https---awsamazoncom-waf--)
+    + [Cloud Watch](#cloud-watch)
+    + [EFS - Elastic File System](#efs---elastic-file-system)
+    + [FSx](#fsx)
+    + [Placement Groups](#placement-groups)
+    + [WAF - Web Application Firewall](#waf---web-application-firewall)
   * [DNS](#dns)
     + [Routing Policies](#routing-policies)
   * [VPC](#vpc)
-    + [[VPC and subnet sizing for IPv4](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Subnets.html)](#-vpc-and-subnet-sizing-for-ipv4--https---docsawsamazoncom-vpc-latest-userguide-vpc-subnetshtml-)
+    + [VPC and subnet sizing for IPv4](#vpc-and-subnet-sizing-for-ipv4)
     + [Internet Gateway](#internet-gateway)
     + [NAT Instances x NAT Gateways](#nat-instances-x-nat-gateways)
     + [Network ACL](#network-acl)
@@ -59,7 +59,7 @@
     + [Connections to AWS](#connections-to-aws)
     + [Global Accelerator](#global-accelerator)
     + [VPC Endpoints](#vpc-endpoints)
-    + [[Penetration Testing](https://aws.amazon.com/security/penetration-testing/)](#-penetration-testing--https---awsamazoncom-security-penetration-testing--)
+    + [[Penetration Testing]()](#-penetration-testing---)
     + [AWS Private Link](#aws-private-link)
     + [AWS Transit Gateway](#aws-transit-gateway)
     + [AWS VPN CloudHub](#aws-vpn-cloudhub)
@@ -72,7 +72,7 @@
     + [Cloud Formation](#cloud-formation)
     + [Elastic Beanstalk](#elastic-beanstalk)
   * [Databases](#databases)
-    + [[RDS](https://aws.amazon.com/rds/)](#-rds--https---awsamazoncom-rds--)
+    + [RDS](#rds)
       - [Scaling your DB instance](#scaling-your-db-instance)
       - [RDS Multi-AZ](#rds-multi-az)
       - [RDS Read Replicas](#rds-read-replicas)
@@ -84,7 +84,7 @@
       - [RDS Monitoring](#rds-monitoring)
       - [Aurora](#aurora)
     + [Dynamo DB](#dynamo-db)
-      - [[Pricing](https://aws.amazon.com/dynamodb/pricing/)](#-pricing--https---awsamazoncom-dynamodb-pricing--)
+      - [Pricing](#pricing-1)
     + [Redshift](#redshift)
     + [Elasticache](#elasticache)
     + [Database Migration Service (DMS)](#database-migration-service--dms-)
@@ -187,7 +187,8 @@
     - If message is processed before the visibility timeout expires, then the message is deleted from the queue
     - If message is not processed within the visibility timeout period, then the message will become visible again and another reader will process it -- *this could result in the same message being delivered twice*
 
-### [Long Polling vs Short Polling](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-short-and-long-polling.html)
+### Long Polling vs Short Polling
+- [SQS Short and Long Polling](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-short-and-long-polling.html)
 - With **short polling**, the `ReceiveMessage` request queries only a subset of the servers (based on a weighted random distribution) to find messages that are available to include in the response
     - Amazon SQS sends the response right away, even if the query found no messages
 - **Short polling** occurs when the `WaitTimeSeconds` parameter of a `ReceiveMessage` request is set to 0 in one of two ways:
@@ -402,7 +403,7 @@
     - Get data by rows and columns using SQL
     - Save money on data transfer and increase speed
 
-### [Accessing content in S3](https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingBucket.html#access-bucket-intro)
+### Accessing content in S3
 - There are 4 different URLs styles that it can be used to access content in S3
     - [The Virtual Hosted Style URL](https://docs.aws.amazon.com/AmazonS3/latest/dev/VirtualHosting.html#virtual-hosted-style-access)
         - `https://<BUCKET_NAME>.s3.<AWS_REGION>.amazonaws.com/<OBJECT_KEY_NAME>`
@@ -536,7 +537,7 @@ Constraints – If your request includes a constraint such as a launch group or 
 - Security Groups evaluate all rules before deciding whether to allow traffic
 - Security Groups operate at the instance level.
 
-### [EBS - Elastic Block Storage](https://aws.amazon.com/ebs/)
+### EBS - Elastic Block Storage
 - [FAQs](https://aws.amazon.com/ebs/faqs/)
 - Like a virtual HD on the cloud
 
@@ -596,7 +597,7 @@ Constraints – If your request includes a constraint such as a launch group or 
     - Network device that you can attach to your Amazon EC2 instance to accelerate High Performance Computing (HPC) and machine learning applications
     - EFA provides lower and more consistent latency and higher throughput than the TCP transport traditionally used in cloud-based HPC systems
 
-### [Cloud Watch](https://aws.amazon.com/cloudwatch/)
+### Cloud Watch
 *Monitoring service to monitor AWS resources and applications*
 - [FAQs](https://aws.amazon.com/cloudwatch/faqs/)
 - Monitor performance
@@ -612,7 +613,7 @@ Constraints – If your request includes a constraint such as a launch group or 
     - CloudTrail is a web service that records activity made on your account and delivers log files to your Amazon S3 bucket
     - Monitors and logs AWS API calls
 
-### [EFS - Elastic File System](https://aws.amazon.com/efs/)
+### EFS - Elastic File System
 - [FAQs](https://aws.amazon.com/efs/faq/)
 - EFS provides a file system interface and file system access semantics (such as strong consistency and file locking)
 - Supports thousands of connections simultaneously
@@ -629,7 +630,7 @@ Constraints – If your request includes a constraint such as a launch group or 
         - Encryption keys are managed by KMS
     - Data encryption in transit uses TLS 1.2 to encrypt data sent between your clients and EFS file systems
 
-### [FSx](https://aws.amazon.com/fsx/)
+### FSx
 - FSx for Windows
     - [FAQs](https://aws.amazon.com/fsx/windows/faqs/)
     - Provides fully managed, highly reliable file storage that is accessible over the industry-standard Service Message Block (SMB) protocol
@@ -641,7 +642,7 @@ Constraints – If your request includes a constraint such as a launch group or 
     - FSx for Lustre Integrates with S3
         - When linked to an S3 bucket, an FSx for Lustre file system transparently presents S3 objects as files and allows you to write changed data back to S3
 
-### [Placement Groups](https://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/placement-groups.html)
+### Placement Groups
 - When you launch a new EC2 instance, the EC2 service attempts to place the instance in such a way that all of your instances are spread out across underlying hardware to minimize correlated failures
     - You can use placement groups to influence the placement of a group of interdependent instances to meet the needs of your workload
 - Types
@@ -665,7 +666,7 @@ Constraints – If your request includes a constraint such as a launch group or 
     - Can move only *stopped* intances to placement groups
         - move/removal must be done via CLI or SDK
 
-### [WAF - Web Application Firewall](https://aws.amazon.com/waf/)
+### WAF - Web Application Firewall
 - [FAQs](https://aws.amazon.com/waf/faqs/)
 - Web application firewall that helps protect web applications from attacks by allowing you to configure rules that allow, block, or monitor (count) web requests based on conditions that you define:
     - IP addresses
@@ -740,8 +741,8 @@ Constraints – If your request includes a constraint such as a launch group or 
     - Plus, a Default SG with an allow rule 'All traffic, All protocols, All ports, from anything using this Default SG'
     - Further information: https://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/default-vpc.html
     
-### [VPC and subnet sizing for IPv4](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Subnets.html)
-The first four IP addresses and the last IP address in each subnet CIDR block cannot be used by you.
+### VPC and subnet sizing for IPv4
+[The first four IP addresses and the last IP address in each subnet CIDR block cannot be used by you https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Subnets.html).
 
 For example, in a subnet with CIDR block 10.0.0.0/24, the following five IP addresses are reserved: 
 - `10.0.0.0`: Network address
@@ -843,8 +844,8 @@ For example, in a subnet with CIDR block 10.0.0.0/24, the following five IP addr
     - Gateway endpoints
         - Gateway that you specify as a target for a route in your route table for traffic destined to a supported AWS services: S3 and DynamoDB
 
-### [Penetration Testing](https://aws.amazon.com/security/penetration-testing/)
-- Until recently customers were not permitted to conduct Penetration Testing without AWS engagement. However that has changed. There are still conditions however
+### [Penetration Testing]()
+- Until recently customers were not permitted to conduct [Penetration Testing](https://aws.amazon.com/security/penetration-testing/) without AWS engagement. However that has changed. There are still conditions however
 
 ### AWS Private Link
 - Expose service VPC to thousands of customer VPCs
@@ -913,7 +914,7 @@ For example, in a subnet with CIDR block 10.0.0.0/24, the following five IP addr
 
 ## Databases
 
-### [RDS](https://aws.amazon.com/rds/)
+### RDS
 - [FAQs](https://aws.amazon.com/rds/faqs/)
 - RDS is a managed service that makes it easy to set up, operate, and scale a relational DB in the cloud
     - MySQL, MariaDB, Oracle, SQL Server, or PostgreSQL
@@ -1159,7 +1160,7 @@ For example, in a subnet with CIDR block 10.0.0.0/24, the following five IP addr
     - Control access with IAM policies and roles
     - Fine-grained access: IAM policies that allow access to parts of tables
 
-#### [Pricing](https://aws.amazon.com/dynamodb/pricing/)
+#### Pricing
 - There will always be a charge for provisioning read and write capacity and the storage of data within DynamoDB
 - There is no charge for the transfer of data into DynamoDB, providing you stay within a single region (if you cross regions, you will be charged at both ends of the transfer.) 
 - There is no charge for the actual number of tables you can create in DynamoDB, providing the RCU and WCU are set to 0, however in practice you cannot set this to anything less than 1 so there always be a nominal fee associated with each table. Further information: 
