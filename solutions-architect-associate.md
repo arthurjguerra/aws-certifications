@@ -491,6 +491,16 @@ Constraints – If your request includes a constraint such as a launch group or 
     - Can now be encrypted
 - Additional volumes can be encrypted
 
+### Autoscaling And Proactive Scaling
+- Proactive scaling 
+    - Either **cyclic (weekly / daily / monthly)** or **event based (black friday sale)** 
+    - It's when you know there's going to be an increase in traffic so you set your instances to scale
+    - Setup by you, whereby you change, for example, the number of your minimum instances from say 1 to maybe 5 for a period as you know there will be high demand (black friday)
+- Autoscaling is demand based, it will wait until there is a trigger based on metrics before scaling up and then down again when demand drops
+    - Pre-configured by you to automatically create more instances as, for example, your instance cpu usage exceeds 80%
+    - It will create new instances up to the maximum you specified (example: minimum 1 instance, maximum 10 instances)
+    - Also you can set a trigger whereby if the load decreases, which can be seem by your cpu usage dropping below 25% for an instance then it will automatically terminate instances
+
 ### EC2 Hibernate
 - Preserves the in-memory RAM on persistent storage (EBS)
 - Much faster to boot up because you do not need to reload the OS
