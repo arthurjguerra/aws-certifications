@@ -806,6 +806,10 @@ For example, in a subnet with CIDR block 10.0.0.0/24, the following five IP addr
 - Security groups act like a firewall at the instance level, whereas network ACLs are an additional layer of security that act at the subnet level
 
 ### VPC Flow Logs
+- Once enabled for a particular VPC, VPC subnet, or Elastic Network Interface (ENI), relevant network traffic will be logged to CloudWatch Logs for storage and analysis by your own applications or third-party tools
+- The information captured includes information about:
+    - Allowed and denied traffic (based on security group and network ACL rules)
+    - Source and destination IP addresses, ports, the IANA protocol number, packet and byte counts, a time interval during which the flow was observed, and an action (ACCEPT or REJECT)
 - Cannot enable flow logs for VPCs that are peered with your VPC unless the peer VPC is in your account
 - Can tag flow logs
 - Once a flow log is created, it cannot be changed
