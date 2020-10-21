@@ -683,6 +683,20 @@ Constraints – If your request includes a constraint such as a launch group or 
     - If a request meets a condition defined in your rules, AWS WAF instructs the underlying service to either block or allow the request based on the action you define
 - Layer 7
 
+### Dedicated Hosts
+- [FAQs](https://aws.amazon.com/ec2/dedicated-hosts/faqs/)
+- An Amazon EC2 Dedicated Host is a physical server with EC2 instance capacity fully dedicated for your use
+- Allow you to use your eligible software licenses from vendors such as Microsoft and Oracle on Amazon EC2, so that you get the flexibility and cost effectiveness of using your own licenses, but with the resiliency, simplicity and elasticity of AWS
+- Bring your own licenses (BYOL)
+    - One-time onboarding set up in AWS License Manager
+    - Step 1: Define licensing rules for software licenses, such as Windows Server and SQL Server, that you want bring to AWS
+    - Step 2: Specify your preferences for managing the underlying hosts. For example, you can define how to allocate and release hosts within the group, which licensing rules to use, and what instance types are allowed.
+    - Step 3: (optional) You can share the host management preferences and licensing rules across your organizational accounts
+- Pricing
+    - **On-Demand**, where you have the flexibility to scale up and down the number of Dedicated Hosts allocated to your account and only pay for the hours those Dedicated Hosts were allocated to your account
+    - **Reservation**, where you can purchase and assign a Reservation to a Dedicated Host and benefit from a lower rate over the term compared to On-Demand. Reservations can save you up to 70% on your On-Demand costs over the term
+    - **Savings Plans**, which is a new flexible pricing model that will help you lower your bill by making a commitment to a consistent amount of compute usage (measured in $/hour) instead of making commitments to specific hosts. Savings Plans offer significant savings over On Demand, just like Reservations, but automatically reduce your bills on compute usage across any AWS region, even as usage changes
+    
 ## DNS
 - [Limitations](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/DNSLimitations.html#limits-api-entities-domains)
 - ELBs do not have a pre-defined IPv4 address
