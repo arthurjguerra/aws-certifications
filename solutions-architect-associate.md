@@ -703,13 +703,11 @@ Constraints – If your request includes a constraint such as a launch group or 
     - You can resolve to them using a DNS name
 - [Common DNS types](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/ResourceRecordTypes.html)
     - SOA, NS, A, CNAME, MX, PTR
-- ALIAS record set is different from CNAME records
-    - CNAME (canonical name): resolve one domain to another
-    - CNAME cannot be used for naked domain names (zone apex record)
-        - Cannot have a CNAME for http://acloud.guru (it'd have to be an ALIAS record)
-    - *Always choose ALIAS over CNAME records in exam questions*
-    - Alias Records have special functions that are not present in other DNS servers. Their main function is to provide special functionality and integration into AWS services. Unlike CNAME records, they can also be used at the Zone Apex, where CNAME records cannot. Alias Records can also point to AWS Resources that are hosted in other accounts by manually entering the ARN Further information: https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/ResourceRecordTypes.htmlhttps://docs.aws.amazon.com/Route53/latest/DeveloperGuide/resource-record-sets-choosing-alias-non-alias.htmlhttps://tools.ietf.org/html/rfc2181https://tools.ietf.org/html/rfc1034
-- You can buy domain names directly from AWS
+- ALIAS vs CNAME records
+    - Both point to another DNS record
+    - Alias records let you route traffic to selected AWS resources, such as CloudFront distributions and Amazon S3 buckets. They also let you route traffic from one record in a hosted zone to another record
+    - Unlike a CNAME record, you can create an alias record at the top node of a DNS namespace, also known as the **zone apex**
+        - For example, if you register the DNS name `example.com`, the zone apex is `example.com`. You cannot create a CNAME record for `example.com`, but you can create an alias record for `example.com` that routes traffic to `www.example.com`
 
 ### Routing Policies
 - Simple
