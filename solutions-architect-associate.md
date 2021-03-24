@@ -208,9 +208,25 @@ Individual Amazon S3 objects can range in size from a minimum of 0 bytes to a ma
 
 Amazon S3 offers a range of storage classes designed for different use cases:
 
-- **S3 Standard** for general-purpose storage of frequently accessed data (99.99% availability,); 
-- **S3 Intelligent-Tiering** for data with unknown or changing access patterns; 
-- **S3 Standard-Infrequent Access (S3 Standard-IA)** - 99.9% availability -, and **S3 One Zone-Infrequent Access (S3 One Zone-IA)** - 99.5% availability - for long-lived, but less frequently accessed data; 
+- **S3 Standard** 
+  - Used for general-purpose storage of frequently accessed data (99.99% availability,); 
+- **S3 Intelligent-Tiering** 
+  - Used for data with unknown or changing access patterns;
+  - It is designed to optimize storage costs by automatically moving data to the most cost-effective tier. It monitors access patterns and moves objects that have not been accessed in 30 consecutive days to the Infrequent Access tier. Then, S3 Intelligent-Tiering automatically moves these objects that have not been accessed for 90 consecutive days to the Archive tier and finally after 180 consecutive days of no access to the Deep Archive Access tier. If the objects are accessed later, they are moved back to the Frequent Access Tier.
+  - New object -> Frequent Access Tier (30 days) -> Infrequent Access Tier (90 days) -> Archive Tier (180 days) -> Deep Archive Tier
+  - 11 9's durability
+  - S3 Intelligent-Tiering charges you for monthly storage, requests, and data transfer, and charges a small monthly fee for monitoring and automation per object. The S3 Intelligent-Tiering storage class stores objects in four storage access tiers: an Frequent Access tier priced at S3 Standard storage rates, an Infrequent Access tier priced at S3 Standard-Infrequent Access storage rates, an Archive Access tier priced at S3 Glacier storage rates, and a Deep Archive Access tier priced at S3 Glacier Deep Archive storage rates.
+  - To access an object in the Archive or Deep Archive Access tiers, you need to issue a Restore request and the object will begin moving back to the Frequent Access tier, all within the S3 Intelligent-Tiering storage class. Objects in the Archive Access Tier are moved to the Frequent Access tier in 3-5 hours, objects in the Deep Archive Access tier are moved to the Frequent Access tier within 12 hours. Once the object is in the Frequent Access tier, you can issue a GET request to retrieve the object.
+  - Objects smaller than 128KB are not eligible for auto-tiering and will always be stored at the frequent access tier rate. For each object archived to the archive access tier or deep archive access tier in S3 Intelligent-Tiering, Amazon S3 uses 8 KB of storage for the name of the object and other metadata (billed at S3 Standard storage rates) and 32 KB of storage for index and related metadata (billed at S3 Glacier and S3 Glacier Deep Archive storage rates).
+- **S3 Standard-Infrequent Access (S3 Standard-IA)** 
+ - Used for data that is accessed less frequently but requires reapid access when needed
+ - Combination of low cost and high performance = ideal for long-term storage, backups, and data store for disaster recovery
+ - Set at the object level and can exist in the same bucket as the S3 Standard of S3 One-Zone-IA classes, allowing you to use S3 lifecyly policies to automatically transition objects between storage classes without any application changes
+ - 
+ - 11 9's durability, 99.9% availability and 99.5% availability 
+ - There are 2 ways to push data into S3-Standard IA: 1) directly PUT them specifying the `STANDARD_IA` in the `x-amz-storage-class` header or 2) set lifecycle policies to transition objects from S3 standard to S3 Standard IA
+- **S3 One Zone-Infrequent Access (S3 One Zone-IA)** 
+ - 99.5% availability - for long-lived, but less frequently accessed data; 
 - **Amazon S3 Glacier (S3 Glacier)** and **Amazon S3 Glacier Deep Archive (S3 Glacier Deep Archive)** for long-term archive and digital preservation (99.99% availability);
 - **S3 Outposts** for on-premises object storage to meet data residency needs. 
 
@@ -393,8 +409,6 @@ Amazon S3 Standard, S3 Standard–IA, S3 One Zone-IA, S3 Glacier, and S3 Glacier
 As with any environment, the best practice is to have a backup and to put in place safeguards against malicious or accidental deletion. For S3 data, that best practice includes secure access permissions, Cross-Region Replication, versioning, and a functioning, regularly tested backup.
 
 Amazon S3 Standard, S3 Standard-IA, and S3 Glacier storage classes redundantly store your objects on multiple devices across a minimum of three Availability Zones (AZs) in an Amazon S3 Region before returning SUCCESS. The S3 One Zone-IA storage class stores data redundantly across multiple devices within a single AZ. These services are designed to sustain concurrent device failures by quickly detecting and repairing any lost redundancy, and they also regularly verify the integrity of your data using checksums.
-
-
 
 ############################# LEGACY #################################
 ### S3 Basics
