@@ -198,9 +198,205 @@
     - Amazon SQS sends an empty response only if the polling wait time expires
 
 ## S3
-- [![Introduction to S3](https://img.youtube.com/vi/_I14_sXHO8U/0.jpg)](https://youtu.be/_I14_sXHO8U)
 - [FAQs](https://aws.amazon.com/s3/faqs/)
 
+Amazon S3 is object storage built to store and retrieve any amount of data from anywhere on the Internet. Store any type and amount of data that you want Since Amazon S3 is highly scalable and you only pay for what you use, you can start small and grow your application as you wish, with no compromise on performance or reliability. 
+
+One advantage of using Amazon S3 over on-premises storage solutions is that it enables any developer to leverage Amazon’s own benefits of massive scale with no up-front investment or performance compromises.
+
+Individual Amazon S3 objects can range in size from a minimum of 0 bytes to a maximum of 5 terabytes. The largest object that can be uploaded in a single PUT is 5 gigabytes. For objects larger than 100 megabytes, customers should consider using the Multipart Upload capability.
+
+Amazon S3 offers a range of storage classes designed for different use cases:
+
+- **S3 Standard** for general-purpose storage of frequently accessed data (99.99% availability,); 
+- **S3 Intelligent-Tiering** for data with unknown or changing access patterns; 
+- **S3 Standard-Infrequent Access (S3 Standard-IA)** - 99.9% availability -, and **S3 One Zone-Infrequent Access (S3 One Zone-IA)** - 99.5% availability - for long-lived, but less frequently accessed data; 
+- **Amazon S3 Glacier (S3 Glacier)** and **Amazon S3 Glacier Deep Archive (S3 Glacier Deep Archive)** for long-term archive and digital preservation (99.99% availability);
+- **S3 Outposts** for on-premises object storage to meet data residency needs. 
+
+For more information, refer to the [Amazon S3 Storage Classes page](https://aws.amazon.com/s3/storage-classes/).
+
+Amazon S3 also offers capabilities to manage your data throughout its lifecycle. Once an S3 Lifecycle policy is set, your data will automatically transfer to a different storage class without any changes to your application.
+
+And yes, you can have a bucket that has different objects stored in different storage classes: several objects stored in S3 Standard, others in S3 Intelligent-Tiering, some S3 Standard-IA, and a few in S3 One Zone-IA.
+
+Amazon S3 Standard, S3 Standard-Infrequent Access, and S3 Glacier storage classes replicate data across a minimum of three AZs to protect against the loss of one entire AZ. 
+
+**Objects stored in the S3 One Zone-IA storage class are stored redundantly within a single Availability Zone in the AWS Region you select**. 
+
+For S3 on Outposts, your data is stored in your Outpost on-premises environment, unless you manually choose to transfer it to an AWS Region. 
+
+Amazon S3 is a simple key-based object store. When you store data, you assign a unique object key that can later be used to retrieve the data. Keys can be any string, and they can be constructed to mimic hierarchical attributes. 
+
+Alternatively, you can use S3 Object Tagging to organize your data across all of your S3 buckets and/or prefixes.
+
+To interact with S3, Amazon provides a simple, standards-based REST web services interface that is designed to work with any Internet-development toolkit. 
+
+Amazon S3 delivers **strong read-after-write consistency** automatically. **After a successful write of a new object or an overwrite of an existing object, any subsequent read request immediately receives the latest version of the object**. 
+
+S3 also provides strong consistency for list operations, so after a write, you can immediately perform a listing of the objects in a bucket with any changes reflected.
+
+Strong read-after-write consistency helps when you need to immediately read an object after a write. For example, strong read-after-write consistency when you often read and list immediately after writing objects. 
+
+High-performance computing workloads also benefit in that when an object is overwritten and then read many times simultaneously, strong read-after-write consistency provides assurance that the latest write is read across all reads. 
+
+These applications automatically and immediately benefit from strong read-after-write consistency. S3 strong consistency also reduces costs by removing the need for extra infrastructure to provide strong consistency.  
+
+With Amazon S3, you pay only for what you use. There is no minimum fee. You can estimate your monthly bill using the AWS Pricing Calculator.
+
+Billing prices are based on:
+- The location of your bucket
+- Data Tranfers
+- Storage Used
+- Data Requests
+- Data Retrieval
+
+Prices vary depending on which Amazon S3 Region you choose. AWS charges less where our costs are less. For example, our costs are lower in the US East (Northern Virginia) Region than in the US West (Northern California) Region.
+
+**There is no Data Transfer charge for data transferred within an Amazon S3 Region via a COPY request. Data transferred via a COPY request between AWS Regions is charged.**
+
+There is no Data Transfer charge for data transferred between Amazon EC2 and Amazon S3 within the same region, for example, data transferred within the US East (Northern Virginia) Region. However, data transferred between Amazon EC2 and Amazon S3 across all other regions is charged at rates specified on the Amazon S3 pricing page, for example, data transferred between Amazon EC2 US East (Northern Virginia) and Amazon S3 US West (Northern California).
+
+You pay for all bandwidth into and out of Amazon S3, except for the following:
+- Data transferred in from the internet.
+- Data transferred out to an Amazon Elastic Compute Cloud (Amazon EC2) instance, when the instance is in the same AWS Region as the S3 bucket (including to a different account in the same AWS region).
+- Data transferred out to Amazon CloudFront (CloudFront).
+
+Amazon S3 Data Transfer Out pricing applies whenever data is read from any of your buckets from a location **outside of the given Amazon S3 Region**. Data Transfer Out pricing rate tiers take into account your aggregate Data Transfer Out from a given region to the Internet across Amazon EC2, Amazon S3, Amazon RDS, Amazon SimpleDB, Amazon SQS, Amazon SNS and Amazon VPC.
+
+For example, assume you transfer 1TB of data out of Amazon S3 from the US East (Northern Virginia) Region to the Internet every day for a given 31-day month. Assume you also transfer 1TB of data out of an Amazon EC2 instance from the same region to the Internet over the same 31-day month.
+
+Your aggregate Data Transfer would be 62 TB (31 TB from Amazon S3 and 31 TB from Amazon EC2). This equates to 63,488 GB (62 TB * 1024 GB/TB).
+
+This usage volume crosses three different volume tiers. The monthly Data Transfer Out fee is calculated below assuming the Data Transfer occurs in the US East (Northern Virginia) Region:
+10 TB Tier: 10,239 GB (10×1024 GB/TB – 1 (free)) x $0.09 = $921.51
+10 TB to 50 TB Tier: 40,960 GB (40×1024) x $0.085 = $3,481.60
+50 TB to 150 TB Tier: 12,288 GB (remainder) x $0.070 = $860.16
+
+Total Data Transfer Out Fee = $921.51+ $3,481.60 + $860.16= $5,263.27
+
+The volume of storage billed in a month is based on the average storage used throughout the month. This includes all object data and metadata stored in buckets that you created under your AWS account. We measure your storage usage in “TimedStorage-ByteHrs,” which are added up at the end of the month to generate your monthly charges.
+
+For example, Assume you store 100GB (107,374,182,400 bytes) of data in Amazon S3 Standard in your bucket for 15 days in March, and 100TB (109,951,162,777,600 bytes) of data in Amazon S3 Standard for the final 16 days in March.
+
+At the end of March, you would have the following usage in Byte-Hours: Total Byte-Hour usage = [107,374,182,400 bytes x 15 days x (24 hours / day)] + [109,951,162,777,600 bytes x 16 days x (24 hours / day)] = 42,259,901,212,262,400 Byte-Hours.
+
+Let's convert this to GB-Months: 42,259,901,212,262,400 Byte-Hours / 1,073,741,824 bytes per GB / 744 hours per month = 52,900 GB-Months
+
+This usage volume crosses two different volume tiers. The monthly storage price is calculated below assuming the data is stored in the US East (Northern Virginia) Region: 50 TB Tier: 51,200 GB x $0.023 = $1,177.60 50 TB to 450 TB Tier: 1,700 GB x $0.022 = $37.40
+
+Total Storage Fee = $1,177.60 + $37.40 = $1,215.00
+
+For data requests, let's go through this example. Assume you transfer 10,000 files into Amazon S3 and transfer 20,000 files out of Amazon S3 each day during the month of March. Then, you delete 5,000 files on March 31st.
+Total PUT requests = 10,000 requests x 31 days = 310,000 requests
+Total GET requests = 20,000 requests x 31 days = 620,000 requests
+Total DELETE requests = 5,000×1 day = 5,000 requests
+
+Assuming your bucket is in the US East (Northern Virginia) Region, the Request fees are calculated below:
+310,000 PUT Requests: 310,000 requests x $0.005/1,000 = $1.55
+620,000 GET Requests: 620,000 requests x $0.004/10,000 = $0.25
+5,000 DELETE requests = 5,000 requests x $0.00 (no charge) = $0.00
+
+Amazon S3 data retrieval pricing applies for the S3 Standard-Infrequent Access (S3 Standard-IA) and S3 One Zone-IA storage classes.
+
+For example, assume in one month you retrieve 300GB of S3 Standard-IA, with 100GB going out to the Internet, 100GB going to EC2 in the same AWS region, and 100GB going to CloudFront in the same AWS Region.
+
+Your data retrieval fees for the month would be calculated as 300GB x $0.01/GB = $3.00. Note that you would also pay network data transfer fees for the portion that went out to the Internet.
+
+In addition, when version is enabled on your bucket, you pay for every object version stored in S3. Rates apply for every version of an object stored or requested. For example:
+
+1) Day 1 of the month: You perform a PUT of 4 GB (4,294,967,296 bytes) on your bucket.
+2) Day 16 of the month: You perform a PUT of 5 GB (5,368,709,120 bytes) within the same bucket using the same key as the original PUT on Day 1.
+
+When analyzing the storage costs of the above operations, please note that the 4 GB object from Day 1 is not deleted from the bucket when the 5 GB object is written on Day 15. Instead, the 4 GB object is preserved as an older version and the 5 GB object becomes the most recently written version of the object within your bucket. At the end of the month:
+
+Total Byte-Hour usage
+[4,294,967,296 bytes x 31 days x (24 hours / day)] + [5,368,709,120 bytes x 16 days x (24 hours / day)] = 5,257,039,970,304 Byte-Hours.
+
+Conversion to Total GB-Months
+5,257,039,970,304 Byte-Hours x (1 GB / 1,073,741,824 bytes) x (1 month / 744 hours) = 6.581 GB-Month
+
+Normal Amazon S3 pricing applies when your storage is accessed by another AWS Account. Alternatively, you may choose to configure your bucket as a Requester Pays bucket, in which case the requester will pay the cost of requests and downloads of your Amazon S3 data.
+
+You can get started with IPv6 on Amazon S3 by pointing your application to Amazon S3’s new "dual-stack" endpoint, which supports access over both IPv4 and IPv6. In most cases, no further configuration is required for access over IPv6, because most network clients prefer IPv6 addresses by default.
+
+### Amazon S3 Transfer Acceleration
+
+Amazon S3 Transfer Acceleration enables fast, easy, and secure transfers of files over long distances between your client and your Amazon S3 bucket. S3 Transfer Acceleration leverages Amazon CloudFront’s globally distributed AWS Edge Locations. As data arrives at an AWS Edge Location, data is routed to your Amazon S3 bucket over an optimized network path.
+
+After S3 Transfer Acceleration is enabled, you can point your Amazon S3 PUT and GET requests to the s3-accelerate endpoint domain name: *.s3-accelerate.amazonaws.com* or *.s3-accelerate.dualstack.amazonaws.com*. If you want to use standard data transfer, you can continue to use the regular endpoints.
+
+Generally, you will see more acceleration when the source is farther from the destination, when there is more available bandwidth, and/or when the object size is bigger. However, the amount of acceleration primarily depends on your available bandwidth, the distance between the source and destination, and packet loss rates on the network path.
+
+Each time you use S3 Transfer Acceleration to upload an object, we will check whether S3 Transfer Acceleration is likely to be faster than a regular Amazon S3 transfer. If we determine that S3 Transfer Acceleration is not likely to be faster than a regular Amazon S3 transfer of the same object to the same destination AWS Region, we will not charge for the use of S3 Transfer Acceleration for that transfer, and we may bypass the S3 Transfer Acceleration system for that upload.
+
+AWS Direct Connect is a good choice for customers who have a private networking requirement or who have access to AWS Direct Connect exchanges. S3 Transfer Acceleration is best for submitting data from distributed client locations over the public Internet, or where variable network conditions make throughput poor. Some AWS Direct Connect customers use S3 Transfer Acceleration to help with remote office transfers, where they may suffer from poor Internet performance.
+
+### Security
+Amazon S3 is secure by default. Upon creation, only the resource owners have access to Amazon S3 resources they create. Amazon S3 supports user authentication to control access to data. You can use access control mechanisms such as bucket policies and Access Control Lists (ACLs) to selectively grant permissions to users and groups of users. 
+
+The Amazon S3 console highlights your publicly accessible buckets, indicates the source of public accessibility, and also warns you if changes to your bucket policies or bucket ACLs would make your bucket publicly accessible. You should enable Block Public Access for all accounts and buckets that you do not want publicly accessible.
+
+You can securely upload/download your data to Amazon S3 via SSL endpoints using the HTTPS protocol. If you need extra security you can use the **Server-Side Encryption (SSE)** option to encrypt data stored at rest. You can configure your Amazon S3 buckets to automatically encrypt objects before storing them if the incoming storage requests do not have any encryption information. Alternatively, you can use your own encryption libraries to encrypt data before storing it in Amazon S3.
+
+Customers may use four mechanisms for controlling access to Amazon S3 resources: 
+- Identity and Access Management (IAM) policies
+- Bucket policies
+- Access Control Lists (ACLs)
+- Query String Authentication
+
+IAM enables organizations with multiple employees to create and manage multiple users under a single AWS account. With IAM policies, customers can grant IAM users fine-grained control to their Amazon S3 bucket or objects while also retaining full control over everything the users do. 
+
+With bucket policies, customers can define rules which apply broadly across all requests to their Amazon S3 resources, such as granting write privileges to a subset of Amazon S3 resources. Customers can also restrict access based on an aspect of the request, such as HTTP referrer and IP address. 
+
+With ACLs, customers can grant specific permissions (i.e. READ, WRITE, FULL_CONTROL) to specific users for an individual bucket or object. 
+
+With Query String Authentication, customers can create a URL to an Amazon S3 object which is only valid for a limited time.
+
+You have the following options to store sensitive data encrypted at rest in Amazon S3:
+- SSE-S3
+- SSE-C
+- SSE-KMS
+- Client library such as the Amazon S3 Encryption Client
+
+**SSE-S3** provides an integrated solution where Amazon handles key management and key protection using multiple layers of security. You should choose SSE-S3 if you prefer to have Amazon manage your keys.
+
+**SSE-C** enables you to leverage Amazon S3 to perform the encryption and decryption of your objects while retaining control of the keys used to encrypt objects. With SSE-C, you don’t need to implement or use a client-side library to perform the encryption and decryption of objects you store in Amazon S3, but you do need to manage the keys that you send to Amazon S3 to encrypt and decrypt objects. Use SSE-C if you want to maintain your own encryption keys, but don’t want to implement or leverage a client-side encryption library.
+
+**SSE-KMS** enables you to use AWS Key Management Service (AWS KMS) to manage your encryption keys. Using AWS KMS to manage your keys provides several additional benefits. With AWS KMS, there are separate permissions for the use of the master key, providing an additional layer of control as well as protection against unauthorized access to your objects stored in Amazon S3. AWS KMS provides an audit trail so you can see who used your key to access which object and when, as well as view failed attempts to access data from users without permission to decrypt the data. Also, AWS KMS provides additional security controls to support customer efforts to comply with PCI-DSS, HIPAA/HITECH, and FedRAMP industry requirements.
+
+Using an **encryption client library**, such as the Amazon S3 Encryption Client, you retain control of the keys and complete the encryption and decryption of objects client-side using an encryption library of your choice. Some customers prefer full end-to-end control of the encryption and decryption of objects; that way, only encrypted objects are transmitted over the Internet to Amazon S3. Use a client-side library if you want to maintain control of your encryption keys, are able to implement or use a client-side encryption library, and need to have your objects encrypted before they are sent to Amazon S3 for storage.
+
+Instead of accessing buckets over the Internet, you can access it using the Amazon Global network via VPC Endpoints. An Amazon VPC Endpoint for Amazon S3 is a logical entity within a VPC that allows connectivity to S3 over the Amazon global network. 
+
+There are two types of VPC endpoints for S3 – gateway VPC endpoints and interface VPC endpoints. Gateway endpoints are a gateway that you specify in your route table to access S3 from your VPC over the Amazon network. Interface endpoints extend the functionality of gateway endpoints by using private IPs to route requests to S3 from within your VPC, on-premises, or from a different AWS Region.
+
+You can limit access to your bucket from a specific Amazon VPC Endpoint or a set of endpoints using Amazon S3 bucket policies. S3 bucket policies now support a condition, aws:sourceVpce, that you can use to restrict access.
+
+AWS PrivateLink for S3 provides private connectivity between Amazon S3 and on-premises. You can provision interface VPC endpoints for S3 in your VPC to connect your on-premises applications directly to S3 over AWS Direct Connect or AWS VPN. You no longer need to use public IPs, change firewall rules, or configure an internet gateway to access S3 from on-premises.
+
+Interface VPC endpoints provision an Elastic Network Interface (ENI) in your VPC. An ENI is a logical networking component through which you can route requests to S3 over the Amazon network. You can create an interface VPC endpoint in one or more Availability Zones, spanning one or more subnets. 
+
+In each subnet that you specify, an ENI will be set up with an IP address from your private IP address pool. Requests to S3 are resolved to the private IPs assigned to the ENIs. Addressing S3 through private IP addresses in this way makes S3 directly reachable from on-premises hosts that are connected to AWS over AWS Direct Connect or AWS Virtual Private Network (VPN) via Private Virtual Interface.
+
+VPC endpoints versus AWS PrivateLink-based interface VPC endpoints: AWS recommends that you use interface VPC endpoints to access S3 from on-premises or from a VPC in another AWS Region. For resources that are accessing S3 from VPC in the same AWS Region as S3, AWS recommends using gateway VPC endpoints as they are not billed.
+
+Amazon Macie is an AI-powered security service that helps you prevent data loss by automatically discovering, classifying, and protecting sensitive data stored in Amazon S3. Amazon Macie uses machine learning to recognize sensitive data such as personally identifiable information (PII) or intellectual property, assigns a business value, and provides visibility into where this data is stored and how it is being used in your organization. Amazon Macie continuously monitors data access activity for anomalies, and delivers alerts when it detects risk of unauthorized access or inadvertent data leaks.
+
+Access Analyzer for S3 is a feature that monitors your access policies, ensuring that the policies provide only the intended access to your S3 resources. Access Analyzer for S3 evaluates your bucket access policies and enables you to discover and swiftly remediate buckets with potentially unintended access.
+
+Access Analyzer for S3 alerts you when you have a bucket that is configured to allow access to anyone on the internet or that is shared with other AWS accounts. You receive insights or ‘findings’ into the source and level of public or shared access. For example, Access Analyzer for S3 will proactively inform you if read or write access were unintendedly provided through an access control list (ACL) or bucket policy. With these insights, you can immediately set or restore the intended access policy.
+
+### Durability & Data Protection
+Amazon S3 Standard, S3 Standard–IA, S3 One Zone-IA, S3 Glacier, and S3 Glacier Deep Archive are all designed to provide 99.999999999% durability of objects over a given year.
+
+As with any environment, the best practice is to have a backup and to put in place safeguards against malicious or accidental deletion. For S3 data, that best practice includes secure access permissions, Cross-Region Replication, versioning, and a functioning, regularly tested backup.
+
+Amazon S3 Standard, S3 Standard-IA, and S3 Glacier storage classes redundantly store your objects on multiple devices across a minimum of three Availability Zones (AZs) in an Amazon S3 Region before returning SUCCESS. The S3 One Zone-IA storage class stores data redundantly across multiple devices within a single AZ. These services are designed to sustain concurrent device failures by quickly detecting and repairing any lost redundancy, and they also regularly verify the integrity of your data using checksums.
+
+
+
+############################# LEGACY #################################
 ### S3 Basics
 - Object-based storage
 - Files are stored in buckets
