@@ -200,47 +200,11 @@
 ## S3
 - [FAQs](https://aws.amazon.com/s3/faqs/)
 
+
+### General
 Amazon S3 is object storage built to store and retrieve any amount of data from anywhere on the Internet. Store any type and amount of data that you want Since Amazon S3 is highly scalable and you only pay for what you use, you can start small and grow your application as you wish, with no compromise on performance or reliability. 
 
 One advantage of using Amazon S3 over on-premises storage solutions is that it enables any developer to leverage Amazon’s own benefits of massive scale with no up-front investment or performance compromises.
-
-Individual Amazon S3 objects can range in size from a minimum of 0 bytes to a maximum of 5 terabytes. The largest object that can be uploaded in a single PUT is 5 gigabytes. For objects larger than 100 megabytes, customers should consider using the Multipart Upload capability.
-
-Amazon S3 offers a range of storage classes designed for different use cases:
-
-- **S3 Standard** 
-  - Used for general-purpose storage of frequently accessed data (99.99% availability,); 
-- **S3 Intelligent-Tiering** 
-  - Used for data with unknown or changing access patterns;
-  - It is designed to optimize storage costs by automatically moving data to the most cost-effective tier. It monitors access patterns and moves objects that have not been accessed in 30 consecutive days to the Infrequent Access tier. Then, S3 Intelligent-Tiering automatically moves these objects that have not been accessed for 90 consecutive days to the Archive tier and finally after 180 consecutive days of no access to the Deep Archive Access tier. If the objects are accessed later, they are moved back to the Frequent Access Tier.
-  - New object -> Frequent Access Tier (30 days) -> Infrequent Access Tier (90 days) -> Archive Tier (180 days) -> Deep Archive Tier
-  - 11 9's durability
-  - S3 Intelligent-Tiering charges you for monthly storage, requests, and data transfer, and charges a small monthly fee for monitoring and automation per object. The S3 Intelligent-Tiering storage class stores objects in four storage access tiers: an Frequent Access tier priced at S3 Standard storage rates, an Infrequent Access tier priced at S3 Standard-Infrequent Access storage rates, an Archive Access tier priced at S3 Glacier storage rates, and a Deep Archive Access tier priced at S3 Glacier Deep Archive storage rates.
-  - To access an object in the Archive or Deep Archive Access tiers, you need to issue a Restore request and the object will begin moving back to the Frequent Access tier, all within the S3 Intelligent-Tiering storage class. Objects in the Archive Access Tier are moved to the Frequent Access tier in 3-5 hours, objects in the Deep Archive Access tier are moved to the Frequent Access tier within 12 hours. Once the object is in the Frequent Access tier, you can issue a GET request to retrieve the object.
-  - Objects smaller than 128KB are not eligible for auto-tiering and will always be stored at the frequent access tier rate. For each object archived to the archive access tier or deep archive access tier in S3 Intelligent-Tiering, Amazon S3 uses 8 KB of storage for the name of the object and other metadata (billed at S3 Standard storage rates) and 32 KB of storage for index and related metadata (billed at S3 Glacier and S3 Glacier Deep Archive storage rates).
-- **S3 Standard-Infrequent Access (S3 Standard-IA)** 
- - Used for data that is accessed less frequently but requires reapid access when needed
- - Combination of low cost and high performance = ideal for long-term storage, backups, and data store for disaster recovery
- - Set at the object level and can exist in the same bucket as the S3 Standard of S3 One-Zone-IA classes, allowing you to use S3 lifecyly policies to automatically transition objects between storage classes without any application changes
- - 
- - 11 9's durability, 99.9% availability and 99.5% availability 
- - There are 2 ways to push data into S3-Standard IA: 1) directly PUT them specifying the `STANDARD_IA` in the `x-amz-storage-class` header or 2) set lifecycle policies to transition objects from S3 standard to S3 Standard IA
-- **S3 One Zone-Infrequent Access (S3 One Zone-IA)** 
- - 99.5% availability - for long-lived, but less frequently accessed data; 
-- **Amazon S3 Glacier (S3 Glacier)** and **Amazon S3 Glacier Deep Archive (S3 Glacier Deep Archive)** for long-term archive and digital preservation (99.99% availability);
-- **S3 Outposts** for on-premises object storage to meet data residency needs. 
-
-For more information, refer to the [Amazon S3 Storage Classes page](https://aws.amazon.com/s3/storage-classes/).
-
-Amazon S3 also offers capabilities to manage your data throughout its lifecycle. Once an S3 Lifecycle policy is set, your data will automatically transfer to a different storage class without any changes to your application.
-
-And yes, you can have a bucket that has different objects stored in different storage classes: several objects stored in S3 Standard, others in S3 Intelligent-Tiering, some S3 Standard-IA, and a few in S3 One Zone-IA.
-
-Amazon S3 Standard, S3 Standard-Infrequent Access, and S3 Glacier storage classes replicate data across a minimum of three AZs to protect against the loss of one entire AZ. 
-
-**Objects stored in the S3 One Zone-IA storage class are stored redundantly within a single Availability Zone in the AWS Region you select**. 
-
-For S3 on Outposts, your data is stored in your Outpost on-premises environment, unless you manually choose to transfer it to an AWS Region. 
 
 Amazon S3 is a simple key-based object store. When you store data, you assign a unique object key that can later be used to retrieve the data. Keys can be any string, and they can be constructed to mimic hierarchical attributes. 
 
@@ -258,6 +222,124 @@ High-performance computing workloads also benefit in that when an object is over
 
 These applications automatically and immediately benefit from strong read-after-write consistency. S3 strong consistency also reduces costs by removing the need for extra infrastructure to provide strong consistency.  
 
+Individual Amazon S3 objects can range in size from a minimum of 0 bytes to a maximum of 5 terabytes. The largest object that can be uploaded in a single PUT is 5 gigabytes. For objects larger than 100 megabytes, customers should consider using the Multipart Upload capability.
+
+### Storage Classes
+
+Amazon S3 offers a range of storage classes designed for different use cases:
+
+#### S3 Standard
+Used for general-purpose storage of frequently accessed data (99.99% availability,); 
+
+#### S3 Intelligent-Tiering
+
+Used for data with unknown or changing access patterns;
+
+It is designed to optimize storage costs by automatically moving data to the most cost-effective tier. It monitors access patterns and moves objects that have not been accessed in 30 consecutive days to the Infrequent Access tier. Then, S3 Intelligent-Tiering automatically moves these objects that have not been accessed for 90 consecutive days to the Archive tier and finally after 180 consecutive days of no access to the Deep Archive Access tier. If the objects are accessed later, they are moved back to the Frequent Access Tier.
+
+New object -> Frequent Access Tier (30 days) -> Infrequent Access Tier (90 days) -> Archive Tier (180 days) -> Deep Archive Tier
+
+11 9's durability
+
+S3 Intelligent-Tiering charges you for monthly storage, requests, and data transfer, and charges a small monthly fee for monitoring and automation per object. The S3 Intelligent-Tiering storage class stores objects in four storage access tiers: an Frequent Access tier priced at S3 Standard storage rates, an Infrequent Access tier priced at S3 Standard-Infrequent Access storage rates, an Archive Access tier priced at S3 Glacier storage rates, and a Deep Archive Access tier priced at S3 Glacier Deep Archive storage rates.
+
+To access an object in the Archive or Deep Archive Access tiers, you need to issue a Restore request and the object will begin moving back to the Frequent Access tier, all within the S3 Intelligent-Tiering storage class. Objects in the Archive Access Tier are moved to the Frequent Access tier in 3-5 hours, objects in the Deep Archive Access tier are moved to the Frequent Access tier within 12 hours. Once the object is in the Frequent Access tier, you can issue a GET request to retrieve the object.
+
+Objects smaller than 128KB are not eligible for auto-tiering and will always be stored at the frequent access tier rate. For each object archived to the archive access tier or deep archive access tier in S3 Intelligent-Tiering, Amazon S3 uses 8 KB of storage for the name of the object and other metadata (billed at S3 Standard storage rates) and 32 KB of storage for index and related metadata (billed at S3 Glacier and S3 Glacier Deep Archive storage rates).
+
+#### S3 Standard-Infrequent Access (S3 Standard-IA) 
+Used for data that is accessed less frequently but requires reapid access when needed
+
+Combination of low cost and high performance = ideal for long-term storage, backups, and data store for disaster recovery
+
+Set at the object level and can exist in the same bucket as the S3 Standard of S3 One-Zone-IA classes, allowing you to use S3 lifecyly policies to automatically transition objects between storage classes without any application changes
+
+11 9's durability, 99.9% availability and 99.5% availability
+
+There are 2 ways to push data into S3-Standard IA: 1) directly PUT them specifying the `STANDARD_IA` in the `x-amz-storage-class` header or 2) set lifecycle policies to transition objects from S3 standard to S3 Standard IA
+
+#### S3 One Zone-Infrequent Access (S3 One Zone-IA)
+Objects are stored in a single availability zone
+
+S3 One Zone-IA storage redundantly stores data within that single Availability Zone to deliver storage at 20% less cost than geographically redundant S3 Standard-IA storage, which stores data redundantly across multiple geographically separate Availability Zones
+
+S3 One Zone-IA offers a 99% available SLA and is also designed for 11 9’s of durability within the Availability Zone. But, unlike the S3 Standard and S3 Standard-IA storage classes, data stored in the S3 One Zone-IA storage class will be lost in the event of Availability Zone destruction
+
+S3 One Zone-IA is best suited for easily re-creatable data such as backup and disaster recovery copies 
+
+Like S3 Standard-IA, S3 One Zone-IA charges for the amount of storage per month, bandwidth, requests, early delete and small object fees, and a data retrieval fee. Amazon S3 One Zone-IA storage is 20% cheaper than Amazon S3 Standard-IA for storage by month, and shares the same pricing for bandwidth, requests, early delete and small object fees, and the data retrieval fee
+
+As with S3 Standard-Infrequent Access, if you delete a S3 One Zone-IA object within 30 days of creating it, you will incur an early delete charge. For example, if you PUT an object and then delete it 10 days later, you are still charged for 30 days of storage
+
+Like S3 Standard-IA, S3 One Zone-IA storage class has a minimum object size of 128KB. Objects smaller than 128KB in size will incur storage charges as if the object were 128KB
+
+#### Amazon S3 Glacier (S3 Glacier)
+Extremely low-cost storage service for data archival. Amazon S3 Glacier stores data for as little as $0.004 per gigabyte per month.
+
+To keep costs low yet suitable for varying retrieval needs, Amazon S3 Glacier provides three options for access to archives, ranging from a few minutes to several hours
+
+You can use Lifecycle rules to automatically archive sets of Amazon S3 objects to S3 Glacier based on object age. Also, S3 PUT to Glacier allows you to use S3 APIs to upload to the S3 Glacier storage class on an object-by-object basis, directly
+
+To retrieve Amazon S3 data stored in the S3 Glacier storage class, initiate a retrieval request using the Amazon S3 APIs or Console. The retrieval request creates a temporary copy of your data in the S3 RRS or S3 Standard-IA storage class while leaving the archived data intact in S3 Glacier. You can specify the amount of time in days for which the temporary copy is stored in S3. You can then access your temporary copy from S3 through an Amazon S3 GET request on the archived object.
+
+With restore notifications, you can now be notified with an S3 Event Notification when an object has successfully restored from S3 Glacier and the temporary copy is made available to you. The bucket owner (or others, as permitted by an IAM policy) can arrange for notifications to be issued to Amazon Simple Queue Service (SQS) or Amazon Simple Notification Service (SNS). Notifications can also be delivered to AWS Lambda for processing by a Lambda function.
+
+To restore objects, Amazon S3 first retrieves the requested data from S3 Glacier, and then creates a temporary copy of the requested data in S3 (which typically takes a few minutes). The access time of your request depends on the retrieval option you choose: Expedited, Standard, or Bulk retrievals. 
+
+For all but the largest objects (250MB+), data accessed using Expedited retrievals are typically made available within 1-5 minutes. Objects retrieved using Standard retrievals typically complete between 3-5 hours. Bulk retrievals typically complete within 5-12 hours.
+
+You can also upgrade an in-progress request to a faster restore speed. S3 Restore Speed Upgrade is an override of an in-progress restore to a faster restore tier if access to the data becomes urgent. 
+
+You can use S3 Restore Speed Upgrade by issuing another restore request to the same object with a new (faster) "tier" job parameter. You pay for each restore request and the per-GB retrieval charge for the faster restore tier. For example, if you issued a Bulk tier restore and then issued an S3 Restore Speed Upgrade request at the Expedited tier to override the in-progress Bulk tier restore, you would be charged for two requests and the per-GB retrieval charge for the Expedited tier.
+
+Amazon S3 Glacier storage class is priced based on monthly storage capacity and the number of  Lifecycle transition requests into Amazon S3 Glacier. Objects that are archived to Amazon S3 Glacier have a minimum of 90 days of storage, and objects deleted before 90 days incur a pro-rated charge equal to the storage charge for the remaining days.
+
+Amazon S3 Glacier is designed for use cases where data is retained for months, years, or decades. Deleting data that is archived to Amazon S3 Glacier is free if the objects being deleted have been archived in Amazon S3 Glacier for 90 days or longer. If an object archived in Amazon S3 Glacier is deleted or overwritten within 90 days of being archived, there will be an early deletion fee. This fee is prorated. If you delete 1GB of data 30 days after uploading it, you will be charged an early deletion fee for 60 days of Amazon S3 Glacier storage. If you delete 1 GB of data after 60 days, you will be charged for 30 days of Amazon S3 Glacier storage.
+
+There are three ways to restore data from Amazon S3 Glacier – Expedited, Standard, and Bulk Retrievals - and each has a different per-GB retrieval fee and per-archive request fee (i.e. requesting one archive counts as one request).
+
+#### Amazon S3 Glacier Deep Archive (S3 Glacier Deep Archive)
+S3 Glacier Deep Archive is a new storage class that provides secure and durable object storage for long-term retention of data that is accessed once or twice in a year. 
+
+From just $0.00099 per GB-month (less than one-tenth of one cent, or about $1 per TB-month), S3 Glacier Deep Archive offers the lowest cost storage in the cloud, at prices significantly lower than storing and maintaining data in on-premises magnetic tape libraries or archiving data off-site.
+
+S3 Glacier Deep Archive is an ideal storage class to provide offline protection of your company’s most important data assets, or when long-term data retention is required for corporate policy, contractual, or regulatory compliance requirements.
+
+S3 Glacier Deep Archive vs S3 Glacier: Choose S3 Glacier when you need to retrieve archived data typically in 1-5 minutes using Expedited retrievals. S3 Glacier Deep Archive, in contrast, is designed for colder data that is very unlikely to be accessed, but still requires long-term, durable storage. S3 Glacier Deep Archive is up to 75% less expensive than S3 Glacier and provides retrieval within 12 hours using the Standard retrieval speed. You may also reduce retrieval costs by selecting Bulk retrieval, which will return data within 48 hours.
+
+11 9's durability
+
+The easiest way to store data in S3 Glacier Deep Archive is to use the S3 API to upload data directly. Just specify "S3 Glacier Deep Archive" as the storage class.
+
+You can also begin using S3 Glacier Deep Archive by creating policies to migrate data using S3 Lifecycle, which provides the ability to define the lifecycle of your object and reduce your cost of storage. These policies can be set to migrate objects to S3 Glacier Deep Archive based on the age of the object. You can specify the policy for an S3 bucket, or for specific prefixes. 
+
+To retrieve data stored in S3 Glacier Deep Archive, initiate a “Restore” request using the Amazon S3 APIs or the Amazon S3 Management Console. The Restore creates a temporary copy of your data in the S3 One Zone-IA storage class while leaving the archived data intact in S3 Glacier Deep Archive. You can specify the amount of time in days for which the temporary copy is stored in S3. You can then access your temporary copy from S3 through an Amazon S3 GET request on the archived object.
+
+When restoring an archived object, you can specify one of the following options in the Tier element of the request body: Standard is the default tier and lets you access any of your archived objects within 12 hours, and Bulk lets you retrieve large amounts, even petabytes of data inexpensively and typically completes within 48 hours.
+
+S3 Glacier Deep Archive storage is priced based on the amount of data you store in GBs, the number of PUT/lifecycle transition requests, retrievals in GBs, and number of restore requests. This pricing model is similar to S3 Glacier.
+
+S3 Glacier Deep Archive is designed for long-lived but rarely accessed data that is retained for 7-10 years or more. Objects that are archived to S3 Glacier Deep Archive have a minimum of 180 days of storage, and objects deleted before 180 days incur a pro-rated charge equal to the storage charge for the remaining days. 
+
+S3 Glacier Deep Archive has a minimum billable object storage size of 40KB. Objects smaller than 40KB in size may be stored but will be charged for 40KB of storage.
+
+#### S3 Outposts
+Used for on-premises object storage to meet data residency needs. 
+
+For more information, refer to the [Amazon S3 Storage Classes page](https://aws.amazon.com/s3/storage-classes/).
+
+Amazon S3 also offers capabilities to manage your data throughout its lifecycle. Once an S3 Lifecycle policy is set, your data will automatically transfer to a different storage class without any changes to your application.
+
+And yes, you can have a bucket that has different objects stored in different storage classes: several objects stored in S3 Standard, others in S3 Intelligent-Tiering, some S3 Standard-IA, and a few in S3 One Zone-IA.
+
+Amazon S3 Standard, S3 Standard-Infrequent Access, and S3 Glacier storage classes replicate data across a minimum of three AZs to protect against the loss of one entire AZ. 
+
+**Objects stored in the S3 One Zone-IA storage class are stored redundantly within a single Availability Zone in the AWS Region you select**. 
+
+For S3 on Outposts, your data is stored in your Outpost on-premises environment, unless you manually choose to transfer it to an AWS Region. 
+
+### Pricing
+
 With Amazon S3, you pay only for what you use. There is no minimum fee. You can estimate your monthly bill using the AWS Pricing Calculator.
 
 Billing prices are based on:
@@ -274,9 +356,9 @@ Prices vary depending on which Amazon S3 Region you choose. AWS charges less whe
 There is no Data Transfer charge for data transferred between Amazon EC2 and Amazon S3 within the same region, for example, data transferred within the US East (Northern Virginia) Region. However, data transferred between Amazon EC2 and Amazon S3 across all other regions is charged at rates specified on the Amazon S3 pricing page, for example, data transferred between Amazon EC2 US East (Northern Virginia) and Amazon S3 US West (Northern California).
 
 You pay for all bandwidth into and out of Amazon S3, except for the following:
-- Data transferred in from the internet.
-- Data transferred out to an Amazon Elastic Compute Cloud (Amazon EC2) instance, when the instance is in the same AWS Region as the S3 bucket (including to a different account in the same AWS region).
-- Data transferred out to Amazon CloudFront (CloudFront).
+- Data transferred in from the Internet
+- Data transferred out to an Amazon Elastic Compute Cloud (Amazon EC2) instance, when the instance is in the same AWS Region as the S3 bucket (including to a different account in the same AWS region)
+- Data transferred out to Amazon CloudFront (CloudFront)
 
 Amazon S3 Data Transfer Out pricing applies whenever data is read from any of your buckets from a location **outside of the given Amazon S3 Region**. Data Transfer Out pricing rate tiers take into account your aggregate Data Transfer Out from a given region to the Internet across Amazon EC2, Amazon S3, Amazon RDS, Amazon SimpleDB, Amazon SQS, Amazon SNS and Amazon VPC.
 
