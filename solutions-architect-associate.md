@@ -11,9 +11,15 @@
 - [AWS Whitepapers](https://aws.amazon.com/whitepapers/)
 - [FreeCodeCamp YouTube Series](https://www.youtube.com/watch?v=Ia-UEYYR44s)
 
-## S3
-- [FAQs](https://aws.amazon.com/s3/faqs/)
+## Exam Topics
+- AWS Direct Connect: direct, private connection from your on-premises data center to AWS, letting you establish a 1-gigabit or 10-gigabit dedicated network connection using Ethernet fiber-optic cable
+- VPC Endpoints: The important concept that you have to understand in this scenario is that your VPC and your S3 bucket are located within the larger AWS network. However, the traffic coming from your VPC to your S3 bucket is traversing the public Internet by default. To better protect your data in transit, you can set up a VPC endpoint so the incoming traffic from your VPC will not pass through the public Internet, but instead through the private AWS network. A VPC endpoint enables you to privately connect your VPC to supported AWS services and VPC endpoint services powered by PrivateLink without requiring an Internet gateway, NAT device, VPN connection, or AWS Direct Connect connection. Instances in your VPC do not require public IP addresses to communicate with resources in the service. Traffic between your VPC and the other services does not leave the Amazon network. Endpoints are virtual devices. They are horizontally scaled, redundant, and highly available VPC components that allow communication between instances in your VPC and services without imposing availability risks or bandwidth constraints on your network traffic. **There are two types of VPC endpoints: interface endpoints and gateway endpoints. You should create the type of VPC endpoint required by the supported service. As a rule of thumb, most AWS services use VPC Interface Endpoint except for S3 and DynamoDB, which use VPC Gateway Endpoint.** VPC Gateway Endpoint supports a private connection to S3.
+- Aurora Failover: best-effort scenario in case the primary fails
+- SQS metrics for ASG
+- WAF: how it works? Allow/Deny requests from specific locations
 
+## S3
+[FAQs](https://aws.amazon.com/s3/faqs/)
 
 ### General
 Amazon S3 is object storage built to store and retrieve any amount of data from anywhere on the Internet. Store any type and amount of data that you want Since Amazon S3 is highly scalable and you only pay for what you use, you can start small and grow your application as you wish, with no compromise on performance or reliability. 
