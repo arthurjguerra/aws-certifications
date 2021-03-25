@@ -1,108 +1,5 @@
 # AWS Solutions Architect Associate (SAA-C02)
 
-- Table of Content
-  * [Exam Tips](#exam-tips)
-  * [Exam Guides](#exam-guides)
-  * [10,000 Foot Overview](#10-000-foot-overview)
-  * [IAM - Identity and Access Management](#iam---identity-and-access-management)
-    + [AWS Directory Service](#aws-directory-service)
-    + [IAM Policies](#iam-policies)
-    + [AWS Resource Access Manager (RAM)](#aws-resource-access-manager--ram-)
-    + [AWS SSO](#aws-sso)
-  * [Simple Queue Service - SQS](#simple-queue-service---sqs)
-    + [Long Polling vs Short Polling](#long-polling-vs-short-polling)
-  * [S3](#s3)
-    + [S3 Basics](#s3-basics)
-    + [S3 Pricing](#s3-pricing)
-    + [S3 Data Consistency](#s3-data-consistency)
-    + [S3 Object Storage Classes](#s3-object-storage-classes)
-      - [S3 Lifecycle Management](#s3-lifecycle-management)
-    + [S3 Security](#s3-security)
-      - [ACLs](#acls)
-      - [Bucket & User Policies](#bucket---user-policies)
-      - [S3 Data Encryption](#s3-data-encryption)
-      - [S3 Versioning](#s3-versioning)
-    + [S3 Cross-Region Replication](#s3-cross-region-replication)
-    + [S3 Cross-Account Access](#s3-cross-account-access)
-    + [S3 Query and Auditing (Athena x Macie)](#s3-query-and-auditing--athena-x-macie-)
-    + [S3 Object Lock & Glacier Vault Lock](#s3-object-lock---glacier-vault-lock)
-    + [S3 Performance](#s3-performance)
-    + [S3 Select & Glacier Select](#s3-select---glacier-select)
-    + [Accessing content in S3](#accessing-content-in-s3)
-    + [CloudFront](#cloudfront)
-    + [Storage Gateway](#storage-gateway)
-    + [S3 FAQs](#s3-faqs)
-  * [EC2](#ec2)
-    + [Pricing](#pricing)
-    + [Launching EC2 Instances](#launching-ec2-instances)
-    + [EC2 Hibernate](#ec2-hibernate)
-    + [HPC on AWS](#hpc-on-aws)
-    + [Security Groups](#security-groups)
-    + [EBS - Elastic Block Storage](#ebs---elastic-block-storage)
-    + [EBS x Instance Store](#ebs-x-instance-store)
-    + [Volumes & Snapshots](#volumes---snapshots)
-    + [ENI x EN x EFA](#eni-x-en-x-efa)
-    + [Cloud Watch](#cloud-watch)
-    + [EFS - Elastic File System](#efs---elastic-file-system)
-    + [FSx](#fsx)
-    + [Placement Groups](#placement-groups)
-    + [WAF - Web Application Firewall](#waf---web-application-firewall)
-  * [DNS](#dns)
-    + [Routing Policies](#routing-policies)
-  * [VPC](#vpc)
-    + [VPC and subnet sizing for IPv4](#vpc-and-subnet-sizing-for-ipv4)
-    + [Internet Gateway](#internet-gateway)
-    + [NAT Instances x NAT Gateways](#nat-instances-x-nat-gateways)
-    + [Network ACL](#network-acl)
-    + [VPC Flow Logs](#vpc-flow-logs)
-    + [Bastion Hosts](#bastion-hosts)
-    + [Connections to AWS](#connections-to-aws)
-    + [Global Accelerator](#global-accelerator)
-    + [VPC Endpoints](#vpc-endpoints)
-    + [[Penetration Testing]()](#-penetration-testing---)
-    + [AWS Private Link](#aws-private-link)
-    + [AWS Transit Gateway](#aws-transit-gateway)
-    + [AWS VPN CloudHub](#aws-vpn-cloudhub)
-    + [AWS Network Costs](#aws-network-costs)
-    + [On-Prem Strategies with AWS](#on-prem-strategies-with-aws)
-  * [High Availability Architecture](#high-availability-architecture)
-  * [Reliability x Availability x Resiliency](#reliability-x-availability-x-resiliency)
-    + [Load Balancer](#load-balancer)
-    + [Auto Scaling and Launch Configuration](#auto-scaling-and-launch-configuration)
-    + [Cloud Formation](#cloud-formation)
-    + [Elastic Beanstalk](#elastic-beanstalk)
-  * [Databases](#databases)
-    + [RDS](#rds)
-      - [Scaling your DB instance](#scaling-your-db-instance)
-      - [RDS Multi-AZ](#rds-multi-az)
-      - [RDS Read Replicas](#rds-read-replicas)
-      - [RDS Backups](#rds-backups)
-        * [Automated Backups](#automated-backups)
-        * [Manual Snapshots](#manual-snapshots)
-      - [Restoring Backups](#restoring-backups)
-      - [RDS Security and Monitoring](#rds-security-and-monitoring)
-      - [RDS Monitoring](#rds-monitoring)
-      - [Aurora](#aurora)
-    + [Dynamo DB](#dynamo-db)
-      - [Pricing](#pricing-1)
-    + [Redshift](#redshift)
-    + [Elasticache](#elasticache)
-    + [Database Migration Service (DMS)](#database-migration-service--dms-)
-    + [Caching Strategies in AWS](#caching-strategies-in-aws)
-    + [Elastic MapReduce (EMR)](#elastic-mapreduce--emr-)
-  * [Serverless](#serverless)
-  * [AWS Data Sync](#aws-data-sync)
-  * [CloudFront](#cloudfront-1)
-  * [Event Processing Patterns](#event-processing-patterns)
-  * [AWS Security](#aws-security)
-    + [AWS Shield](#aws-shield)
-    + [AWS WAF](#aws-waf)
-      - [How does AWS WAF work](#how-does-aws-waf-work)
-      - [AWS Firewall Manager](#aws-firewall-manager)
-    + [AWS ECS](#aws-ecs)
-    + [AWS EKS](#aws-eks)
-
-
 ## Exam Tips
 - [Do Your Homework: 7 AWS Certified Solutions Architect Exam Tips (Toptal)](https://www.toptal.com/aws-cloud-engineers/aws-certified-solutions-architect-exam-tips?utm_campaign=Toptal%20Engineering%20Blog&utm_source=hs_email&utm_medium=email&utm_content=82924000&_hsenc=p2ANqtz-9e8pBmq7n-oAcI1KJysb6eOjefvmT1pyAikVEgPso5N_p9HFPVsj2xKEao5RfwkluPNyub0hFcKkHCTQAsbC_TUsD0zQ&_hsmi=82924000)
 - [SAA-C02 Exam Tips AWS Certified Solutions Architect Associate](https://hakeem-me.cdn.ampproject.org/c/s/hakeem.me/2020/09/25/saa-c02-exam-tips-aws-certified-solutions-architect-associate/amp/)
@@ -113,89 +10,6 @@
 - [AWS SAA C02 Course Exam Notes](https://github.com/alozano-77/AWS-SAA-C02-Course)
 - [AWS Whitepapers](https://aws.amazon.com/whitepapers/)
 - [FreeCodeCamp YouTube Series](https://www.youtube.com/watch?v=Ia-UEYYR44s)
-
-## 10,000 Foot Overview
-- [AWS Global Infrastructure](https://aws.amazon.com/about-aws/global-infrastructure/)
-    - Availability Zone =  data center
-    - Region: Composed of two or more availability zones
-    - Edge Location: endpoints for caching location (CDN)
-- Support Plan
-    - Basic (Free), Developer and Business
-    - Enterprise: if you need an AWS TAM
-
-## IAM - Identity and Access Management
-- [FAQs](https://aws.amazon.com/iam/faqs/)
-- Manage users, and their level of access to AWS
-- Centralized control
-    - IAM is global (not tied to specific regions)
-- Granular Permissions
-- Identify Federation (Facebook, LinkedIn, etc)
-- [MFA](https://aws.amazon.com/iam/features/mfa/)
-- You can implement your own password rotation policy
-- Groups are a collection of Users
-- Policy: documents in JSON used to grant permissions
-- [IAM Role](https://aws.amazon.com/iam/faqs/#IAM_role_management): a way to allow a resource the ability to talk to another resource
-- Root Account: account used when 1st setup your AWS account
-- IAM is a feature of your AWS account offered at no additional charge
-    - You will be charged only for use of other AWS services by your users
-- [IAM Best Practices](http://docs.aws.amazon.com/IAM/latest/UserGuide/IAMBestPractices.html)
-- Princing
-    - IAM is a feature of your AWS account offered at no additional charge
-    - You will be charged only for the use of other AWS services by your users
-    
-### AWS Directory Service
-- AD Compatible
-    - Managed Microsoft AD
-    - AD Connector
-    - Simple AD
-- Not AD Compatible
-    - Cloud Directory
-    - Cognito user pools
-
-### IAM Policies
-- It contains Effect/Action/Resource
-- Identity vs Resource Policies
-    - Identity Policies define permissions for users and groups
-    - Resource Policies define permissions for AWS services
-- Not explicitly allowed = implicitly denied
-- Explicit deny >>> everything else
-- Only attached policies have effect
-- AWS joins multiple policies when evaluating them
-- AWS-manged vs customer-managed policies
-- Permission Boundaries
-    - Prevent privilege escalation or unnecessarily broad permissions
-    - Controls maximum permissions an IAM policy can grant
-    
-### AWS Resource Access Manager (RAM)
-- Allows resource sharing between accounts
-
-### AWS SSO
-- Centrally manage access to AWS accounts and business apps
-- SAML 2.0
-
-## Simple Queue Service - SQS
-- SQS is pull-based, not pushed-based: you need to have an EC2 instance pulling the messages out of the queue
-- Queue types:
-    - Default: does not guarantee delivery order (no limit of requests per second)
-    - FIFO: first message in the queue is the first one to come out (limite of 300 requests per second)
-- Messages are 256KB in size
-- Messages are delivered **at least** once
-- Retention Period
-    - Messages can be kept in the queue from 1 minute to 14 days (default value is 4 days)
-- **Visibility Timeout**:
-    - Amout of time that the message is invisible in the queue *after* a reader picks up that message
-    - If message is processed before the visibility timeout expires, then the message is deleted from the queue
-    - If message is not processed within the visibility timeout period, then the message will become visible again and another reader will process it -- *this could result in the same message being delivered twice*
-
-### Long Polling vs Short Polling
-- [SQS Short and Long Polling](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-short-and-long-polling.html)
-- With **short polling**, the `ReceiveMessage` request queries only a subset of the servers (based on a weighted random distribution) to find messages that are available to include in the response
-    - Amazon SQS sends the response right away, even if the query found no messages
-- **Short polling** occurs when the `WaitTimeSeconds` parameter of a `ReceiveMessage` request is set to 0 in one of two ways:
-    - The `ReceiveMessage` call sets `WaitTimeSeconds` to 0
-    - The `ReceiveMessage` call doesn't set `WaitTimeSeconds`, but the queue attribute `ReceiveMessageWaitTimeSeconds` is set to 0.
-- With **long polling**, the `ReceiveMessage` request queries all of the servers for messages. Amazon SQS sends a response after it collects at least one available message, up to the maximum number of messages specified in the request
-    - Amazon SQS sends an empty response only if the polling wait time expires
 
 ## S3
 - [FAQs](https://aws.amazon.com/s3/faqs/)
@@ -223,6 +37,12 @@ High-performance computing workloads also benefit in that when an object is over
 These applications automatically and immediately benefit from strong read-after-write consistency. S3 strong consistency also reduces costs by removing the need for extra infrastructure to provide strong consistency.  
 
 Individual Amazon S3 objects can range in size from a minimum of 0 bytes to a maximum of 5 terabytes. The largest object that can be uploaded in a single PUT is 5 gigabytes. For objects larger than 100 megabytes, customers should consider using the Multipart Upload capability.
+
+There are 4 different URLs styles that it can be used to access content in S3
+- The Virtual Hosted Style URL: `https://<BUCKET_NAME>.s3.<AWS_REGION>.amazonaws.com/<OBJECT_KEY_NAME>`
+- The Path-Style Access URL: `https://s3.<AWS_REGION>.amazonaws.com/<BUCKET_NAME>/<OBJECT_KEY_NAME>`
+- The Static web site URL: `https://<BUCKET_NAME>.s3-website-<AWS_REGION>.amazonaws.com` or `http://<BUCKET_NAME>.s3-website.<AWS_REGION>.amazonaws.com`
+- The Legacy Global Endpoint URL: `https://s3.amazonaws.com/<BUCKET_NAME>/<OBJECT_KEY_NAME>` or `https://s3-us-east-2.amazonaws.com/<BUCKET_NAME>/<OBJECT_KEY_NAME>`
 
 ### Storage Classes
 
@@ -324,19 +144,9 @@ S3 Glacier Deep Archive is designed for long-lived but rarely accessed data that
 S3 Glacier Deep Archive has a minimum billable object storage size of 40KB. Objects smaller than 40KB in size may be stored but will be charged for 40KB of storage.
 
 #### S3 Outposts
-Used for on-premises object storage to meet data residency needs. 
+Delivers object storage in your on-premises environment, using the S3 APIs and capabilities that you use in AWS today. AWS Outposts is a fully managed service that extends AWS infrastructure.
 
-For more information, refer to the [Amazon S3 Storage Classes page](https://aws.amazon.com/s3/storage-classes/).
-
-Amazon S3 also offers capabilities to manage your data throughout its lifecycle. Once an S3 Lifecycle policy is set, your data will automatically transfer to a different storage class without any changes to your application.
-
-And yes, you can have a bucket that has different objects stored in different storage classes: several objects stored in S3 Standard, others in S3 Intelligent-Tiering, some S3 Standard-IA, and a few in S3 One Zone-IA.
-
-Amazon S3 Standard, S3 Standard-Infrequent Access, and S3 Glacier storage classes replicate data across a minimum of three AZs to protect against the loss of one entire AZ. 
-
-**Objects stored in the S3 One Zone-IA storage class are stored redundantly within a single Availability Zone in the AWS Region you select**. 
-
-For S3 on Outposts, your data is stored in your Outpost on-premises environment, unless you manually choose to transfer it to an AWS Region. 
+For S3 on Outposts, your data is stored in your Outpost on-premises environment, unless you manually choose to transfer it to an AWS Region.
 
 ### Pricing
 
@@ -490,231 +300,37 @@ Amazon S3 Standard, S3 Standard–IA, S3 One Zone-IA, S3 Glacier, and S3 Glacier
 
 As with any environment, the best practice is to have a backup and to put in place safeguards against malicious or accidental deletion. For S3 data, that best practice includes secure access permissions, Cross-Region Replication, versioning, and a functioning, regularly tested backup.
 
-Amazon S3 Standard, S3 Standard-IA, and S3 Glacier storage classes redundantly store your objects on multiple devices across a minimum of three Availability Zones (AZs) in an Amazon S3 Region before returning SUCCESS. The S3 One Zone-IA storage class stores data redundantly across multiple devices within a single AZ. These services are designed to sustain concurrent device failures by quickly detecting and repairing any lost redundancy, and they also regularly verify the integrity of your data using checksums.
+Amazon S3 Standard, S3 Standard-IA, and S3 Glacier storage classes redundantly store your objects on multiple devices across a minimum of three Availability Zones (AZs) in an Amazon S3 Region before returning SUCCESS. The S3 One Zone-IA storage class stores data redundantly across multiple devices within a single AZ. These services are designed to sustain concurrent device failures by quickly detecting and repairing any lost redundancy, and they also regularly verify the integrity of your data using checksums. 
 
-############################# LEGACY #################################
-### S3 Basics
-- Object-based storage
-- Files are stored in buckets
-    - 0 < file size <= 5 TB
-    - [Multipart upload](https://docs.aws.amazon.com/AmazonS3/latest/dev/UploadingObjects.html)
-        - "Your proposed upload exceeds the maximum allowed object size." error: design your application to use the Multipart Upload API for all objects
-- Objects
-    - Key: name
-    - Value: sequence of bytes
-    - Version ID: important if bucket has versioning enabled
-        - Bucket + Key + Version ID = uniquely identify an object
-    - Metadata: data about your object
-    - Subresources (ex: ACLs)
-- S3 supports 3500 PUTs per second
-    - More details in https://docs.aws.amazon.com/AmazonS3/latest/dev/request-rate-perf-considerations.html
-- Namespace
-    - Universal namespace (like DNS)
-    - Can be accessed at:
-        - http://<bucket>.s3.amazonaws.com
-        - http://<bucket>.s3-<region>.amazonaws.com
+### Storage Analytics and Insights
+S3 Storage Lens provides recommendations contextually with storage metrics in a dashboard, so you can take action to optimize your storage based on the metrics.
 
-### S3 Pricing
-- Size
-    - More GB, more $$$
-- Requests
-    - More requests to files, more $$$
-- Storage Management
-    - != storage classes have != pricing
-- Data Transfer
-    - More file moves, more $$$
-- Data Transfer Acceleration
-    - Transfer Accelearation allows you to transfer files to the closest AWS Edge location, then use AWS backbone infrastructure to transfer those files to the actual bucket
-- Cross-Region Replication
+### Queries In Place
+Amazon S3 allows customers to run sophisticated queries against data stored without the need to move data into a separate analytics platform.
 
-### S3 Data Consistency
-- Read after write for PUTS
-    - *If you upload a new file, you're able to read it immediately*
-- Eventual consistency for overwrite PUTS and DELETES
-    - *If you upload/delete an existing file and try to read it immediately, you may get its older version*
-    
-### S3 Object Storage Classes
-- Frequently Accessed Objects
-    - Standard (default)
-        - Hily durable, highly available
-        - $0.023 per GB
-        - 99.99% availability
-    - [Reduced Redundancy Storage (RRS)](https://aws.amazon.com/s3/reduced-redundancy/) *deprecated*
-        - Like Standard but with less durability because data is not replicated as many times
-        - $0.004 per GB
-- Infrequently Accessed Objects (IA)
-    - Standard IA
-        - Hihly durable, highly available: data accessed less frequently but still requires fast access
-        - $0.0125 per GB
-        - 99.9% availability
-    - One Zone (IA)
-        - Highly durable
-        - Do not require multiple AZs resilience
-        - $0.01 per GB
-        - 99.5% availability
-- Unknown Access Patterns
-    - Intelligent Tiering
-        - Automatically moves data to cheaper storage using Machine Learning (standard -> standard IA)
-        - Not charged for retrievals
-        - Perfect for long-lived data that has unpredictable access patterns
-- Rarely Accessed Objects        
-    - Glacier
-        - [FAQs](https://aws.amazon.com/glacier/faqs/)
-        - Highly durable and low-cost storage
-        - Retrieval time adjustable from minutes to hours
-        - Minimum billable storage time of 90 days
-        - [Data Retrievals](https://aws.amazon.com/glacier/faqs/?nc=sn&loc=6#Data_retrievals)
-            - Cost of retrieval of information from Glacier can go up dependent on how quickly you require the data and how much data is to be retrieved
-            - **Expedited retrievals** allow you to quickly access your data stored in the S3 Glacier storage class when occasional urgent requests for a subset of archives are required, but at the highest cost
-            - **Standard retrievals** allow you to access any of your archived objects within several hours, this is faster than bulk (averaging around 12 hours) but more expensive
-            - **Bulk retrievals** are the lowest-cost retrieval option in Amazon S3 Glacier, enabling you to retrieve large amounts, even petabytes, of data inexpensively
-    - Deep Archive
-        - Highly durable 
-        - Cheapest storage solution in AWS
-        - Retrieval time: 12 hours
-        - Minimum billable storage time of 180 days
+S3 offers multiple query in place options, including S3 Select, Amazon Athena, and Amazon Redshift Spectrum, allowing you to choose one that best fits your use case. 
 
-#### S3 Lifecycle Management
-- Lifecycle Policies allow objects to transition between storage classes
-    - Transition Rules: define when objects move to another storage class
-    - Expiration Rules: define when objects are deleted
-    - ![](images/s3-lifecycle-workflow.png)
-- Can be used with versioning
-- Can be applied to current and previous versions
+S3 Select provides a new way to retrieve specific data using SQL statements from the contents of an object stored in Amazon S3 without having to retrieve the entire object. S3 Select simplifies and improves the performance of scanning and filtering the contents of objects into a smaller, targeted dataset.
 
-### S3 Security
+Amazon Athena is an interactive query service that makes it easy to analyze data in Amazon S3 using standard SQL queries.
 
-#### ACLs
-- ACLs are resource policies used to grant access on both buckets and objects
-- Each bucket and object has an ACL attached to it as sub-resource that defines permissions
-- The default ACL grants the resource own full control over the object
-- Features:
-    - Used only to grant permissions to AWS accounts and pre-defined groups
-    - Only grant read and write permissions (no conditional nor deny permissions)
+Amazon Redshift Spectrum is a feature of Amazon Redshift that enables you to run queries against exabytes of unstructured data in Amazon S3 with no loading or ETL required. 
 
-#### Bucket & User Policies
-- Bucket and user policies are policies (defined in JSON) that can be used to grant access to both buckets and objects
-    - User Policies are user based and are managed in IAM
-- Not applied by default
-- Can grant very fine grained permissions
-- Can explicitly deny access
-- Can grant conditional permissions
-- Max size is 20KB
-- Policy contains the following:
-    - Conditions
-        - Optional policy elements that allow you to specify conditions for then the policy is in place
-        - Ex: allow users to put objects in buckets only if encryption is enabled 
-    - Effect: either *allow* or *deny*
-    - Action: list of permissions to allow or deny
-    - Resource: bucket or object name
-    
-#### S3 Data Encryption
-- S3 encrypts data before it's written to disk
-- Encryption means refers to the protection of data in transit and at rest
-- Encryption In Transit: HTTPS
-- Encryption At rest:
-    - SS3 (Server-side Encryption)
-        - SS3-S3: s3-provided keys
-        - SS3-KMS: kms-provided keys
-        - SSE-C: customer-provided keys (key is uploaded via HTTPS with data, s3 uses that key to encrypt the data and then get rid of it)
-    - Client-side Encryption
-        - Customer Master Key
-            - Data is encrypted before being uploaded to s3
-        - KMS
-            - KMS master key is used
-            - Key is used to encryt the data on the client side
-- 
-#### S3 Versioning
-- Keep multiple versions of the same object in the same bucket
-    - Allows you to retrieve any version of any object ever stored in S3 (even if it is deleted)
-- S3 stores all versions of an object (including all writes even if you delete the object)
-- Once enabled cannot be disabled, only suspended
-- It raises storage
-    - Upload 1Gb-file 5x = 5 GB worth of storage
-- You can change permissions of any object version
-    - Old versions permissions *DO NOT* change if you change permissions on the latest version
-    - *File A v1 is public, you upload a new version of it, becoming v2, then you change File A to be private, users will still be able to access File A v1*
+### Replication
+Amazon S3 Replication enables automatic, asynchronous copying of objects across Amazon S3 buckets. Buckets that are configured for object replication can be owned by the same AWS account or by different accounts. 
 
-### S3 Cross-Region Replication
-*Async replication of objects between buckets in != regions*
-- Versioning must be enabled on both Source and Destination buckets
-- Existing files in the source bucket are not replicated automatically to destination
-- All subsequent updated files are replicated automatically
-- *DELETES* are not replicated (including the deletion of individual versions)
+You can copy objects to one or more destination buckets between different AWS Regions (S3 Cross-Region Replication), or within the same AWS Region (S3 Same-Region Replication).
 
-### S3 Cross-Account Access
-- Can be granted via ACLs
-    - With ACLs access can only be granted directly to AWS accounts and not to IAM users
-    - With ACLs conditions cannot be enforced
-- Can be granted via Bucket Policies
-    - With Bucket policies access can be granted to IAM users in addition to the account
-    - Conditions can be enforced
-- Access to IAM users must by explicitly delegated
-    - For both ACLs and Bucket Policies, permissions must be explicitly delegated to an IAM user in order for them to exercise their access
+Versioning must be enabled for both the source and destination buckets to enable replication.
 
-### S3 Query and Auditing (Athena x Macie)
-- Athena
-    - *Interactive query service*
-    - Allows you to query data in S3 using SQL
-    - Serverless
-    - Commonly used to analyze logs in S3
-    - [FAQs](https://aws.amazon.com/pt/athena/faqs/)
-- Macie
-    - *Security service*
-    - Uses AI to analyze data in S3
-    - Can analyze Cloud Trail
-    
-### S3 Object Lock & Glacier Vault Lock
+### S3 Object Lock
 - S3 Object Lock
     - Store objects using a Write Once, Read Many (WORM) model
-    - Can be applied to individual objects or acc=ross the entire bucket
+    - Can be applied to individual objects or accross the entire bucket
     - Two Modes:
         - **Governance Mode**: users cannot overwrite or delete an object version or alter lock settings (unless they have special permissions)
         - **Compliance Mode**: objects cannot be overwritten or deleted by **any** user (including root)
-- S3 Glacier Vault Lock
-    - Allows you to easily deploy and enforce compliance controls for S3 Glacier Vaults
-    - You can specify controls such as WORM in a Vault Lock policy and lock the policy from future edits
-    - Once locked, the policy cannot be changed
     
-### S3 Performance
-- 5,500 GET/HEAD requests per second per prefix
-- 3,500 PUT/COPY/POST/DELETE requests per second per prefix
-- Prefix: s3://mybucket/folder1/subfolder1/myfile.txt = folder1/subfolder1
-- Better performance if reads are spread across different prefixes
-    - For instance, 2 prefixes = 11,000 GET requests per second
-- Bear in mind KMS limits
-    - Always have to encrypt objects when writting them to the bucket
-    - Always have to decrypt objects when reading them from the bucket
-- Use multi-part uploads to increase performance when uploading files
-    - Should be used to for files > 100MB (must be used for files > 5GB)
-- Use s3-byte range fetches to increase performance when downloading files
-
-### S3 Select & Glacier Select
-- S3 Select
-    - Used to retrieve only a portion of the data from an object
-    - Get data by rows and columns using SQL
-    - Save money on data transfer and increase speed
-
-### Accessing content in S3
-- There are 4 different URLs styles that it can be used to access content in S3
-    - [The Virtual Hosted Style URL](https://docs.aws.amazon.com/AmazonS3/latest/dev/VirtualHosting.html#virtual-hosted-style-access)
-        - `https://<BUCKET_NAME>.s3.<AWS_REGION>.amazonaws.com/<OBJECT_KEY_NAME>`
-    - [The Path-Style Access URL](https://docs.aws.amazon.com/AmazonS3/latest/dev/VirtualHosting.html#path-style-access)
-        - `https://s3.<AWS_REGION>.amazonaws.com/<BUCKET_NAME>/<OBJECT_KEY_NAME>`
-    - [The Static web site URL](https://docs.aws.amazon.com/AmazonS3/latest/dev/WebsiteHosting.html)
-        - `https://<BUCKET_NAME>.s3-website-<AWS_REGION>.amazonaws.com` or `http://<BUCKET_NAME>.s3-website.<AWS_REGION>.amazonaws.com`
-    - [The Legacy Global Endpoint URL](https://aws.amazon.com/blogs/aws/amazon-s3-path-deprecation-plan-the-rest-of-the-story/)
-        - `https://s3.amazonaws.com/<BUCKET_NAME>/<OBJECT_KEY_NAME>`
-        - `https://s3-us-east-2.amazonaws.com/<BUCKET_NAME>/<OBJECT_KEY_NAME>`
-- There are three options which can be used to secure access to files stored in S3:
-    - Signed URLs and Signed Cookies are different ways to ensure that users attempting access to files in an S3 bucket can be authorised: One method generates URLs and the other generates special cookies but they both require the creation of an application and policy to generate and control these items
-    - An Origin Access Identity on the other hand, is a virtual user identity that is used to give the CloudFront distribution permission to fetch a private object from an S3 bucket
-    - Public S3 buckets should never be used unless you are using the bucket to host a public website and therefore this is an incorrect option
-    - Further information: 
-        - https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/PrivateContent.html
-        - https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/private-content-signed-urls.html
-        - https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/private-content-signed-cookies.html-
-        - https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/private-content-restricting-access-to-s3.html
 
 ### CloudFront
 - *Content Delivery Network (CDN)*
@@ -743,9 +359,6 @@ Amazon S3 Standard, S3 Standard-IA, and S3 Glacier storage classes redundantly s
     - Tape Gateway provides your backup application with an iSCSI virtual tape library (VTL) interface, consisting of a virtual media changer, virtual tape drives, and virtual tapes. Virtual tapes are stored in Amazon S3 and can be archived to Amazon S3 Glacier or Amazon S3 Glacier Deep Archive
         - Cloud-based Virtual Tape Library (VTL)
 
-### S3 FAQs
-- [S3 FAQs](https://aws.amazon.com/s3/faqs/)
-- [S3 Glacier FAQs](https://aws.amazon.com/glacier/faqs/)
 
 ## EC2
 *Provides resizable compute capacity on the cloud*
@@ -998,7 +611,82 @@ Constraints – If your request includes a constraint such as a launch group or 
     - **On-Demand**, where you have the flexibility to scale up and down the number of Dedicated Hosts allocated to your account and only pay for the hours those Dedicated Hosts were allocated to your account
     - **Reservation**, where you can purchase and assign a Reservation to a Dedicated Host and benefit from a lower rate over the term compared to On-Demand. Reservations can save you up to 70% on your On-Demand costs over the term
     - **Savings Plans**, which is a new flexible pricing model that will help you lower your bill by making a commitment to a consistent amount of compute usage (measured in $/hour) instead of making commitments to specific hosts. Savings Plans offer significant savings over On Demand, just like Reservations, but automatically reduce your bills on compute usage across any AWS region, even as usage changes
+
+
+## IAM - Identity and Access Management
+- [FAQs](https://aws.amazon.com/iam/faqs/)
+- Manage users, and their level of access to AWS
+- Centralized control
+    - IAM is global (not tied to specific regions)
+- Granular Permissions
+- Identify Federation (Facebook, LinkedIn, etc)
+- [MFA](https://aws.amazon.com/iam/features/mfa/)
+- You can implement your own password rotation policy
+- Groups are a collection of Users
+- Policy: documents in JSON used to grant permissions
+- [IAM Role](https://aws.amazon.com/iam/faqs/#IAM_role_management): a way to allow a resource the ability to talk to another resource
+- Root Account: account used when 1st setup your AWS account
+- IAM is a feature of your AWS account offered at no additional charge
+    - You will be charged only for use of other AWS services by your users
+- [IAM Best Practices](http://docs.aws.amazon.com/IAM/latest/UserGuide/IAMBestPractices.html)
+- Princing
+    - IAM is a feature of your AWS account offered at no additional charge
+    - You will be charged only for the use of other AWS services by your users
     
+### AWS Directory Service
+- AD Compatible
+    - Managed Microsoft AD
+    - AD Connector
+    - Simple AD
+- Not AD Compatible
+    - Cloud Directory
+    - Cognito user pools
+
+### IAM Policies
+- It contains Effect/Action/Resource
+- Identity vs Resource Policies
+    - Identity Policies define permissions for users and groups
+    - Resource Policies define permissions for AWS services
+- Not explicitly allowed = implicitly denied
+- Explicit deny >>> everything else
+- Only attached policies have effect
+- AWS joins multiple policies when evaluating them
+- AWS-manged vs customer-managed policies
+- Permission Boundaries
+    - Prevent privilege escalation or unnecessarily broad permissions
+    - Controls maximum permissions an IAM policy can grant
+    
+### AWS Resource Access Manager (RAM)
+- Allows resource sharing between accounts
+
+### AWS SSO
+- Centrally manage access to AWS accounts and business apps
+- SAML 2.0
+
+## Simple Queue Service - SQS
+- SQS is pull-based, not pushed-based: you need to have an EC2 instance pulling the messages out of the queue
+- Queue types:
+    - Default: does not guarantee delivery order (no limit of requests per second)
+    - FIFO: first message in the queue is the first one to come out (limite of 300 requests per second)
+- Messages are 256KB in size
+- Messages are delivered **at least** once
+- Retention Period
+    - Messages can be kept in the queue from 1 minute to 14 days (default value is 4 days)
+- **Visibility Timeout**:
+    - Amout of time that the message is invisible in the queue *after* a reader picks up that message
+    - If message is processed before the visibility timeout expires, then the message is deleted from the queue
+    - If message is not processed within the visibility timeout period, then the message will become visible again and another reader will process it -- *this could result in the same message being delivered twice*
+
+### Long Polling vs Short Polling
+- [SQS Short and Long Polling](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-short-and-long-polling.html)
+- With **short polling**, the `ReceiveMessage` request queries only a subset of the servers (based on a weighted random distribution) to find messages that are available to include in the response
+    - Amazon SQS sends the response right away, even if the query found no messages
+- **Short polling** occurs when the `WaitTimeSeconds` parameter of a `ReceiveMessage` request is set to 0 in one of two ways:
+    - The `ReceiveMessage` call sets `WaitTimeSeconds` to 0
+    - The `ReceiveMessage` call doesn't set `WaitTimeSeconds`, but the queue attribute `ReceiveMessageWaitTimeSeconds` is set to 0.
+- With **long polling**, the `ReceiveMessage` request queries all of the servers for messages. Amazon SQS sends a response after it collects at least one available message, up to the maximum number of messages specified in the request
+    - Amazon SQS sends an empty response only if the polling wait time expires
+
 ## DNS
 - [Limitations](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/DNSLimitations.html#limits-api-entities-domains)
 - ELBs do not have a pre-defined IPv4 address
